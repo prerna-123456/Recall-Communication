@@ -1,0 +1,2790 @@
+import { useEffect, useState, useRef } from "react";
+import { shop } from "../data/shopData";
+import { FiArrowUpRight, FiCheck } from "react-icons/fi";
+import { FiArrowDown, FiPlus, FiMinus } from "react-icons/fi";
+import { PiTimerFill } from "react-icons/pi";
+import {
+  IoMdArrowRoundBack,
+} from "react-icons/io";
+import {
+  FiArrowRight,
+} from "react-icons/fi";
+import { FaPhone } from "react-icons/fa6";
+import {
+  IoMdArrowRoundForward,
+  IoMdCall,
+  IoMdMail,
+  IoMdPin,
+} from "react-icons/io";
+
+import {
+  FaMobileAlt,
+  FaHeadphones,
+  FaVolumeUp,
+  FaTools,
+  FaPlug,
+  FaShieldAlt,
+} from "react-icons/fa";
+
+const navItems = ["Home", "Shop", "Brands", "Service", "Contact"];
+
+/* PRODUCTS DATA */
+
+const serviceProducts = [
+  // ============================================================
+  // ALL PRODUCTS - SET 1
+  // ============================================================
+  {
+    name: "Audio Devices",
+    category: "All Products",
+    image: "/assets/product.webp",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "Premium audio devices with clear sound, deep bass and an immersive listening experience.",
+  },
+  {
+    name: "Smartwatches",
+    category: "All Products",
+    image: "/assets/product1.webp",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "Smart and stylish watches with fitness tracking, notifications and everyday health features.",
+  },
+  {
+    name: "Power Solutions",
+    category: "All Products",
+    image: "/assets/product2.jpg",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "Reliable power banks and charging solutions designed to keep your devices powered throughout the day.",
+  },
+  {
+    name: "Smartphones",
+    category: "All Products",
+    image: "/assets/all_products.png",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "Powerful smartphones with modern displays, fast performance, great cameras and long-lasting battery life.",
+  },
+
+  // ============================================================
+  // PHONES - SET 2
+  // ============================================================
+  {
+    name: "iPhone",
+    category: "Phones",
+    image: "/assets/phone1.png",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "Powerful smartphones with premium design, advanced cameras, smooth performance and long-lasting battery life.",
+  },
+  {
+    name: "Samsung Galaxy",
+    category: "Phones",
+    image: "/assets/phone2.png",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "Modern Galaxy smartphones with vivid displays, powerful processors, excellent cameras and smart features.",
+  },
+  {
+    name: "OnePlus",
+    category: "Phones",
+    image: "/assets/phone3.png",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "Fast and stylish smartphones designed with smooth performance, great displays and powerful everyday features.",
+  },
+  {
+    name: "Google Pixel",
+    category: "Phones",
+    image: "/assets/phone4.png",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "Smartphones with clean software, intelligent features, excellent cameras and a premium everyday experience.",
+  },
+
+  // ============================================================
+  // AUDIO - SET 3
+  // ============================================================
+  {
+    name: "Wireless Earbuds",
+    category: "Audio",
+    image: "/assets/audio1.png",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "Compact wireless earbuds with clear vocals, deep bass and a comfortable fit for everyday listening.",
+  },
+  {
+    name: "Headphones",
+    category: "Audio",
+    image: "/assets/audio2.png",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "Comfortable headphones delivering rich audio, powerful bass and an immersive listening experience.",
+  },
+  {
+    name: "Bluetooth Speakers",
+    category: "Audio",
+    image: "/assets/audio3.png",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "Portable Bluetooth speakers with powerful sound, wireless connectivity and a stylish compact design.",
+  },
+  {
+    name: "Premium Speakers",
+    category: "Audio",
+    image: "/assets/audio4.png",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "Premium speakers designed to deliver detailed sound, powerful bass and an immersive audio experience.",
+  },
+
+  // ============================================================
+  // ACCESSORIES - SET 4
+  // ============================================================
+  {
+    name: "Smartwatches",
+    category: "Watches",
+    image: "/assets/watch1.png",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "Smart and stylish watches with fitness tracking, notifications and everyday health features.",
+  },
+  {
+    name: "Chargers & Cables",
+    category: "Watches",
+    image: "/assets/watch2.png",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "Fast and reliable chargers and durable cables for convenient everyday device charging.",
+  },
+  {
+    name: "Power Banks",
+    category: "Watches",
+    image: "/assets/watch3.png",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "Reliable portable power banks designed to keep your devices powered throughout the day.",
+  },
+  {
+    name: "Gaming Accessories",
+    category: "Watches",
+    image: "/assets/watch4.png",
+    bg: "bg-[#e7e6f8]",
+    description:
+      "High-performance gaming accessories built for better control, comfort and an enhanced gaming experience.",
+  },
+];
+
+const quickTiles = [
+  "Screen guards",
+  "Back covers",
+  "Bluetooth speakers",
+  "Memory cards",
+  "Power banks",
+  "Fast chargers",
+];
+
+const benefitHighlights = [
+  {
+    icon: "headphones",
+    title: "Product Advice",
+    detail: "Choose the right tech with ease",
+  },
+  {
+    icon: "shield",
+    title: "Reliable Service",
+    detail: "Quick and helpful support",
+  },
+  {
+    icon: "award",
+    title: "Secure Payments",
+    detail: "Safe and trusted transactions",
+  },
+  {
+    icon: "phone",
+    title: "After-Sales Care",
+    detail: "Support beyond your purchase",
+  },
+];
+
+const testimonials = [
+  {
+    name: "Rohit Patil",
+    role: "Smartphone Customer",
+    quote:
+      "The team helped me choose the right phone and made the whole experience smooth, easy, and hassle-free.",
+  },
+
+  {
+    name: "Sneha Kulkarni",
+    role: "Accessory Buyer",
+    quote:
+      "Good collection of chargers, covers and audio accessories. The product suggestion was clear and useful.",
+  },
+
+  {
+    name: "Amit Desai",
+    role: "Repair Support",
+    quote:
+      "My phone issue was checked properly and explained in simple words. The support felt honest and fast.",
+  },
+
+  {
+    name: "Priya Sharma",
+    role: "Laptop Customer",
+    quote:
+      "The team helped me find the right laptop within my budget. The experience was simple and smooth.",
+  },
+
+  {
+    name: "Karan Mehta",
+    role: "Gadget Buyer",
+    quote:
+      "The product quality was excellent and the staff was very helpful. I got the right gadget at a good price.",
+  },
+
+  {
+    name: "Neha Joshi",
+    role: "Smart Device Customer",
+    quote:
+      "A great place to find the latest gadgets and accessories. The team was friendly, knowledgeable, and easy to talk to.",
+  },
+];
+
+const navigateToShopPage = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  event.preventDefault();
+  window.history.pushState({}, "", "/products");
+  window.dispatchEvent(new Event("app-route-change"));
+};
+
+const productSlug = (name: string) =>
+  name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+const navigateToProductPage = (
+  event: React.MouseEvent<HTMLAnchorElement>,
+  productName: string
+) => {
+  event.preventDefault();
+  window.history.pushState({}, "", `/products/${productSlug(productName)}`);
+  window.dispatchEvent(new Event("app-route-change"));
+};
+
+function BenefitIcon({ icon }: { icon: string }) {
+  const iconClass = "h-9 w-9 text-[#2563eb]";
+
+  if (icon === "truck") {
+    return (
+      <svg className={iconClass} viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <path d="M5 13h24v22H5V13Z" stroke="currentColor" strokeWidth="3" strokeLinejoin="round" />
+        <path d="M29 21h8l6 7v7H29V21Z" stroke="currentColor" strokeWidth="3" strokeLinejoin="round" />
+        <path d="M12 39a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM36 39a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" strokeWidth="3" />
+        <path d="M16 35h12" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (icon === "shield") {
+    return (
+      <svg className={iconClass} viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <path d="M24 5 39 11v11c0 9.5-5.9 17.8-15 21-9.1-3.2-15-11.5-15-21V11L24 5Z" stroke="currentColor" strokeWidth="3" strokeLinejoin="round" />
+        <path d="m17 24 5 5 10-11" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (icon === "award") {
+    return (
+      <svg className={iconClass} viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <path d="M24 30a11 11 0 1 0 0-22 11 11 0 0 0 0 22Z" stroke="currentColor" strokeWidth="3" />
+        <path d="m18 29-4 13 10-5 10 5-4-13" stroke="currentColor" strokeWidth="3" strokeLinejoin="round" />
+        <path d="m19 19 3 3 7-7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (icon === "phone") {
+    return (
+      <svg className={iconClass} viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <circle cx="24" cy="15" r="7" stroke="currentColor" strokeWidth="3" />
+        <path d="M11 40c1.5-8 6-12 13-12s11.5 4 13 12" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+        <path d="M35 25h3a5 5 0 0 1 5 5v2a5 5 0 0 1-5 5h-3" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className={iconClass} viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <circle cx="24" cy="24" r="18" stroke="currentColor" strokeWidth="3" />
+      <path d="M24 14v10l7 5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+
+export function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <header
+      className={`fixed left-0 right-0 top-0 z-[100] transition-all duration-300 ${isScrolled
+        ? "bg-white/95 text-[#0f172a] shadow-[0_8px_30px_rgba(15,23,42,0.08)] backdrop-blur-xl"
+        : "bg-transparent text-white backdrop-blur-sm"
+        }`}
+    >
+      <div className="mx-auto flex h-[78px] max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
+        <a href="#" className="shrink-0">
+          <img src="/assets/logo.png" alt="GizmoHub" className="h-11 w-auto object-contain lg:h-12" />
+        </a>
+
+        <nav className="hidden items-center gap-8 lg:flex">
+          <a href="#" className="relative py-2 text-[13px] font-bold">Home<span className="absolute -bottom-1 left-0 h-[2px] w-full rounded-full bg-[#2563eb]" /></a>
+          <a href="#repair" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2563eb] hover:opacity-100">Repair</a>
+          <a href="/products" onClick={navigateToShopPage} className="text-[13px] font-semibold opacity-80 transition hover:text-[#2563eb] hover:opacity-100">Products</a>
+          <a href="#brands" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2563eb] hover:opacity-100">Brands</a>
+          <a href="#contact" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2563eb] hover:opacity-100">Contact</a>
+        </nav>
+
+        <a href="tel:+918364266074" className="inline-flex items-center gap-2 rounded-full bg-[#2563eb] px-4 py-2.5 text-[12px] font-bold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-[#1d4ed8] sm:px-5 sm:text-[13px]">
+          <FaPhone size={13} /> Call Now
+        </a>
+      </div>
+    </header>
+  );
+}
+
+export function Hero() {
+  const desktopHeroImages = [
+    "/hero-bg2.webp",
+    "/hero-bg3.webp",
+    "/hero-bg.webp",
+  ];
+
+  const mobileHeroImages = [
+    "/hero-bg.webp",
+    "/hero-bg5.png",
+    "/hero-bg6.png",
+  ];
+
+  const heroSlides = [
+    {
+      title: "Smart Tech.",
+      highlight: "Better Everyday.",
+      description:
+        "Discover innovative gadgets and accessories built for performance and style.",
+    },
+    {
+      title: "Power That",
+      highlight: "Moves With You.",
+      description:
+        "Experience powerful devices designed to keep you connected wherever life takes you.",
+    },
+    {
+      title: "Technology.",
+      highlight: "Made Simple.",
+      description:
+        "Premium gadgets and accessories that bring smarter experiences into your everyday life.",
+    },
+  ];
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [direction, setDirection] = useState<"next" | "prev">("next");
+
+  const heroRef = useRef<HTMLElement | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const wheelLocked = useRef(false);
+
+  const changeSlide = (nextIndex: number, dir: "next" | "prev") => {
+    if (isAnimating) return;
+
+    if (nextIndex < 0 || nextIndex >= heroSlides.length) {
+      return;
+    }
+
+    setDirection(dir);
+    setIsAnimating(true);
+
+    setTimeout(() => {
+      setCurrentSlide(nextIndex);
+
+      setTimeout(() => {
+        setIsAnimating(false);
+      }, 80);
+    }, 650);
+  };
+
+  // =========================================================
+  // WHEEL SCROLL
+  // =========================================================
+
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      const hero = heroRef.current;
+
+      if (!hero) return;
+
+      const rect = hero.getBoundingClientRect();
+
+      const heroIsVisible =
+        rect.top <= 0 &&
+        rect.bottom >= window.innerHeight * 0.5;
+
+      if (!heroIsVisible) return;
+
+      if (wheelLocked.current || isAnimating) {
+        e.preventDefault();
+        return;
+      }
+
+      const goingDown = e.deltaY > 0;
+      const goingUp = e.deltaY < 0;
+
+      // =====================================================
+      // DOWN SCROLL
+      // =====================================================
+
+      if (
+        goingDown &&
+        currentSlide < heroSlides.length - 1
+      ) {
+        e.preventDefault();
+
+        wheelLocked.current = true;
+
+        changeSlide(
+          currentSlide + 1,
+          "next"
+        );
+
+        setTimeout(() => {
+          wheelLocked.current = false;
+        }, 850);
+
+        return;
+      }
+
+      // =====================================================
+      // UP SCROLL
+      // =====================================================
+
+      if (
+        goingUp &&
+        currentSlide > 0
+      ) {
+        e.preventDefault();
+
+        wheelLocked.current = true;
+
+        changeSlide(
+          currentSlide - 1,
+          "prev"
+        );
+
+        setTimeout(() => {
+          wheelLocked.current = false;
+        }, 850);
+
+        return;
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, {
+      passive: false,
+    });
+
+    return () => {
+      window.removeEventListener(
+        "wheel",
+        handleWheel
+      );
+    };
+  }, [currentSlide, isAnimating]);
+
+  // =========================================================
+  // MOBILE TOUCH / SWIPE
+  // =========================================================
+
+  useEffect(() => {
+    const hero = heroRef.current;
+
+    if (!hero) return;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY.current =
+        e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (touchStartY.current === null) return;
+
+      const endY =
+        e.changedTouches[0].clientY;
+
+      const difference =
+        touchStartY.current - endY;
+
+      touchStartY.current = null;
+
+      if (Math.abs(difference) < 50) {
+        return;
+      }
+
+      // Swipe UP
+      if (
+        difference > 0 &&
+        currentSlide < heroSlides.length - 1
+      ) {
+        changeSlide(
+          currentSlide + 1,
+          "next"
+        );
+      }
+
+      // Swipe DOWN
+      if (
+        difference < 0 &&
+        currentSlide > 0
+      ) {
+        changeSlide(
+          currentSlide - 1,
+          "prev"
+        );
+      }
+    };
+
+    hero.addEventListener(
+      "touchstart",
+      handleTouchStart,
+      {
+        passive: true,
+      }
+    );
+
+    hero.addEventListener(
+      "touchend",
+      handleTouchEnd,
+      {
+        passive: true,
+      }
+    );
+
+    return () => {
+      hero.removeEventListener(
+        "touchstart",
+        handleTouchStart
+      );
+
+      hero.removeEventListener(
+        "touchend",
+        handleTouchEnd
+      );
+    };
+  }, [currentSlide, isAnimating]);
+
+  const activeSlide =
+    heroSlides[currentSlide];
+
+  return (
+    <section
+      ref={heroRef}
+      className="
+        relative
+        mt-10
+        min-h-[600px]
+        overflow-hidden
+        bg-[#020817]
+        text-white
+        lg:mt-0
+        lg:mb-0
+        lg:min-h-[760px]
+      "
+    >
+      {/* =====================================================
+          DESKTOP HERO IMAGES
+      ====================================================== */}
+
+      <div className="absolute inset-0 hidden lg:block">
+        {desktopHeroImages.map(
+          (image, index) => {
+            const isActive =
+              index === currentSlide;
+
+            return (
+              <div
+                key={image}
+                className={`
+                  absolute
+                  inset-0
+                  overflow-hidden
+                  ${
+                    isActive
+                      ? direction === "next"
+                        ? "hero-image-enter-right"
+                        : "hero-image-enter-left"
+                      : index < currentSlide
+                      ? "hero-image-exit-left"
+                      : "hero-image-hidden-right"
+                  }
+                `}
+              >
+                <img
+                  src={image}
+                  alt=""
+                  className="
+                    h-full
+                    w-full
+                    object-cover
+                    object-center
+                  "
+                />
+              </div>
+            );
+          }
+        )}
+      </div>
+
+      {/* =====================================================
+          MOBILE HERO IMAGES
+      ====================================================== */}
+
+      <div className="absolute inset-0 lg:hidden">
+        {mobileHeroImages.map(
+          (image, index) => {
+            const isActive =
+              index === currentSlide;
+
+            return (
+              <div
+                key={image}
+                className={`
+                  absolute
+                  inset-0
+                  overflow-hidden
+                  ${
+                    isActive
+                      ? direction === "next"
+                        ? "hero-image-enter-right"
+                        : "hero-image-enter-left"
+                      : index < currentSlide
+                      ? "hero-image-exit-left"
+                      : "hero-image-hidden-right"
+                  }
+                `}
+              >
+                <img
+                  src={image}
+                  alt=""
+                  className="
+                    h-full
+                    w-full
+                    object-cover
+                    object-center
+                  "
+                />
+              </div>
+            );
+          }
+        )}
+      </div>
+
+      {/* =====================================================
+          OVERLAY
+      ====================================================== */}
+
+      <div
+        className="
+          absolute
+          inset-0
+          z-[4]
+          bg-gradient-to-r
+          from-[#020817]/75
+          via-[#020817]/30
+          to-[#020817]/10
+        "
+      />
+
+      {/* Blue Glow */}
+
+      <div
+        className="
+          absolute
+          -left-20
+          top-1/3
+          z-[4]
+          h-80
+          w-80
+          rounded-full
+          bg-[#2563eb]/10
+          blur-[110px]
+        "
+      />
+
+      <div
+        className="
+          absolute
+          right-0
+          top-1/4
+          z-[4]
+          h-96
+          w-96
+          rounded-full
+          bg-[#60a5fa]/10
+          blur-[120px]
+        "
+      />
+
+      {/* =====================================================
+          CENTER CONTENT
+      ====================================================== */}
+
+      <div
+        className="
+          relative
+          z-10
+          mx-auto
+          flex
+          min-h-[600px]
+          max-w-7xl
+          items-center
+          justify-center
+          px-5
+          pt-20
+          text-center
+          sm:min-h-[620px]
+          sm:px-6
+          sm:pt-24
+          lg:min-h-[760px]
+          lg:px-8
+          lg:pt-0
+        "
+      >
+        <div
+          key={currentSlide}
+          className={`
+            mx-auto
+            flex
+            w-full
+            max-w-5xl
+            flex-col
+            items-center
+            justify-center
+            text-center
+            ${
+              direction === "next"
+                ? "hero-text-enter-bottom"
+                : "hero-text-enter-top"
+            }
+          `}
+        >
+          {/* =================================================
+              HEADING
+          ================================================= */}
+
+          <h1
+            className="
+              w-full
+              max-w-6xl
+              font-serif
+              text-[52px]
+              font-light
+              uppercase
+              leading-[0.88]
+              tracking-[3px]
+              text-white
+              drop-shadow-[0_5px_20px_rgba(0,0,0,0.45)]
+              sm:text-[72px]
+              sm:tracking-[5px]
+              md:text-[88px]
+              md:tracking-[6px]
+              lg:text-[105px]
+              lg:tracking-[8px]
+          "
+          >
+            {activeSlide.title}
+
+            <br />
+
+            <span
+              className="
+                font-serif
+                font-light
+                tracking-[3px]
+                text-white/95
+                sm:tracking-[5px]
+                md:tracking-[6px]
+                lg:tracking-[8px]
+              "
+            >
+              {activeSlide.highlight}
+            </span>
+          </h1>
+
+          {/* =================================================
+              DESCRIPTION
+          ================================================= */}
+
+          <p
+            className="
+              mt-7
+              max-w-2xl
+              text-center
+              text-[13px]
+              font-normal
+              leading-[1.7]
+              tracking-[0.15px]
+              text-white/95
+              drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]
+              sm:text-[14px]
+              lg:text-[15px]
+            "
+          >
+            {activeSlide.description}
+          </p>
+
+          {/* =================================================
+              BUTTONS
+          ================================================= */}
+
+          <div
+            className="
+              mt-8
+              flex
+              flex-wrap
+              items-center
+              justify-center
+              gap-4
+            "
+          >
+            <a
+              href="/products"
+              onClick={navigateToShopPage}
+              className="
+                group
+                inline-flex
+                items-center
+                gap-3
+                rounded-full
+                border
+                border-white/80
+                bg-white/5
+                px-7
+                py-3.5
+                text-[13px]
+                font-medium
+                tracking-[0.5px]
+                text-white
+                backdrop-blur-md
+                transition-all
+                duration-300
+                hover:bg-white
+                hover:text-[#020817]
+              "
+            >
+              Explore Now
+
+              <span
+                className="
+                  flex
+                  h-7
+                  w-7
+                  items-center
+                  justify-center
+                  rounded-full
+                  bg-white/15
+                  transition
+                  group-hover:translate-x-1
+                "
+              >
+                <FiArrowRight size={15} />
+              </span>
+            </a>
+
+            <a
+              href="#shop"
+              className="
+                inline-flex
+                items-center
+                rounded-full
+                border
+                border-white/30
+                bg-white/5
+                px-7
+                py-3.5
+                text-[13px]
+                font-medium
+                tracking-[0.5px]
+                text-white
+                backdrop-blur-md
+                transition-all
+                duration-300
+                hover:bg-white/15
+              "
+            >
+              Explore Collection
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* =====================================================
+          SLIDE INDICATORS
+      ====================================================== */}
+
+      <div
+        className="
+          absolute
+          bottom-7
+          left-1/2
+          z-30
+          flex
+          -translate-x-1/2
+          items-center
+          gap-3
+        "
+      >
+        {heroSlides.map(
+          (_, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => {
+                if (
+                  index === currentSlide
+                ) {
+                  return;
+                }
+
+                changeSlide(
+                  index,
+                  index > currentSlide
+                    ? "next"
+                    : "prev"
+                );
+              }}
+              className={`
+                h-[3px]
+                rounded-full
+                transition-all
+                duration-500
+                ${
+                  currentSlide === index
+                    ? "w-16 bg-white"
+                    : "w-10 bg-white/30"
+                }
+              `}
+              aria-label={`Go to slide ${
+                index + 1
+              }`}
+            />
+          )
+        )}
+      </div>
+
+      {/* =====================================================
+          BOTTOM FADE
+      ====================================================== */}
+
+      <div
+        className="
+          absolute
+          bottom-0
+          left-0
+          right-0
+          z-20
+          h-50
+          bg-gradient-to-t
+          from-[#0f172a]
+          to-transparent
+        "
+      />
+
+      {/* =====================================================
+          ANIMATION CSS
+      ====================================================== */}
+
+      <style>{`
+
+        /* ==================================================
+           IMAGE
+           RIGHT → LEFT
+        ================================================== */
+
+        @keyframes heroImageEnterRight {
+          0% {
+            opacity: 1;
+            transform: translateX(100%);
+          }
+
+          100% {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+
+        /* ==================================================
+           IMAGE
+           LEFT → RIGHT
+        ================================================== */
+
+        @keyframes heroImageEnterLeft {
+          0% {
+            opacity: 1;
+            transform: translateX(-100%);
+          }
+
+          100% {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+
+        /* ==================================================
+           OLD IMAGE → LEFT
+        ================================================== */
+
+        @keyframes heroImageExitLeft {
+          0% {
+            opacity: 1;
+            transform: translateX(0);
+          }
+
+          100% {
+            opacity: 0;
+            transform: translateX(-100%);
+          }
+        }
+
+
+        /* ==================================================
+           FUTURE IMAGE → RIGHT
+        ================================================== */
+
+        @keyframes heroImageHiddenRight {
+          0% {
+            opacity: 0;
+            transform: translateX(100%);
+          }
+
+          100% {
+            opacity: 0;
+            transform: translateX(100%);
+          }
+        }
+
+
+        /* ==================================================
+           TEXT
+           BOTTOM → CENTER
+        ================================================== */
+
+        @keyframes heroTextEnterBottom {
+          0% {
+            opacity: 0;
+            transform: translateY(120px);
+          }
+
+          45% {
+            opacity: 1;
+          }
+
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+
+        /* ==================================================
+           TEXT
+           TOP → CENTER
+        ================================================== */
+
+        @keyframes heroTextEnterTop {
+          0% {
+            opacity: 0;
+            transform: translateY(-120px);
+          }
+
+          45% {
+            opacity: 1;
+          }
+
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+
+        /* ==================================================
+           IMAGE ANIMATION
+        ================================================== */
+
+        .hero-image-enter-right {
+          z-index: 3;
+          opacity: 1;
+
+          animation:
+            heroImageEnterRight
+            700ms
+            cubic-bezier(
+              0.22,
+              1,
+              0.36,
+              1
+            )
+            forwards;
+        }
+
+
+        .hero-image-enter-left {
+          z-index: 3;
+          opacity: 1;
+
+          animation:
+            heroImageEnterLeft
+            700ms
+            cubic-bezier(
+              0.22,
+              1,
+              0.36,
+              1
+            )
+            forwards;
+        }
+
+
+        .hero-image-exit-left {
+          z-index: 2;
+          opacity: 0;
+          transform: translateX(-100%);
+
+          animation:
+            heroImageExitLeft
+            700ms
+            cubic-bezier(
+              0.22,
+              1,
+              0.36,
+              1
+            )
+            forwards;
+        }
+
+
+        .hero-image-hidden-right {
+          z-index: 1;
+          opacity: 0;
+          transform: translateX(100%);
+        }
+
+
+        /* ==================================================
+           TEXT ANIMATION
+        ================================================== */
+
+        .hero-text-enter-bottom {
+          animation:
+            heroTextEnterBottom
+            700ms
+            cubic-bezier(
+              0.22,
+              1,
+              0.36,
+              1
+            )
+            forwards;
+        }
+
+
+        .hero-text-enter-top {
+          animation:
+            heroTextEnterTop
+            700ms
+            cubic-bezier(
+              0.22,
+              1,
+              0.36,
+              1
+            )
+            forwards;
+        }
+
+
+        /* ==================================================
+           REDUCE MOTION
+        ================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+          .hero-image-enter-right,
+          .hero-image-enter-left,
+          .hero-image-exit-left,
+          .hero-text-enter-bottom,
+          .hero-text-enter-top {
+            animation-duration: 1ms !important;
+          }
+        }
+
+      `}</style>
+    </section>
+  );
+}
+
+export function BrandMarquee() {
+  const brands = [
+    "/assets/brand1.png",
+    "/assets/brand2.png",
+    "/assets/brand3.png",
+    "/assets/brand4.png",
+    "/assets/brand5.png",
+    "/assets/brand6.png",
+    "/assets/brand8.png",
+    "/assets/brand10.png",
+    "/assets/brand11.png",
+    "/assets/brand12.webp",
+  ];
+
+  return (
+    <section
+      id="brands"
+      className="relative overflow-hidden border-b bg-[#f8fafc] pb-7 pt-16 scroll-mt-[80px]"
+    >
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+        <div className="mb-16 flex items-center justify-between gap-4">
+          <p className="mt-4 text-[36px] font-extrabold leading-[1.08] tracking-tight text-[#0f172a] sm:text-5xl lg:text-[48px]">
+            Trusted Brand Partners
+          </p>
+
+          <div className="hidden h-px flex-1 sm:block" />
+        </div>
+      </div>
+
+      {/* Logo Marquee */}
+      <div className="overflow-hidden">
+        <div className="flex w-max animate-marquee items-center gap-4 px-5 sm:gap-5 lg:gap-10">
+          {[...brands, ...brands].map((brand, i) => (
+            <div
+              key={`${brand}-${i}`}
+              className="
+                flex
+                h-16
+                w-36
+                shrink-0
+                items-center
+                justify-center
+                rounded-xl
+                bg-[#e5e7eb]
+                px-5
+                py-3
+                transition-all
+                duration-300
+                hover:bg-[#d1d5db]
+                sm:h-20
+                sm:w-40
+                sm:px-6
+                lg:h-20
+                lg:w-44
+                lg:px-7
+              "
+            >
+              <img
+                src={brand}
+                alt="Our Brand Partners"
+                className="
+                  block
+                  h-full
+                  w-full
+                  object-contain
+                  opacity-70
+                  grayscale
+                  transition-all
+                  duration-300
+                  hover:scale-105
+                  hover:opacity-100
+                  hover:grayscale-0
+                "
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function WhatWeDo() {
+  const services = [
+    {
+      title: "Buy & Sell Devices",
+      image: "/do1.webp",
+      description: "Find the right device or sell your old one with ease.",
+    },
+    {
+      title: "Mobile Repair",
+      image: "/do2.webp",
+      description: "Quick, reliable and expert repairs for all your devices.",
+    },
+    {
+      title: "Audio Device Repair",
+      image: "/do3.webp",
+      description: "Get your audio devices back to perfect sound.",
+    },
+    {
+      title: "Accessories",
+      image: "/do4.webp",
+      description: "Premium accessories for a better everyday experience.",
+    },
+    {
+      title: "Device Setup",
+      image: "/do5.webp",
+      description: "Get your device ready for everything that's next.",
+    },
+    {
+      title: "Troubleshooting",
+      image: "/do7.webp",
+      description: "We'll find the issue and fix it fast.",
+    },
+    {
+      title: "Mobile Covers",
+      image: "/do6.webp",
+      description: "Stylish protection designed for your device.",
+    },
+    {
+      title: "Device Care",
+      image: "/do8.webp",
+      description: "Keep your device clean, safe and looking new.",
+    },
+  ];
+
+  return (
+    <section
+      id="what-we-do"
+      className="scroll-mt-[80px] bg-[#f8fafc] py-20 lg:pt-28 lg:pb-28"
+    >
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+
+        {/* ================= HEADER ================= */}
+        <div className="max-w-3xl text-left">
+          <p className="text-[11px] font-bold uppercase tracking-[3px] text-[#2563eb]">
+            What We Do
+          </p>
+
+          <h2 className="mt-4 text-[38px] font-extrabold leading-[1.08] tracking-tight text-[#0f172a] sm:text-[48px]">
+            Everything you need,
+            <br />
+            <span className="text-[#2563eb]">
+              all in one place.
+            </span>
+          </h2>
+        </div>
+
+        {/* ================= SERVICES ================= */}
+        <div className="mt-12 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-5 lg:gap-y-12">
+          {services.map((service, index) => (
+            <article
+              key={`${service.title}-${index}`}
+              className="group"
+            >
+              <div className="relative aspect-[0.78] overflow-hidden rounded-[15px] lg:rounded-[30px]">
+
+                {/* IMAGE */}
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+
+                {/* DARK OVERLAY */}
+                <div
+                  className="
+                    absolute inset-0
+                    bg-gradient-to-t
+                    from-black/80
+                    via-black/30
+                    to-transparent
+                    transition-all
+                    duration-500
+                    group-hover:from-black/95
+                    group-hover:via-black/55
+                    group-hover:to-black/10
+                  "
+                />
+
+                {/* CONTENT */}
+                <div className="absolute inset-x-0 bottom-3 p-2 sm:p-6 lg:p-6">
+
+                  {/* TITLE */}
+                  <h3
+                    className="
+                      text-[14px]
+                      font-extrabold
+                      uppercase
+                      leading-tight
+                      tracking-[1px]
+                      text-white
+                      transition-transform
+                      duration-500
+                      sm:text-[16px]
+                      lg:text-[17px]
+                      group-hover:-translate-y-[42px]
+                    "
+                  >
+                    {service.title}
+                  </h3>
+
+                  {/* SUBTEXT */}
+                  <p
+                    className="
+                      absolute
+                      left-2
+                      right-2
+                      bottom-3
+                      translate-y-5
+                      text-[11px]
+                      leading-[1.5]
+                      text-white/85
+                      opacity-0
+                      transition-all
+                      duration-500
+                      sm:left-6
+                      sm:right-16
+                      sm:bottom-6
+                      sm:text-[12px]
+                      lg:text-[13px]
+                      group-hover:translate-y-0
+                      group-hover:opacity-100
+                    "
+                  >
+                    {service.description}
+                  </p>
+
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+export function AboutUs() {
+  const highlights = [
+    {
+      title: "Expert Repairs",
+      text: "Reliable repair solutions to get your devices back in working condition.",
+    },
+    {
+      title: "Quality Service",
+      text: "We focus on careful repairs and quality solutions for your devices.",
+    },
+    {
+      title: "Trusted Support",
+      text: "Helpful guidance and dependable support throughout the repair process.",
+    },
+  ];
+
+  return (
+    <section
+      id="repair"
+      className="relative overflow-hidden bg-[#f8fafc] pb-16 pt-6 lg:pt-10 lg:pb-28 scroll-mt-[100px]"
+    >
+      {/* Background decoration */}
+      <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-[#2563eb]/5 blur-3xl" />
+      <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-[#2563eb]/5 blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+
+        {/* ================= TOP HEADING ================= */}
+        <div className="mb-14 flex items-end justify-between gap-6">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[3px] text-[#2563eb]">
+              Repair
+            </p>
+
+            <h2 className="mt-4 text-[36px] font-extrabold leading-[1.08] tracking-tight text-[#0f172a] sm:text-5xl lg:text-[48px]">
+              Reliable repairs.
+              <br />
+              <span className="text-[#2563eb]">
+                Better performance.
+              </span>
+            </h2>
+          </div>
+
+          <div className="hidden h-px flex-1 bg-[#dbe3ee] lg:block" />
+        </div>
+
+        {/* ================= MAIN LAYOUT ================= */}
+        <div className="grid overflow-hidden rounded-[30px] border border-[#e2e8f0] bg-white lg:grid-cols-[0.9fr_1.05fr_1fr]">
+
+          {/* ================= LEFT CONTENT ================= */}
+          <div className="flex flex-col justify-center border-b border-[#e2e8f0] p-7 sm:p-10 lg:border-b-0 lg:border-r lg:p-10 xl:p-12">
+
+            {/* Existing first paragraph */}
+            <p className="max-w-md text-[15px] leading-7 text-[#64748b] lg:text-[14px]">
+              We provide dependable repair solutions for a wide range of
+              devices. From common issues to technical problems, our goal is
+              to restore your device and get it working smoothly again.
+            </p>
+
+            {/* Existing second paragraph */}
+            <p className="mt-5 max-w-md text-[15px] leading-7 text-[#64748b] lg:text-[14px]">
+              With careful attention to every repair, we focus on quality
+              workmanship, honest guidance and reliable support you can trust.
+            </p>
+          </div>
+
+          {/* ================= CENTER VIDEO ================= */}
+          <div className="relative min-h-[350px] rounded-[30px] overflow-hidden sm:min-h-[500px] lg:min-h-[350px]">
+
+            <video
+              src="/about-video.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+
+            {/* Video overlay */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#020817]/30 via-transparent to-transparent" />
+          </div>
+
+          {/* ================= RIGHT HIGHLIGHTS ================= */}
+          <div className="flex flex-col justify-between bg-white">
+
+            <div>
+              {highlights.map((item, index) => (
+                <div
+                  key={item.title}
+                  className="group relative flex min-h-[105px] items-center justify-between border-b border-[#e8edf3] px-7 py-5 transition-all duration-300 hover:bg-[#f8fafc] sm:px-8 lg:px-9"
+                >
+                  <div className="flex items-center gap-4">
+
+                    {/* Number */}
+                    <span className="text-[11px] font-bold tracking-[1px] text-[#94a3b8] transition-colors duration-300 group-hover:text-[#2563eb]">
+                      0{index + 1}
+                    </span>
+
+                    <div>
+                      <h3 className="text-[15px] font-extrabold text-[#0f172a] lg:text-[14px]">
+                        {item.title}
+                      </h3>
+
+                      {/* Text appears on hover */}
+                      <p className="mt-1 max-h-0 max-w-[260px] overflow-hidden text-[12px] leading-5 text-[#64748b] opacity-0 transition-all duration-300 group-hover:max-h-16 group-hover:opacity-100">
+                        {item.text}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Services() {
+  const categories = [
+    "All Products",
+    "Phones",
+    "Audio",
+    "Watches",
+  ];
+
+  const [activeCategory, setActiveCategory] =
+    useState<string>("All Products");
+
+  // ============================================================
+  // GET PRODUCTS FOR SELECTED CATEGORY
+  // ============================================================
+  const getProductsForCategory = (category: string) => {
+    if (category === "All Products") {
+      return serviceProducts;
+    }
+
+    const filtered = serviceProducts.filter(
+      (product) => product.category === category
+    );
+
+    // If category has no products, use all products
+    return filtered.length > 0 ? filtered : serviceProducts;
+  };
+
+  const activeProducts =
+    getProductsForCategory(activeCategory);
+
+  // ============================================================
+  // CATEGORY CHANGE
+  // ============================================================
+  const changeCategory = (category: string) => {
+    if (category === activeCategory) return;
+
+    setActiveCategory(category);
+  };
+
+  // ============================================================
+  // AUTO CATEGORY CHANGE
+  // 5 SECONDS
+  // ============================================================
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const currentIndex =
+        categories.indexOf(activeCategory);
+
+      const nextIndex =
+        currentIndex === categories.length - 1
+          ? 0
+          : currentIndex + 1;
+
+      setActiveCategory(categories[nextIndex]);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [activeCategory]);
+
+  // ============================================================
+  // FOUR PRODUCTS
+  // ============================================================
+  const product1 = activeProducts[0];
+
+  const product2 =
+    activeProducts[1] || activeProducts[0];
+
+  const product3 =
+    activeProducts[2] || activeProducts[0];
+
+  const product4 =
+    activeProducts[3] || activeProducts[0];
+
+  // ============================================================
+  // CATEGORY HEADING
+  // ============================================================
+  const categoryHeading =
+    activeCategory === "All Products"
+      ? "Smart choices for everyday life."
+      : activeCategory === "Phones"
+      ? "Power in every pocket."
+      : activeCategory === "Audio"
+      ? "Sound that moves with you."
+      : "Everyday tech, made easier.";
+
+  return (
+    <section
+      id="shop"
+      className="relative overflow-hidden bg-[#f7f9fc] pt-8 pb-10 scroll-mt-[80px] lg:pt-10 lg:pb-20"
+    >
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+
+        {/* ======================================================
+            HEADER
+        ====================================================== */}
+        <div className="mb-8">
+
+          {/* ====================================================
+              CATEGORY NAVIGATION
+          ==================================================== */}
+          <div className="mt-8 flex w-full gap-8 overflow-x-auto border-b border-[#dfe5ec] scrollbar-hide">
+
+            {categories.map((category) => {
+              const active =
+                activeCategory === category;
+
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() =>
+                    changeCategory(category)
+                  }
+                  className={`relative shrink-0 pb-4 text-[13px] font-semibold transition-all duration-300 ${
+                    active
+                      ? "text-[#0f172a]"
+                      : "text-[#94a3b8] hover:text-[#0f172a]"
+                  }`}
+                >
+                  {category}
+
+                  <span
+                    className={`absolute bottom-0 left-0 h-[2px] rounded-full bg-[#2563eb] transition-all duration-500 ${
+                      active ? "w-full" : "w-0"
+                    }`}
+                  />
+                </button>
+              );
+            })}
+
+          </div>
+        </div>
+
+        {/* ======================================================
+            DESKTOP SHOWCASE
+            EXACT ASYMMETRIC LAYOUT
+        ====================================================== */}
+        <div
+          key={activeCategory}
+          className="hidden lg:block animate-[servicesSlideIn_750ms_cubic-bezier(0.22,1,0.36,1)_both]"
+        >
+
+          <div className="grid grid-cols-12 gap-4">
+
+            {/* ==================================================
+                LEFT TEXT AREA
+                ================================================== */}
+            <div className="col-span-4 flex min-h-[420px] flex-col justify-center rounded-[28px] border border-[#e3e8ef] bg-white p-9 xl:p-11">
+
+              <p className="text-[10px] font-bold uppercase tracking-[2.5px] text-[#2563eb]">
+                {activeCategory}
+              </p>
+
+              <h3
+                key={`heading-${activeCategory}`}
+                className="mt-5 max-w-[330px] text-[38px] font-extrabold leading-[1.04] tracking-[-1.5px] text-[#0f172a] xl:text-[44px]"
+              >
+                {categoryHeading}
+              </h3>
+
+              <p
+                key={`description-${activeCategory}`}
+                className="mt-6 max-w-[330px] text-[13px] leading-7 text-[#64748b]"
+              >
+                {product1?.description}
+              </p>
+
+              <a
+                href="/products"
+                onClick={navigateToShopPage}
+                className="group mt-8 inline-flex w-fit items-center gap-3 rounded-full bg-[#0f172a] px-5 py-3 text-[12px] font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#2563eb]"
+              >
+                Explore Collection
+
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 transition-transform duration-300 group-hover:translate-x-1">
+                  <FiArrowRight size={13} />
+                </span>
+              </a>
+
+            </div>
+
+            {/* ==================================================
+                TOP RIGHT - PRODUCT 1
+                NAME ABOVE IMAGE
+                ================================================== */}
+            <a
+              href={`/products/${productSlug(product1.name)}`}
+              onClick={(e) =>
+                navigateToProductPage(
+                  e,
+                  product1.name
+                )
+              }
+              className="group col-span-4 rounded-[28px] transition-all duration-500"
+            >
+
+              <div className="flex h-full min-h-[420px] flex-col">
+
+                {/* Image */}
+                <div className="relative flex-1 overflow-hidden rounded-[22px] bg-[#e7e6f8]">
+
+                  <img
+                    src={product1.image}
+                    alt={product1.name}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
+                  />
+
+                </div>
+              </div>
+            </a>
+
+            {/* ==================================================
+                TOP RIGHT - PRODUCT 2
+                NAME ABOVE IMAGE
+                ================================================== */}
+            <a
+              href={`/products/${productSlug(product2.name)}`}
+              onClick={(e) =>
+                navigateToProductPage(
+                  e,
+                  product2.name
+                )
+              }
+              className="group col-span-4 rounded-[28px] transition-all duration-500"
+            >
+
+              <div className="flex h-full min-h-[420px] flex-col">
+
+                {/* Image */}
+                <div className="relative flex-1 overflow-hidden rounded-[22px] bg-[#e7e6f8]">
+
+                  <img
+                    src={product2.image}
+                    alt={product2.name}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
+                  />
+
+                </div>
+              </div>
+            </a>
+
+            {/* ==================================================
+                BOTTOM SMALL IMAGE
+                ================================================== */}
+            <a
+              href={`/products/${productSlug(product3.name)}`}
+              onClick={(e) =>
+                navigateToProductPage(
+                  e,
+                  product3.name
+                )
+              }
+              className="group col-span-4 h-[420px] overflow-hidden rounded-[28px] bg-white transition-all duration-500"
+            >
+
+              <div className="relative h-full overflow-hidden rounded-[22px]">
+
+                <img
+                  src={product3.image}
+                  alt={product3.name}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
+                />
+              </div>
+            </a>
+
+            {/* ==================================================
+                BOTTOM LARGE IMAGE
+                ================================================== */}
+            <a
+              href={`/products/${productSlug(product4.name)}`}
+              onClick={(e) =>
+                navigateToProductPage(
+                  e,
+                  product4.name
+                )
+              }
+              className="group col-span-8 h-[420px] overflow-hidden rounded-[28px] bg-white transition-all duration-500"
+            >
+
+              <div className="relative h-full overflow-hidden rounded-[22px]">
+
+                <img
+                  src={product4.image}
+                  alt={product4.name}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
+                />
+
+              </div>
+            </a>
+          </div>
+        </div>
+
+        {/* ======================================================
+            MOBILE
+        ====================================================== */}
+        <div
+          key={`mobile-${activeCategory}`}
+          className="lg:hidden animate-[servicesSlideIn_650ms_cubic-bezier(0.22,1,0.36,1)_both]"
+        >
+
+          {/* Text */}
+          <div className="rounded-[26px] border border-[#e3e8ef] bg-white p-6">
+
+            <p className="text-[10px] font-bold uppercase tracking-[2.5px] text-[#2563eb]">
+              {activeCategory}
+            </p>
+
+            <h3 className="mt-4 text-[30px] font-extrabold leading-[1.05] text-[#0f172a]">
+              {categoryHeading}
+            </h3>
+
+            <p className="mt-5 text-[13px] leading-7 text-[#64748b]">
+              {product1?.description}
+            </p>
+
+            <a
+              href="/products"
+              onClick={navigateToShopPage}
+              className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#0f172a] px-5 py-3 text-[12px] font-bold text-white"
+            >
+              Explore Collection
+              <FiArrowRight size={14} />
+            </a>
+
+          </div>
+
+          {/* Product 1 */}
+          <a
+            href={`/products/${product1.name}`}
+            onClick={(e) =>
+              navigateToProductPage(
+                e,
+                product1.name
+              )
+            }
+            className="group mt-4 block rounded-[24px] border border-[#e3e8ef] bg-white p-3"
+          >
+
+            <div className="relative h-[300px] overflow-hidden rounded-[20px]">
+
+              <img
+                src={product1.image}
+                alt={product1.name}
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+
+            </div>
+
+          </a>
+
+          {/* Product 2 */}
+          <a
+            href={`/products/${product2.name}`}
+            onClick={(e) =>
+              navigateToProductPage(
+                e,
+                product2.name
+              )
+            }
+            className="group mt-4 block rounded-[24px] border border-[#e3e8ef] bg-white p-3"
+          >
+
+            <div className="relative h-[300px] overflow-hidden rounded-[20px]">
+
+              <img
+                src={product2.image}
+                alt={product2.name}
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+
+            </div>
+
+          </a>
+
+          {/* Bottom two images */}
+          <div className="mt-4 grid grid-cols-2 gap-4">
+
+            <a
+              href={`/products/${product3.name}`}
+              onClick={(e) =>
+                navigateToProductPage(
+                  e,
+                  product3.name
+                )
+              }
+              className="group relative h-[220px] overflow-hidden rounded-[22px]"
+            >
+
+              <img
+                src={product3.image}
+                alt={product3.name}
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/75 to-transparent" />
+            </a>
+
+            <a
+              href={`/products/${product4.name}`}
+              onClick={(e) =>
+                navigateToProductPage(
+                  e,
+                  product4.name
+                )
+              }
+              className="group relative h-[220px] overflow-hidden rounded-[22px]"
+            >
+
+              <img
+                src={product4.image}
+                alt={product4.name}
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/75 to-transparent" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================================
+          ANIMATIONS
+      ======================================================== */}
+      <style>{`
+        @keyframes servicesSlideIn {
+          0% {
+            opacity: 0;
+            transform: translateX(90px);
+          }
+
+          100% {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        .scrollbar-hide {
+          scrollbar-width: none;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
+    </section>
+  );
+}
+
+export function BenefitsStrip() {
+  return (
+    <section className="relative z-20 -mt-7 px-5 sm:px-6 lg:px-8">
+    </section>
+  );
+}
+
+export function Testimonials() {
+  const [testimonialOrder, setTestimonialOrder] = useState([0, 1, 2]);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const goNext = () =>
+    setTestimonialOrder((o) => [
+      o[1],
+      o[2],
+      (o[2] + 1) % testimonials.length,
+    ]);
+
+  const goPrevious = () =>
+    setTestimonialOrder((o) => [
+      (o[0] - 1 + testimonials.length) % testimonials.length,
+      o[0],
+      o[1],
+    ]);
+
+  useEffect(() => {
+    if (isPaused) return;
+
+    const i = window.setInterval(goNext, 3000);
+
+    return () => window.clearInterval(i);
+  }, [isPaused]);
+
+  const goToTestimonial = (index: number) => {
+    setTestimonialOrder([
+      (index - 1 + testimonials.length) % testimonials.length,
+      index,
+      (index + 1) % testimonials.length,
+    ]);
+  };
+
+  return (
+    <section className="bg-[#f8fafc] py-20 scroll-mt-[80px] lg:py-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+
+        <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[3px] text-[#2563eb]">
+              Customer Stories
+            </p>
+
+            <h2 className="mt-4 text-[38px] font-extrabold tracking-tight text-[#0f172a] sm:text-[48px]">
+              What people say about us
+            </h2>
+          </div>
+
+          <div className="hidden gap-2 lg:flex">
+            <button
+              onClick={goPrevious}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#dbe3ef] bg-white text-[#0f172a] shadow-sm hover:bg-[#0f172a] hover:text-white"
+            >
+              <IoMdArrowRoundBack size={18} />
+            </button>
+
+            <button
+              onClick={goNext}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#dbe3ef] bg-white text-[#0f172a] shadow-sm hover:bg-[#0f172a] hover:text-white"
+            >
+              <IoMdArrowRoundForward size={18} />
+            </button>
+          </div>
+        </div>
+
+        <div
+          className="relative mt-12"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+
+          {/* MOBILE: Only 1 testimonial */}
+          <div className="md:hidden">
+            {(() => {
+              const t = testimonials[testimonialOrder[1]];
+
+              return (
+                <article
+                  key={`mobile-${t.name}`}
+                  className="rounded-[24px] border border-[#bfdbfe] bg-white p-6 shadow-[0_20px_45px_rgba(37,99,235,0.10)] transition duration-500"
+                >
+                  <div className="flex gap-1 text-[#2563eb]">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <span key={i}>★</span>
+                    ))}
+                  </div>
+
+                  <p className="mt-5 text-[14px] leading-7 text-[#475569]">
+                    "{t.quote}"
+                  </p>
+
+                  <div className="mt-7 border-t border-[#edf0f5] pt-5">
+                    <p className="text-[14px] font-bold text-[#0f172a]">
+                      {t.name}
+                    </p>
+
+                    <p className="mt-1 text-[11px] font-semibold text-[#94a3b8]">
+                      {t.role}
+                    </p>
+                  </div>
+                </article>
+              );
+            })()}
+          </div>
+
+          {/* DESKTOP: Existing 3 testimonials - unchanged */}
+          <div className="hidden gap-4 md:grid md:grid-cols-3">
+            {[0, 1, 2].map((position) => {
+              const t = testimonials[testimonialOrder[position]];
+
+              return (
+                <article
+                  key={`${t.name}-${position}`}
+                  className={`rounded-[24px] border bg-white p-6 shadow-sm transition duration-500 ${position === 1
+                    ? "border-[#bfdbfe] shadow-[0_20px_45px_rgba(37,99,235,0.10)] md:-translate-y-3"
+                    : "border-[#e5eaf1]"
+                    }`}
+                >
+                  <div className="flex gap-1 text-[#2563eb]">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <span key={i}>★</span>
+                    ))}
+                  </div>
+
+                  <p className="mt-5 text-[14px] leading-7 text-[#475569]">
+                    "{t.quote}"
+                  </p>
+
+                  <div className="mt-7 border-t border-[#edf0f5] pt-5">
+                    <p className="text-[14px] font-bold text-[#0f172a]">
+                      {t.name}
+                    </p>
+
+                    <p className="mt-1 text-[11px] font-semibold text-[#94a3b8]">
+                      {t.role}
+                    </p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          {/* Dots */}
+          <div className="mt-7 flex justify-center gap-2">
+            {[0, 1, 2].map((dot) => (
+              <button
+                key={dot}
+                onClick={() => goToTestimonial(dot * 2 + 1)}
+                className={`h-2 rounded-full transition-all ${Math.floor(testimonialOrder[1] / 2) === dot
+                  ? "w-6 bg-[#2563eb]"
+                  : "w-2 bg-[#cbd5e1]"
+                  }`}
+              />
+            ))}
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function FAQ() {
+  const faqs = [
+    {
+      question: "Do you provide device setup support?",
+      answer:
+        "Yes. Our team can help with device setup, basic configuration and guidance so you can get started quickly and confidently.",
+    },
+    {
+      question: "Which brands do you support?",
+      answer:
+        "We work with a wide range of trusted technology brands and can help you choose the right solution for your requirements.",
+    },
+    {
+      question: "Do you provide after-sales assistance?",
+      answer:
+        "Yes. We provide ongoing assistance after your purchase and help with common setup, usage and support-related requirements.",
+    },
+    {
+      question: "Where is your store located?",
+      answer:
+        "Our store is located in Hubballi, Karnataka. You can visit us during business hours or use the location details provided in the Contact Us section.",
+    },
+    {
+      question: "How can I contact your team?",
+      answer:
+        "You can contact our team through the phone number, contact form or other contact details available on our website.",
+    },
+  ];
+
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const toggleFAQ = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <section
+      id="faq"
+      className="relative overflow-hidden bg-[#f8fafc] pt-8 pb-8 scroll-mt-[80px] lg:pt-8"
+    >
+      {/* Background glow */}
+      <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-[#2563eb]/5 blur-3xl" />
+
+      <div className="relative mx-auto max-w-5xl px-5 sm:px-6 lg:px-8">
+
+        {/* Header */}
+        <div className="text-center">
+          <p className="text-[11px] font-bold uppercase tracking-[3px] text-[#2563eb]">
+            Frequently Asked Questions
+          </p>
+
+          <h2 className="mx-auto mt-4 max-w-3xl text-[38px] font-extrabold leading-[1.05] tracking-tight text-[#0f172a] sm:text-5xl lg:text-[48px]">
+            Everything you need to{" "}
+            <span className="text-[#2563eb]">know.</span>
+          </h2>
+
+          <p className="mx-auto mt-5 max-w-xl text-[13px] leading-6 text-[#64748b] sm:text-[14px]">
+            Find answers to some of the most common questions about our
+            products, services and customer support.
+          </p>
+        </div>
+
+        {/* FAQ List */}
+        <div className="mt-14">
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+
+            return (
+              <div
+                key={faq.question}
+                className={`group border-b border-[#e2e8f0] transition-all duration-300 ${isOpen ? "bg-[#f8fafc]" : "bg-white"
+                  }`}
+              >
+                <button
+                  type="button"
+                  onClick={() => toggleFAQ(index)}
+                  aria-expanded={isOpen}
+                  className="flex w-full items-center gap-5 px-5 py-6 text-left sm:px-7 sm:py-7"
+                >
+                  {/* Number */}
+                  <span
+                    className={`shrink-0 text-[13px] font-bold tracking-[1.5px] transition-colors duration-300 ${isOpen
+                      ? "text-[#2563eb]"
+                      : "text-[#94a3b8]"
+                      }`}
+                  >
+                    0{index + 1}
+                  </span>
+
+                  {/* Question */}
+                  <span
+                    className={`flex-1 text-[15px] font-bold leading-6 transition-colors duration-300 sm:text-[15px] ${isOpen
+                      ? "text-[#2563eb]"
+                      : "text-[#0f172a] group-hover:text-[#2563eb]"
+                      }`}
+                  >
+                    {faq.question}
+                  </span>
+
+                  {/* Icon */}
+                  <span
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${isOpen
+                      ? "bg-[#2563eb] text-white"
+                      : "border border-[#dbe3ee] bg-white text-[#64748b] group-hover:border-[#2563eb] group-hover:text-[#2563eb]"
+                      }`}
+                  >
+                    {isOpen ? (
+                      <FiMinus size={16} />
+                    ) : (
+                      <FiPlus size={16} />
+                    )}
+                  </span>
+                </button>
+
+                {/* Answer */}
+                <div
+                  className={`grid transition-all duration-400 ease-in-out ${isOpen
+                    ? "grid-rows-[1fr] opacity-100"
+                    : "grid-rows-[0fr] opacity-0"
+                    }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="pb-7 pl-[52px] pr-14 sm:pl-[70px] sm:pr-20">
+                      <p className="max-w-2xl text-[12px] leading-6 text-[#64748b] sm:text-[13px]">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Contact() {
+  const contactDetails = [{ icon: IoMdCall, title: "Phone", value: "+91 836 426 6074", href: "tel:+918364266074" }, { icon: IoMdMail, title: "Email", value: "hello@yourstore.com", href: "mailto:hello@yourstore.com" }, { icon: IoMdPin, title: "Address", value: "Gf# 64, Laxmi Balkrishna Square, Harsha Complex, 1 Stage, Station Road, Hubballi, Karnataka 580020", href: "https://www.google.com/maps/search/?api=1&query=Gf%2364%2C%20Laxmi%20Balkrishna%20Square%2C%20Harsha%20Complex%2C%201%20Stage%2C%20Station%20Road%2C%20Hubballi%2C%20Karnataka%20580020" }];
+  return <section id="contact" className="bg-[#f8fafc] py-20 scroll-mt-[100px] lg:py-28"><div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8"><div className="grid gap-6 lg:grid-cols-[.8fr_1.2fr]"><div className="rounded-[28px] bg-[#06162d] p-7 text-white sm:p-10"><p className="text-[11px] font-bold uppercase tracking-[3px] text-[#60a5fa]">Get In Touch</p><h2 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-[48px]">Contact Us</h2><p className="mt-5 max-w-md text-[14px] leading-7 text-white/60">Have a question or need help choosing the right product? Our team is always here to help you.</p><div className="mt-9 space-y-5">{contactDetails.map(item => { const Icon = item.icon; return <a key={item.title} href={item.href} target="_blank" rel="noopener noreferrer" className="flex gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10"><div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#2563eb] text-white"><Icon size={20} /></div><div><p className="text-[10px] font-bold uppercase tracking-[2px] text-white/40">{item.title}</p><p className="mt-1 text-[13px] font-semibold leading-6 text-white/85">{item.value}</p></div></a> })}</div><a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-[12px] font-bold text-[#0f172a] transition hover:bg-[#dbeafe]"><IoMdPin size={16} /> View Location</a></div><div className="grid gap-4 sm:grid-cols-2"><div className="rounded-[24px] border border-[#e5eaf1] bg-[#f8fafc] p-7 transition hover:bg-white hover:shadow-xl"><IoMdPin size={26} /><p className="mt-6 text-[10px] font-bold uppercase tracking-[2px] text-[#94a3b8]">Visit Us</p><h3 className="mt-2 text-xl font-extrabold text-[#0f172a]">Our Store</h3><a href={contactDetails[2].href} target="_blank" rel="noopener noreferrer"><p className="mt-3 text-[13px] leading-6 text-[#64748b]">{contactDetails[2].value}</p></a></div><div className="rounded-[24px] border border-[#e5eaf1] bg-[#f8fafc] p-7 transition hover:bg-white hover:shadow-xl"><IoMdMail size={26} /><p className="mt-6 text-[10px] font-bold uppercase tracking-[2px] text-[#94a3b8]">Email Us</p><h3 className="mt-2 text-xl font-extrabold text-[#0f172a]">Send a Message</h3><a href="mailto:hello@yourstore.com" className="mt-3 block text-[13px] leading-6 text-[#64748b]">hello@yourstore.com<br />support@yourstore.com</a></div><div className="rounded-[24px] border border-[#e5eaf1] bg-[#f8fafc] p-7 transition hover:bg-white hover:shadow-xl"><IoMdCall size={26} /><p className="mt-6 text-[10px] font-bold uppercase tracking-[2px] text-[#94a3b8]">Call Us</p><h3 className="mt-2 text-xl font-extrabold text-[#0f172a]">Need Help?</h3><a href="tel:+918364266074" className="mt-3 block text-[13px] text-[#64748b]">+91 836 426 6074</a></div><div className="rounded-[24px] border border-[#e5eaf1] bg-[#f8fafc] p-7 transition hover:bg-white hover:shadow-xl"><PiTimerFill size={26} /><p className="mt-6 text-[10px] font-bold uppercase tracking-[2px] text-[#94a3b8]">Opening Hours</p><h3 className="mt-2 text-xl font-extrabold text-[#0f172a]">Store Hours</h3><p className="mt-3 text-[13px] leading-6 text-[#64748b]">Monday - Saturday<br />10:30 AM - 9:00 PM<br />Sunday - Closed</p></div></div></div></div></section>;
+}
+
+export function RepairSupportCTA() {
+  return <section className="bg-[#f8fafc] pb-20 lg:pt-0 lg:pb-28"><div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8"><div className="relative overflow-hidden rounded-[30px] bg-[#041124] shadow-[0_25px_60px_rgba(4,17,36,.16)]"><div className="absolute inset-0 bg-cover bg-center opacity-70" style={{ backgroundImage: "url('/assets/contact-bg.webp')" }} />{/* DARK OVERLAY */}
+    <div
+      className="
+              absolute
+              inset-0
+              bg-gradient-to-r
+              from-[#041124]/95
+              via-[#041124]/60
+              to-[#041124]/35
+            "
+    /><div className="relative z-10 flex min-h-[370px] items-center px-7 py-12 sm:px-12 lg:px-16"><div className="max-w-2xl"><p className="text-[11px] font-bold uppercase tracking-[3px] text-[#60a5fa]">Repair & Support</p><h2 className="mt-4 text-[38px] font-extrabold leading-tight tracking-tight text-white sm:text-5xl">Need Help With Your Phone?</h2><p className="mt-5 max-w-xl text-[14px] leading-7 text-white/60 sm:text-[16px]">From setup and troubleshooting to repairs and upgrades, our team is ready to help you get the most out of your device.</p><div className="mt-8 flex flex-wrap gap-3"><a href="#contact" className="inline-flex items-center gap-2 rounded-full bg-[#2563eb] px-6 py-3.5 text-[13px] font-bold text-white transition hover:bg-[#3b82f6]">Get Support <IoMdArrowRoundForward size={17} /></a><a href="tel:+918364266074" className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-[13px] font-bold text-white backdrop-blur transition hover:bg-white hover:text-[#0f172a]"><IoMdCall size={17} /> Call Us</a></div></div></div></div></div></section>;
+}
+
+
+export function Footer() {
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+  return (
+    <footer className="bg-[#020817] text-white">
+      <div className="mx-auto max-w-7xl px-5 py-14 sm:px-6 lg:px-8 lg:py-16">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+          <div><img src="/assets/logo.png" alt={shop.name} className="h-14 lg:h-18 w-auto object-contain" /><p className="mt-5 max-w-xs text-[13px] leading-6 text-white/45">Your one-stop destination for <br />premium tech gadgets and <br />accessories.</p></div>
+          <div className="lg:ml-12">
+            <h3 className="text-[13px] font-bold">Quick Links</h3>
+
+            <ul className="mt-5 space-y-3">
+              {["Home", "Products", "Repair", "Brands", "Contact"].map((x, i) => (
+                <li key={x}>
+                  <a
+                    href={["/", "/products", "/#repair", "/#brands", "/#contact"][i]}
+                    className="text-[12px] text-white/50 transition hover:text-white"
+                  >
+                    {x}
+                  </a>
+                </li>
+              ))}
+
+              {/* Privacy Policy */}
+              <li>
+                <button
+                  onClick={() => setIsPrivacyOpen(true)}
+                  className="text-[12px] text-white/50 transition hover:text-white"
+                >
+                  Privacy Policy
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div><h3 className="text-[13px] font-bold">Our Collection</h3><ul className="mt-5 space-y-3">{["Latest Gadgets", "Mobile Accessories", "Smart Devices", "Featured Products"].map(x => <li key={x} className="text-[12px] text-white/50">{x}</li>)}</ul></div>
+          <div>
+            <h3 className="text-[13px] font-bold">Store Info</h3>
+
+            <p className="mt-5 text-[12px] leading-6 text-white/50">
+              <a
+                href="tel:+918364266074"
+                className="transition-colors hover:text-white"
+              >
+                +91 836 426 6074
+              </a>
+              <br />
+              Monday to Saturday
+              <br />
+              10:30 AM - 9:00 PM
+              <br />
+              Sunday - Closed
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-[13px] font-bold">Store Location</h3>
+            <div className="mt-5 overflow-hidden rounded-xl border-8 border-white">
+              <iframe
+                src="https://www.google.com/maps?q=Gf%2364%2C%20Laxmi%20Balkrishna%20Square%2C%20Harsha%20Complex%2C%201%20Stage%2C%20Station%20Road%2C%20Hubballi%2C%20Karnataka%20580020&output=embed"
+                width="100%"
+                height="180"
+                style={{ border: 0 }}
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Store Location"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row"><p className="text-[11px] text-white/35 text-center sm:text-left">© 2026 {shop.name}. All rights reserved. Powered by <a href="https://www.spitel.com" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-[#60a5fa]">Spitel Pvt Ltd</a> </p><button onClick={() => setIsPrivacyOpen(true)} className="text-[11px] font-semibold text-white/45 hover:text-white hover:underline">Privacy Policy</button></div>
+      </div>
+
+      {/* ================= PRIVACY POLICY MODAL ================= */}
+      {isPrivacyOpen && (
+        <div
+          className="
+      fixed
+      inset-0
+      z-[999]
+      flex
+      items-center
+      justify-center
+      bg-black/60
+      backdrop-blur-sm
+      px-4
+      py-6
+    "
+        >
+          <div
+            className="
+        relative
+        w-full
+        max-w-[750px]
+        max-h-[85vh]
+        overflow-y-auto
+        rounded-[18px]
+        bg-white
+        p-6
+        sm:p-8
+        shadow-2xl
+      "
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setIsPrivacyOpen(false)}
+              className="
+          absolute
+          right-4
+          top-4
+          flex
+          h-9
+          w-9
+          items-center
+          justify-center
+          rounded-full
+          bg-[#0f172a]
+          text-xl
+          text-white
+          transition
+          hover:scale-110
+          hover:bg-[#1D2C60]
+        "
+              aria-label="Close Privacy Policy"
+            >
+              ×
+            </button>
+
+            {/* Heading */}
+            <h2 className="pr-10 font-poppins text-[28px] font-bold text-[#0f172a] sm:text-[32px]">
+              Privacy Policy
+            </h2>
+
+            <p className="mt-2 text-[13px] text-gray-500">
+              Last Updated: 2026
+            </p>
+
+            {/* Content */}
+            <div className="mt-6 space-y-7 font-poppins text-[14px] leading-7 text-gray-600">
+
+              {/* 1 */}
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#1D2C60]">
+                  1. Introduction
+                </h3>
+
+                <p>
+                  Recall Communications ("we", "our", or "us") respects your privacy and
+                  is committed to protecting the personal information of visitors and
+                  customers who use our website and services. This Privacy Policy
+                  explains what information we collect, why we collect it, how we use
+                  it, and how we protect it.
+                </p>
+              </div>
+
+
+              {/* 2 */}
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#1D2C60]">
+                  2. Information We Collect
+                </h3>
+
+                <p className="mb-3">
+                  We may collect information that you voluntarily provide when you
+                  interact with our website, contact us, or enquire about our products
+                  and services.
+                </p>
+
+                <ul className="list-disc space-y-1 pl-6">
+                  <li>Name and contact information</li>
+                  <li>Email address</li>
+                  <li>Phone or mobile number</li>
+                  <li>Information submitted through contact forms</li>
+                  <li>Product or service enquiry details</li>
+                  <li>Other information that you voluntarily provide</li>
+                </ul>
+              </div>
+
+
+              {/* 3 */}
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#1D2C60]">
+                  3. Information Collected Automatically
+                </h3>
+
+                <p>
+                  When you visit our website, certain technical information may
+                  automatically be collected, such as browser type, device information,
+                  general location information, pages visited, time spent on the
+                  website, and basic website usage information. This information helps
+                  us understand website performance and improve the user experience.
+                </p>
+              </div>
+
+
+              {/* 4 */}
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#1D2C60]">
+                  4. How We Use Your Information
+                </h3>
+
+                <p className="mb-3">
+                  Information collected from you may be used for the following purposes:
+                </p>
+
+                <ul className="list-disc space-y-1 pl-6">
+                  <li>To respond to your enquiries and requests</li>
+                  <li>To provide information about our products and services</li>
+                  <li>To communicate with you regarding your enquiry</li>
+                  <li>To provide customer support</li>
+                  <li>To improve our website and services</li>
+                  <li>To maintain website security and functionality</li>
+                  <li>To comply with applicable legal requirements</li>
+                </ul>
+              </div>
+
+
+              {/* 5 */}
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#1D2C60]">
+                  5. Communication
+                </h3>
+
+                <p>
+                  If you contact us through our website, phone, email, or other
+                  communication channels, we may use the information you provide to
+                  respond to your request. We will use your contact information only
+                  for legitimate business and communication purposes.
+                </p>
+              </div>
+
+
+              {/* 6 */}
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#1D2C60]">
+                  6. Cookies and Similar Technologies
+                </h3>
+
+                <p>
+                  Our website may use cookies or similar technologies to improve
+                  functionality, understand website usage, and provide a better browsing
+                  experience. You can manage or disable cookies through your browser
+                  settings. Disabling certain cookies may affect some website features.
+                </p>
+              </div>
+
+
+              {/* 7 */}
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#1D2C60]">
+                  7. Data Security
+                </h3>
+
+                <p>
+                  We take reasonable technical and organizational measures to protect
+                  personal information against unauthorized access, alteration,
+                  disclosure, misuse, or destruction. However, no method of transmission
+                  or electronic storage can be guaranteed to be completely secure.
+                </p>
+              </div>
+
+
+              {/* 8 */}
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#1D2C60]">
+                  8. Sharing of Information
+                </h3>
+
+                <p>
+                  We do not intentionally sell or rent your personal information.
+                  Information may be shared with trusted service providers when
+                  reasonably necessary to operate our website, respond to enquiries,
+                  provide services, maintain technical infrastructure, or comply with
+                  applicable laws and legal obligations.
+                </p>
+              </div>
+
+              {/* 9 */}
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#1D2C60]">
+                  9. Meta and Social Media Data
+                </h3>
+
+                <p>
+                  Our website may use Meta technologies, such as Meta Pixel or other Meta
+                  services, to understand website activity, measure advertising performance,
+                  and improve our services and user experience. Depending on your settings
+                  and applicable requirements, these technologies may collect information
+                  such as pages visited, actions taken on the website, device and browser
+                  information, and other usage-related data.
+                </p>
+
+                <p className="mt-3">
+                  Information collected through Meta technologies may be processed by Meta
+                  in accordance with Meta's applicable privacy policies and terms. We do not
+                  intentionally collect sensitive personal information through these
+                  technologies.
+                </p>
+              </div>
+
+
+              {/* 10 */}
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#1D2C60]">
+                  9. Third-Party Websites
+                </h3>
+
+                <p>
+                  Our website may contain links to third-party websites, platforms, or
+                  services. These third parties may have their own privacy policies and
+                  terms. We are not responsible for the privacy practices, security, or
+                  content of websites that are not operated by Recall Communications.
+                </p>
+              </div>
+
+
+              {/* 11 */}
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#1D2C60]">
+                  10. Data Retention
+                </h3>
+
+                <p>
+                  We retain personal information only for as long as reasonably
+                  necessary for the purposes for which it was collected, to provide
+                  services, maintain business records, resolve disputes, or meet
+                  applicable legal and regulatory requirements.
+                </p>
+              </div>
+
+
+              {/* 12 */}
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#1D2C60]">
+                  11. Your Privacy Rights
+                </h3>
+
+                <p>
+                  Depending on applicable law, you may have rights regarding your
+                  personal information, including requesting access to, correction of,
+                  or deletion of certain information. You may also contact us if you
+                  have concerns regarding how your information is handled.
+                </p>
+              </div>
+
+
+              {/* 13 */}
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#1D2C60]">
+                  12. Children's Privacy
+                </h3>
+
+                <p>
+                  Our website is not specifically intended for children. We do not
+                  knowingly collect personal information from children without
+                  appropriate consent where such consent is required by applicable law.
+                </p>
+              </div>
+
+
+              {/* 14 */}
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#1D2C60]">
+                  13. Changes to This Privacy Policy
+                </h3>
+
+                <p>
+                  We may update this Privacy Policy from time to time to reflect changes
+                  in our services, website functionality, legal requirements, or
+                  business practices. Any updated version will be made available on this
+                  page with the revised "Last Updated" date.
+                </p>
+              </div>
+
+
+              {/* 15 */}
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold text-[#1D2C60]">
+                  14. Contact Us
+                </h3>
+
+                <p>
+                  If you have any questions, concerns, or requests regarding this
+                  Privacy Policy or the way your personal information is handled, please
+                  contact Recall Communications through the contact details provided on
+                  our website.
+                </p>
+              </div>
+            </div>
+
+            {/* Bottom Close Button */}
+            <div className="mt-8 border-t border-gray-200 pt-5">
+              <button
+                onClick={() => setIsPrivacyOpen(false)}
+                className="
+            rounded-[8px]
+            bg-[#1D2C60]
+            px-6
+            py-3
+            text-[14px]
+            font-medium
+            text-white
+            transition
+            hover:bg-[#0f172a]
+          "
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </footer>
+  );
+}
+

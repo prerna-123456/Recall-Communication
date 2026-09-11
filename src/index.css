@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Kannada:wght@500;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-paper text-ink font-body antialiased;
+}
+
+::selection {
+  @apply bg-signal/20 text-navy-deep;
+}
+
+:focus-visible {
+  outline: 3px solid #eb0000;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.text-outline {
+  -webkit-text-stroke: 1.5px #182885;
+  color: transparent;
+}
+
+.bulb {
+  box-shadow: 0 0 8px 2px rgba(255, 184, 0, 0.85);
+}
+
+.shop-fade-up {
+  animation: shopFadeUp 0.75s ease both;
+}
+
+.shop-zoom-in {
+  animation: shopZoomIn 0.85s ease both;
+}
+
+.shop-float {
+  animation: shopFloat 4s ease-in-out infinite;
+}
+
+.site-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(4px);
+  transition:
+    opacity 720ms ease,
+    transform 720ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 720ms ease;
+  transition-delay: var(--site-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.site-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+main a,
+button {
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    background-color 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease;
+}
+
+main a:hover,
+button:hover {
+  transform: translateY(-2px);
+}
+
+section img {
+  transition:
+    transform 520ms ease,
+    opacity 520ms ease,
+    filter 520ms ease;
+}
+
+section a:hover img,
+section .group:hover img {
+  filter: saturate(1.08) contrast(1.04);
+}
+
+.site-reveal:nth-of-type(2n).is-visible {
+  animation: sectionGlow 900ms ease both;
+}
+
+@keyframes shopFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shopZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shopFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes sectionGlow {
+  0% {
+    box-shadow: inset 0 0 0 rgba(37, 99, 235, 0);
+  }
+  45% {
+    box-shadow: inset 0 1px 0 rgba(37, 99, 235, 0.08);
+  }
+  100% {
+    box-shadow: inset 0 0 0 rgba(37, 99, 235, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-reveal,
+  .site-reveal.is-visible,
+  .site-reveal:nth-of-type(2n).is-visible {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    animation: none;
+    transition: none;
+  }
+
+  main a:hover,
+  button:hover {
+    transform: none;
+  }
+}
