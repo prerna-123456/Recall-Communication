@@ -335,7 +335,7 @@ export function Header() {
     <header
       className={`fixed left-0 right-0 top-0 z-[100] transition-all duration-300 ${isScrolled
         ? "bg-white/95 text-[#0f172a] shadow-[0_8px_30px_rgba(15,23,42,0.08)] backdrop-blur-xl"
-        : "bg-transparent text-white backdrop-blur-sm"
+        : "bg-transparent text-black backdrop-blur-sm"
         }`}
     >
       <div className="mx-auto flex h-[78px] max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
@@ -347,6 +347,7 @@ export function Header() {
           <a href="#" className="relative py-2 text-[13px] font-bold">Home<span className="absolute -bottom-1 left-0 h-[2px] w-full rounded-full bg-[#2563eb]" /></a>
           <a href="#repair" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2563eb] hover:opacity-100">Repair</a>
           <a href="/products" onClick={navigateToShopPage} className="text-[13px] font-semibold opacity-80 transition hover:text-[#2563eb] hover:opacity-100">Products</a>
+          <a href="#about" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2563eb] hover:opacity-100">About Us</a>
           <a href="#brands" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2563eb] hover:opacity-100">Brands</a>
           <a href="#contact" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2563eb] hover:opacity-100">Contact</a>
         </nav>
@@ -361,50 +362,61 @@ export function Header() {
 
 export function Hero() {
   const desktopHeroImages = [
-    "/hero-bg2.webp",
-    "/hero-bg3.webp",
-    "/hero-bg.webp",
+    "/hero1.png",
+    "/hero2.png",
+    "/hero3.png",
   ];
 
   const mobileHeroImages = [
-    "/hero-bg.webp",
-    "/hero-bg5.png",
-    "/hero-bg6.png",
+    "/hero1.png",
+    "/hero2.png",
+    "/hero3.png",
   ];
 
   const heroSlides = [
     {
-      title: "Smart Tech.",
-      highlight: "Better Everyday.",
+      title: "Smart Tech",
+      highlight: "Better Everyday",
       description:
-        "Discover innovative gadgets and accessories built for performance and style.",
+        "Discover innovative gadgets and accessories built for performance and style",
     },
     {
-      title: "Power That",
-      highlight: "Moves With You.",
+      title: "Powerful Motion",
+      highlight: "Moves With You",
       description:
-        "Experience powerful devices designed to keep you connected wherever life takes you.",
+        "Experience powerful devices designed to keep you connected wherever life takes you",
     },
     {
-      title: "Technology.",
-      highlight: "Made Simple.",
+      title: "Technology",
+      highlight: "Made Simple",
       description:
-        "Premium gadgets and accessories that bring smarter experiences into your everyday life.",
+        "Premium gadgets and accessories that bring smarter experiences into your everyday life",
     },
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [direction, setDirection] = useState<"next" | "prev">("next");
+  const [direction, setDirection] =
+    useState<"next" | "prev">("next");
 
   const heroRef = useRef<HTMLElement | null>(null);
   const touchStartY = useRef<number | null>(null);
   const wheelLocked = useRef(false);
 
-  const changeSlide = (nextIndex: number, dir: "next" | "prev") => {
+  // =========================================================
+  // CHANGE SLIDE
+  // =========================================================
+
+  const changeSlide = (
+    nextIndex: number,
+    dir: "next" | "prev"
+  ) => {
     if (isAnimating) return;
 
-    if (nextIndex < 0 || nextIndex >= heroSlides.length) {
+    if (
+      nextIndex < 0 ||
+      nextIndex >= heroSlides.length
+    ) {
       return;
     }
 
@@ -416,8 +428,8 @@ export function Hero() {
 
       setTimeout(() => {
         setIsAnimating(false);
-      }, 80);
-    }, 650);
+      }, 100);
+    }, 900);
   };
 
   // =========================================================
@@ -438,7 +450,10 @@ export function Hero() {
 
       if (!heroIsVisible) return;
 
-      if (wheelLocked.current || isAnimating) {
+      if (
+        wheelLocked.current ||
+        isAnimating
+      ) {
         e.preventDefault();
         return;
       }
@@ -447,7 +462,7 @@ export function Hero() {
       const goingUp = e.deltaY < 0;
 
       // =====================================================
-      // DOWN SCROLL
+      // DOWN
       // =====================================================
 
       if (
@@ -465,13 +480,13 @@ export function Hero() {
 
         setTimeout(() => {
           wheelLocked.current = false;
-        }, 850);
+        }, 1150);
 
         return;
       }
 
       // =====================================================
-      // UP SCROLL
+      // UP
       // =====================================================
 
       if (
@@ -489,15 +504,19 @@ export function Hero() {
 
         setTimeout(() => {
           wheelLocked.current = false;
-        }, 850);
+        }, 1150);
 
         return;
       }
     };
 
-    window.addEventListener("wheel", handleWheel, {
-      passive: false,
-    });
+    window.addEventListener(
+      "wheel",
+      handleWheel,
+      {
+        passive: false,
+      }
+    );
 
     return () => {
       window.removeEventListener(
@@ -516,13 +535,21 @@ export function Hero() {
 
     if (!hero) return;
 
-    const handleTouchStart = (e: TouchEvent) => {
+    const handleTouchStart = (
+      e: TouchEvent
+    ) => {
       touchStartY.current =
         e.touches[0].clientY;
     };
 
-    const handleTouchEnd = (e: TouchEvent) => {
-      if (touchStartY.current === null) return;
+    const handleTouchEnd = (
+      e: TouchEvent
+    ) => {
+      if (
+        touchStartY.current === null
+      ) {
+        return;
+      }
 
       const endY =
         e.changedTouches[0].clientY;
@@ -596,152 +623,187 @@ export function Hero() {
       ref={heroRef}
       className="
         relative
-        mt-10
-        min-h-[600px]
+        mt-0
+        min-h-[550px]
         overflow-hidden
         bg-[#020817]
         text-white
+
+        sm:min-h-[500px]
+
         lg:mt-0
         lg:mb-0
-        lg:min-h-[760px]
+        lg:min-h-[670px]
       "
     >
-      {/* =====================================================
-          DESKTOP HERO IMAGES
-      ====================================================== */}
-
-      <div className="absolute inset-0 hidden lg:block">
-        {desktopHeroImages.map(
-          (image, index) => {
-            const isActive =
-              index === currentSlide;
-
-            return (
-              <div
-                key={image}
-                className={`
-                  absolute
-                  inset-0
-                  overflow-hidden
-                  ${
-                    isActive
-                      ? direction === "next"
-                        ? "hero-image-enter-right"
-                        : "hero-image-enter-left"
-                      : index < currentSlide
-                      ? "hero-image-exit-left"
-                      : "hero-image-hidden-right"
-                  }
-                `}
-              >
-                <img
-                  src={image}
-                  alt=""
-                  className="
-                    h-full
-                    w-full
-                    object-cover
-                    object-center
-                  "
-                />
-              </div>
-            );
-          }
-        )}
-      </div>
 
       {/* =====================================================
-          MOBILE HERO IMAGES
-      ====================================================== */}
-
-      <div className="absolute inset-0 lg:hidden">
-        {mobileHeroImages.map(
-          (image, index) => {
-            const isActive =
-              index === currentSlide;
-
-            return (
-              <div
-                key={image}
-                className={`
-                  absolute
-                  inset-0
-                  overflow-hidden
-                  ${
-                    isActive
-                      ? direction === "next"
-                        ? "hero-image-enter-right"
-                        : "hero-image-enter-left"
-                      : index < currentSlide
-                      ? "hero-image-exit-left"
-                      : "hero-image-hidden-right"
-                  }
-                `}
-              >
-                <img
-                  src={image}
-                  alt=""
-                  className="
-                    h-full
-                    w-full
-                    object-cover
-                    object-center
-                  "
-                />
-              </div>
-            );
-          }
-        )}
-      </div>
-
-      {/* =====================================================
-          OVERLAY
+          DESKTOP HERO SLIDER
       ====================================================== */}
 
       <div
         className="
           absolute
           inset-0
-          z-[4]
-          bg-gradient-to-r
-          from-[#020817]/75
-          via-[#020817]/30
-          to-[#020817]/10
+          hidden
+          overflow-hidden
+          lg:block
         "
-      />
+      >
+        <div
+          className="
+            flex
+            h-full
+            w-full
+            will-change-transform
+          "
+          style={{
+            transform: `translate3d(-${currentSlide * 100
+              }%, 0, 0)`,
 
-      {/* Blue Glow */}
+            transition:
+              "transform 1100ms cubic-bezier(0.22, 1, 0.36, 1)",
+          }}
+        >
+          {desktopHeroImages.map(
+            (image) => (
+              <div
+                key={image}
+                className="
+                  relative
+                  h-full
+                  min-w-full
+                  flex-shrink-0
+                "
+              >
+                <img
+                  src={image}
+                  alt=""
+                  draggable="false"
+                  className="
+                    h-full
+                    w-full
+                    select-none
+                    object-cover
+                    object-center
+                    will-change-transform
+                  "
+                />
+              </div>
+            )
+          )}
+        </div>
+      </div>
+
+      {/* =====================================================
+          MOBILE HERO SLIDER
+      ====================================================== */}
 
       <div
         className="
           absolute
+          inset-0
+          overflow-hidden
+          lg:hidden
+        "
+      >
+        {mobileHeroImages.map(
+          (image, index) => (
+            <div
+              key={image}
+              className="
+                absolute
+                inset-0
+                h-full
+                w-full
+                will-change-transform
+              "
+              style={{
+                transform: `translate3d(0, ${index <= currentSlide
+                    ? 0
+                    : 100
+                  }%, 0)`,
+
+                transition:
+                  "transform 1100ms cubic-bezier(0.22, 1, 0.36, 1)",
+
+                zIndex: index,
+              }}
+            >
+              <img
+                src={image}
+                alt=""
+                draggable="false"
+                className="
+                  h-full
+                  w-full
+                  select-none
+                  object-cover
+                  object-center
+                "
+              />
+            </div>
+          )
+        )}
+      </div>
+
+      {/* =====================================================
+          MOBILE DARK OVERLAY
+          Only mobile
+      ====================================================== */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          inset-0
+          z-[5]
+          bg-black/45
+          lg:hidden
+        "
+      />
+
+      {/* =====================================================
+          BLUE GLOW
+          Desktop only
+      ====================================================== */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
           -left-20
           top-1/3
           z-[4]
+          hidden
           h-80
           w-80
           rounded-full
           bg-[#2563eb]/10
           blur-[110px]
+          lg:block
         "
       />
 
       <div
         className="
+          pointer-events-none
           absolute
           right-0
           top-1/4
           z-[4]
+          hidden
           h-96
           w-96
           rounded-full
           bg-[#60a5fa]/10
           blur-[120px]
+          lg:block
         "
       />
 
       {/* =====================================================
-          CENTER CONTENT
+          CONTENT AREA
       ====================================================== */}
 
       <div
@@ -750,185 +812,283 @@ export function Hero() {
           z-10
           mx-auto
           flex
-          min-h-[600px]
+          min-h-[550px]
           max-w-7xl
           items-center
           justify-center
           px-5
-          pt-20
-          text-center
-          sm:min-h-[620px]
+          pt-16
+
+          sm:min-h-[500px]
           sm:px-6
-          sm:pt-24
-          lg:min-h-[760px]
+          sm:pt-20
+
+          lg:min-h-[670px]
+          lg:items-center
+          lg:justify-end
           lg:px-8
           lg:pt-0
         "
       >
+
+        {/* =================================================
+            CONTENT
+        ================================================= */}
+
         <div
-          key={currentSlide}
-          className={`
-            mx-auto
+          className="
             flex
             w-full
-            max-w-5xl
             flex-col
             items-center
             justify-center
             text-center
-            ${
-              direction === "next"
-                ? "hero-text-enter-bottom"
-                : "hero-text-enter-top"
-            }
-          `}
-        >
-          {/* =================================================
-              HEADING
-          ================================================= */}
 
-          <h1
-            className="
-              w-full
-              max-w-6xl
-              font-serif
-              text-[52px]
-              font-light
-              uppercase
-              leading-[0.88]
-              tracking-[3px]
-              text-white
-              drop-shadow-[0_5px_20px_rgba(0,0,0,0.45)]
-              sm:text-[72px]
-              sm:tracking-[5px]
-              md:text-[88px]
-              md:tracking-[6px]
-              lg:text-[105px]
-              lg:tracking-[8px]
+            lg:ml-auto
+            lg:w-[40%]
+            lg:max-w-[620px]
+            lg:shrink-0
+            lg:items-end
+            lg:justify-center
+            lg:text-right
           "
-          >
-            {activeSlide.title}
-
-            <br />
-
-            <span
-              className="
-                font-serif
-                font-light
-                tracking-[3px]
-                text-white/95
-                sm:tracking-[5px]
-                md:tracking-[6px]
-                lg:tracking-[8px]
-              "
-            >
-              {activeSlide.highlight}
-            </span>
-          </h1>
+        >
 
           {/* =================================================
-              DESCRIPTION
-          ================================================= */}
-
-          <p
-            className="
-              mt-7
-              max-w-2xl
-              text-center
-              text-[13px]
-              font-normal
-              leading-[1.7]
-              tracking-[0.15px]
-              text-white/95
-              drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]
-              sm:text-[14px]
-              lg:text-[15px]
-            "
-          >
-            {activeSlide.description}
-          </p>
-
-          {/* =================================================
-              BUTTONS
+              ANIMATED TEXT
           ================================================= */}
 
           <div
-            className="
-              mt-8
+            key={currentSlide}
+            className={`
               flex
-              flex-wrap
+              w-full
+              flex-col
               items-center
               justify-center
-              gap-4
-            "
+              text-center
+
+              ${direction === "next"
+                ? "hero-text-enter-bottom"
+                : "hero-text-enter-top"
+              }
+
+              lg:items-end
+              lg:text-right
+            `}
           >
-            <a
-              href="/products"
-              onClick={navigateToShopPage}
+
+            {/* =================================================
+                HEADING
+            ================================================= */}
+
+            <h1
               className="
-                group
-                inline-flex
-                items-center
-                gap-3
-                rounded-full
-                border
-                border-white/80
-                bg-white/5
-                px-7
-                py-3.5
-                text-[13px]
-                font-medium
-                tracking-[0.5px]
+                w-full
+
+                text-[36px]
+                font-extrabold
+                font-sans
+                uppercase
+                leading-[0.95]
+                tracking-[1px]
                 text-white
-                backdrop-blur-md
-                transition-all
-                duration-300
-                hover:bg-white
-                hover:text-[#020817]
+
+                drop-shadow-[0_5px_20px_rgba(0,0,0,0.45)]
+
+                sm:text-[48px]
+
+                md:text-[56px]
+
+                lg:text-[56px]
+                lg:tracking-[1px]
+                lg:text-black
+                lg:drop-shadow-[0_5px_20px_rgba(0,0,0,0.20)]
+
+                xl:text-[62px]
               "
             >
-              Explore Now
+              {activeSlide.title}
 
-              <span
+              <br />
+
+              <span>
+                {activeSlide.highlight}
+              </span>
+            </h1>
+
+            {/* =================================================
+                DESCRIPTION
+            ================================================= */}
+
+            <p
+              className="
+                mt-5
+                w-full
+                max-w-[420px]
+                text-center
+                text-[13px]
+                font-normal
+                leading-[1.6]
+                tracking-[0.1px]
+                text-white
+                drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]
+
+                sm:text-[14px]
+
+                lg:mt-6
+                lg:max-w-[480px]
+                lg:text-right
+                lg:text-[15px]
+                lg:leading-[1.6]
+                lg:text-black
+                lg:drop-shadow-[0_2px_8px_rgba(0,0,0,0.30)]
+              "
+            >
+              {activeSlide.description}
+            </p>
+
+            {/* =================================================
+                BUTTONS
+            ================================================= */}
+
+            <div
+              className="
+                mt-7
+                flex
+                w-full
+                items-center
+                justify-center
+                gap-2
+
+                lg:mt-8
+                lg:w-auto
+                lg:justify-end
+                lg:gap-4
+              "
+            >
+
+              {/* =================================================
+                  EXPLORE NOW
+              ================================================= */}
+
+              <a
+                href="/products"
+                onClick={
+                  navigateToShopPage
+                }
                 className="
-                  flex
-                  h-7
-                  w-7
+                  group
+                  inline-flex
+                  shrink-0
                   items-center
-                  justify-center
+                  gap-2
+                  whitespace-nowrap
                   rounded-full
-                  bg-white/15
-                  transition
-                  group-hover:translate-x-1
+                  border
+                  border-white/60
+                  bg-white/10
+                  px-4
+                  py-3
+                  text-[11px]
+                  font-medium
+                  tracking-[0.3px]
+                  text-white
+                  backdrop-blur-md
+                  transition-all
+                  duration-500
+                  ease-out
+
+                  hover:border-transparent
+                  hover:bg-white
+                  hover:text-[#020817]
+
+                  sm:px-5
+                  sm:text-[12px]
+
+                  lg:gap-3
+                  lg:px-7
+                  lg:py-3.5
+                  lg:text-[13px]
+                  lg:tracking-[0.5px]
+                  lg:border-black/30
+                  lg:bg-white/5
+                  lg:text-black
                 "
               >
-                <FiArrowRight size={15} />
-              </span>
-            </a>
+                Explore Now
 
-            <a
-              href="#shop"
-              className="
-                inline-flex
-                items-center
-                rounded-full
-                border
-                border-white/30
-                bg-white/5
-                px-7
-                py-3.5
-                text-[13px]
-                font-medium
-                tracking-[0.5px]
-                text-white
-                backdrop-blur-md
-                transition-all
-                duration-300
-                hover:bg-white/15
-              "
-            >
-              Explore Collection
-            </a>
+                <span
+                  className="
+                    flex
+                    h-6
+                    w-6
+                    shrink-0
+                    items-center
+                    justify-center
+                    rounded-full
+                    bg-white/20
+                    transition-all
+                    duration-500
+                    ease-out
+                    group-hover:translate-x-1
+
+                    lg:h-7
+                    lg:w-7
+                    lg:bg-black/10
+                  "
+                >
+                  <FiArrowRight
+                    size={14}
+                  />
+                </span>
+              </a>
+
+              {/* =================================================
+                  EXPLORE COLLECTION
+              ================================================= */}
+
+              <a
+                href="#shop"
+                className="
+                  inline-flex
+                  shrink-0
+                  items-center
+                  whitespace-nowrap
+                  rounded-full
+                  border
+                  border-white/60
+                  bg-white/10
+                  px-4
+                  py-3
+                  text-[11px]
+                  font-medium
+                  tracking-[0.3px]
+                  text-white
+                  backdrop-blur-md
+                  transition-all
+                  duration-500
+                  ease-out
+
+                  hover:bg-white/20
+
+                  sm:px-5
+                  sm:text-[12px]
+
+                  lg:px-7
+                  lg:py-3.5
+                  lg:text-[13px]
+                  lg:tracking-[0.5px]
+                  lg:border-black/30
+                  lg:bg-white/5
+                  lg:text-black
+                  lg:hover:bg-white/15
+                "
+              >
+                Explore Collection
+              </a>
+
+            </div>
           </div>
         </div>
       </div>
@@ -939,69 +1099,75 @@ export function Hero() {
 
       <div
         className="
-          absolute
-          bottom-7
-          left-1/2
-          z-30
-          flex
-          -translate-x-1/2
-          items-center
-          gap-3
-        "
-      >
-        {heroSlides.map(
-          (_, index) => (
-            <button
-              key={index}
-              type="button"
-              onClick={() => {
-                if (
-                  index === currentSlide
-                ) {
-                  return;
-                }
+    absolute
+    bottom-6
+    left-1/2
+    z-30
+    hidden
+    -translate-x-1/2
+    items-center
+    gap-2
 
-                changeSlide(
-                  index,
-                  index > currentSlide
-                    ? "next"
-                    : "prev"
-                );
-              }}
-              className={`
-                h-[3px]
-                rounded-full
-                transition-all
-                duration-500
-                ${
-                  currentSlide === index
-                    ? "w-16 bg-white"
-                    : "w-10 bg-white/30"
-                }
-              `}
-              aria-label={`Go to slide ${
-                index + 1
-              }`}
-            />
-          )
-        )}
+    lg:flex
+    lg:bottom-10
+    lg:gap-3
+  "
+      >
+        {heroSlides.map((_, index) => (
+          <button
+            key={index}
+            type="button"
+            onClick={() => {
+              if (
+                index === currentSlide ||
+                isAnimating
+              ) {
+                return;
+              }
+
+              changeSlide(
+                index,
+                index > currentSlide
+                  ? "next"
+                  : "prev"
+              );
+            }}
+            className={`
+        h-[6px]
+        rounded-full
+        transition-all
+        duration-700
+        ease-out
+
+        ${currentSlide === index
+                ? "w-16 bg-white"
+                : "w-10 bg-white/40"
+              }
+      `}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
       </div>
 
       {/* =====================================================
           BOTTOM FADE
+          Desktop only
       ====================================================== */}
 
       <div
         className="
+          pointer-events-none
           absolute
           bottom-0
           left-0
           right-0
           z-20
+          hidden
           h-50
           bg-gradient-to-t
           from-[#0f172a]
           to-transparent
+          lg:block
         "
       />
 
@@ -1012,179 +1178,62 @@ export function Hero() {
       <style>{`
 
         /* ==================================================
-           IMAGE
-           RIGHT → LEFT
-        ================================================== */
-
-        @keyframes heroImageEnterRight {
-          0% {
-            opacity: 1;
-            transform: translateX(100%);
-          }
-
-          100% {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-
-        /* ==================================================
-           IMAGE
-           LEFT → RIGHT
-        ================================================== */
-
-        @keyframes heroImageEnterLeft {
-          0% {
-            opacity: 1;
-            transform: translateX(-100%);
-          }
-
-          100% {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-
-        /* ==================================================
-           OLD IMAGE → LEFT
-        ================================================== */
-
-        @keyframes heroImageExitLeft {
-          0% {
-            opacity: 1;
-            transform: translateX(0);
-          }
-
-          100% {
-            opacity: 0;
-            transform: translateX(-100%);
-          }
-        }
-
-
-        /* ==================================================
-           FUTURE IMAGE → RIGHT
-        ================================================== */
-
-        @keyframes heroImageHiddenRight {
-          0% {
-            opacity: 0;
-            transform: translateX(100%);
-          }
-
-          100% {
-            opacity: 0;
-            transform: translateX(100%);
-          }
-        }
-
-
-        /* ==================================================
-           TEXT
-           BOTTOM → CENTER
+           TEXT ENTER — DOWN
         ================================================== */
 
         @keyframes heroTextEnterBottom {
+
           0% {
             opacity: 0;
-            transform: translateY(120px);
+            transform:
+              translate3d(0, 55px, 0)
+              scale(0.985);
+            filter: blur(2px);
           }
 
           45% {
-            opacity: 1;
+            opacity: 0.7;
+            filter: blur(0.5px);
           }
 
           100% {
             opacity: 1;
-            transform: translateY(0);
+            transform:
+              translate3d(0, 0, 0)
+              scale(1);
+            filter: blur(0);
           }
+
         }
 
 
         /* ==================================================
-           TEXT
-           TOP → CENTER
+           TEXT ENTER — UP
         ================================================== */
 
         @keyframes heroTextEnterTop {
+
           0% {
             opacity: 0;
-            transform: translateY(-120px);
+            transform:
+              translate3d(0, -55px, 0)
+              scale(0.985);
+            filter: blur(2px);
           }
 
           45% {
-            opacity: 1;
+            opacity: 0.7;
+            filter: blur(0.5px);
           }
 
           100% {
             opacity: 1;
-            transform: translateY(0);
+            transform:
+              translate3d(0, 0, 0)
+              scale(1);
+            filter: blur(0);
           }
-        }
 
-
-        /* ==================================================
-           IMAGE ANIMATION
-        ================================================== */
-
-        .hero-image-enter-right {
-          z-index: 3;
-          opacity: 1;
-
-          animation:
-            heroImageEnterRight
-            700ms
-            cubic-bezier(
-              0.22,
-              1,
-              0.36,
-              1
-            )
-            forwards;
-        }
-
-
-        .hero-image-enter-left {
-          z-index: 3;
-          opacity: 1;
-
-          animation:
-            heroImageEnterLeft
-            700ms
-            cubic-bezier(
-              0.22,
-              1,
-              0.36,
-              1
-            )
-            forwards;
-        }
-
-
-        .hero-image-exit-left {
-          z-index: 2;
-          opacity: 0;
-          transform: translateX(-100%);
-
-          animation:
-            heroImageExitLeft
-            700ms
-            cubic-bezier(
-              0.22,
-              1,
-              0.36,
-              1
-            )
-            forwards;
-        }
-
-
-        .hero-image-hidden-right {
-          z-index: 1;
-          opacity: 0;
-          transform: translateX(100%);
         }
 
 
@@ -1193,30 +1242,55 @@ export function Hero() {
         ================================================== */
 
         .hero-text-enter-bottom {
+
           animation:
             heroTextEnterBottom
-            700ms
+            850ms
             cubic-bezier(
               0.22,
               1,
               0.36,
               1
             )
-            forwards;
+            both;
+
+          will-change:
+            transform,
+            opacity,
+            filter;
+
         }
 
 
         .hero-text-enter-top {
+
           animation:
             heroTextEnterTop
-            700ms
+            850ms
             cubic-bezier(
               0.22,
               1,
               0.36,
               1
             )
-            forwards;
+            both;
+
+          will-change:
+            transform,
+            opacity,
+            filter;
+
+        }
+
+
+        /* ==================================================
+           IMAGE PERFORMANCE
+        ================================================== */
+
+        img {
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          transform: translateZ(0);
         }
 
 
@@ -1225,19 +1299,39 @@ export function Hero() {
         ================================================== */
 
         @media (prefers-reduced-motion: reduce) {
-          .hero-image-enter-right,
-          .hero-image-enter-left,
-          .hero-image-exit-left,
+
           .hero-text-enter-bottom,
           .hero-text-enter-top {
+
             animation-duration: 1ms !important;
+
           }
+
+        }
+
+
+        /* ==================================================
+           LARGE SCREEN EXTRA SPACING
+        ================================================== */
+
+        @media (min-width: 1536px) {
+
+          .hero-text-enter-bottom,
+          .hero-text-enter-top {
+
+            will-change:
+              transform,
+              opacity;
+
+          }
+
         }
 
       `}</style>
     </section>
   );
 }
+
 
 export function BrandMarquee() {
   const brands = [
@@ -1247,6 +1341,7 @@ export function BrandMarquee() {
     "/assets/brand4.png",
     "/assets/brand5.png",
     "/assets/brand6.png",
+    "/assets/brand7.jpg",
     "/assets/brand8.png",
     "/assets/brand10.png",
     "/assets/brand11.png",
@@ -1256,44 +1351,88 @@ export function BrandMarquee() {
   return (
     <section
       id="brands"
-      className="relative overflow-hidden border-b bg-[#f8fafc] pb-7 pt-16 scroll-mt-[80px]"
+      className="
+        relative
+        overflow-hidden
+        border-b
+        bg-[#f8fafc]
+        pb-7
+        lg:pt-16
+        scroll-mt-[80px]
+      "
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
-        <div className="mb-16 flex items-center justify-between gap-4">
-          <p className="mt-4 text-[36px] font-extrabold leading-[1.08] tracking-tight text-[#0f172a] sm:text-5xl lg:text-[48px]">
-            Trusted Brand Partners
+
+        {/* ================= HEADING ================= */}
+
+        <div
+          className="
+            mb-10
+            flex
+            items-center
+            justify-between
+            gap-4
+            sm:mb-16
+          "
+        >
+          <p
+            className="
+              mt-4
+              text-[36px]
+              font-sans
+              font-extrabold
+              leading-[1.08]
+              tracking-tight
+              text-[#0f172a]
+              sm:text-5xl
+              lg:text-[48px]
+            "
+          >
+            Trusted{" "}
+            <span className="text-[#2563eb]">
+              Brand
+            </span>{" "}
+            Partners
           </p>
 
           <div className="hidden h-px flex-1 sm:block" />
         </div>
       </div>
 
-      {/* Logo Marquee */}
+      {/* ================= LOGOS ================= */}
+
       <div className="overflow-hidden">
-        <div className="flex w-max animate-marquee items-center gap-4 px-5 sm:gap-5 lg:gap-10">
-          {[...brands, ...brands].map((brand, i) => (
+
+        {/* =====================================================
+            MOBILE LAYOUT
+            2 LOGOS PER ROW
+        ====================================================== */}
+
+        <div
+          className="
+            grid
+            grid-cols-2
+            gap-3
+            px-5
+            sm:hidden
+          "
+        >
+          {brands.map((brand, i) => (
             <div
               key={`${brand}-${i}`}
               className="
+                group
                 flex
-                h-16
-                w-36
-                shrink-0
+                h-[78px]
+                w-full
                 items-center
                 justify-center
-                rounded-xl
-                bg-[#e5e7eb]
+                rounded-2xl
+                border
+                border-[#e7ebf0]
                 px-5
-                py-3
-                transition-all
-                duration-300
-                hover:bg-[#d1d5db]
-                sm:h-20
-                sm:w-40
-                sm:px-6
-                lg:h-20
-                lg:w-44
-                lg:px-7
+                py-4
+                shadow-[0_2px_10px_rgba(15,23,42,0.03)]
               "
             >
               <img
@@ -1304,18 +1443,85 @@ export function BrandMarquee() {
                   h-full
                   w-full
                   object-contain
-                  opacity-70
                   grayscale
+                  opacity-70
                   transition-all
                   duration-300
-                  hover:scale-105
-                  hover:opacity-100
-                  hover:grayscale-0
+                  ease-out
+                  group-hover:scale-110
+                  group-hover:grayscale-0
+                  group-hover:opacity-100
                 "
               />
             </div>
           ))}
         </div>
+
+        {/* =====================================================
+            TABLET + DESKTOP
+            EXISTING LAYOUT — UNCHANGED
+        ====================================================== */}
+
+        <div
+          className="
+            hidden
+            sm:block
+          "
+        >
+          <div
+            className="
+              flex
+              items-center
+              justify-center
+              gap-5
+              px-6
+              lg:gap-10
+              lg:px-8
+              flex-wrap
+            "
+          >
+            {brands.map((brand, i) => (
+              <div
+                key={`${brand}-${i}`}
+                className="
+                  group
+                  flex
+                  h-20
+                  w-40
+                  shrink-0
+                  items-center
+                  justify-center
+                  rounded-xl
+                  px-6
+                  py-3
+                  lg:h-20
+                  lg:w-44
+                  lg:px-7
+                "
+              >
+                <img
+                  src={brand}
+                  alt="Our Brand Partners"
+                  className="
+                    block
+                    h-full
+                    w-full
+                    object-contain
+                    grayscale
+                    opacity-70
+                    transition-all
+                    duration-300
+                    ease-out
+                    group-hover:scale-125
+                    group-hover:grayscale-0
+                    group-hover:opacity-100
+                  "
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );
@@ -1326,154 +1532,574 @@ export function WhatWeDo() {
     {
       title: "Buy & Sell Devices",
       image: "/do1.webp",
-      description: "Find the right device or sell your old one with ease.",
+      description:
+        "Find the right device or sell your old one with ease.",
+      features: ["BUY", "SELL"],
     },
     {
       title: "Mobile Repair",
       image: "/do2.webp",
-      description: "Quick, reliable and expert repairs for all your devices.",
+      description:
+        "Quick, reliable and expert repairs for all your devices.",
+      features: ["REPAIR", "SUPPORT"],
     },
     {
       title: "Audio Device Repair",
       image: "/do3.webp",
-      description: "Get your audio devices back to perfect sound.",
+      description:
+        "Get your audio devices back to perfect sound.",
+      features: ["AUDIO", "REPAIR"],
     },
     {
       title: "Accessories",
       image: "/do4.webp",
-      description: "Premium accessories for a better everyday experience.",
+      description:
+        "Premium accessories for a better everyday experience.",
+      features: ["MOBILE", "AUDIO"],
     },
     {
       title: "Device Setup",
       image: "/do5.webp",
-      description: "Get your device ready for everything that's next.",
+      description:
+        "Get your device ready for everything that's next.",
+      features: ["SETUP", "GUIDANCE"],
     },
     {
       title: "Troubleshooting",
       image: "/do7.webp",
-      description: "We'll find the issue and fix it fast.",
+      description:
+        "We'll find the issue and fix it fast.",
+      features: ["DIAGNOSIS", "SUPPORT"],
     },
     {
       title: "Mobile Covers",
       image: "/do6.webp",
-      description: "Stylish protection designed for your device.",
+      description:
+        "Stylish protection designed for your device.",
+      features: ["STYLE", "PROTECTION"],
     },
     {
       title: "Device Care",
       image: "/do8.webp",
-      description: "Keep your device clean, safe and looking new.",
+      description:
+        "Keep your device clean, safe and looking new.",
+      features: ["CARE", "PROTECTION"],
     },
   ];
+
+  /*
+   * ============================================================
+   * INFINITE CAROUSEL
+   * ============================================================
+   */
+
+  const carouselServices = [
+    ...services,
+    ...services,
+    ...services,
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(
+    services.length
+  );
+
+  const [isTransitioning, setIsTransitioning] =
+    useState(true);
+
+  const resetTimeoutRef =
+    useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  /*
+   * ============================================================
+   * AUTO SLIDE
+   * ============================================================
+   */
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsTransitioning(true);
+
+      setCurrentIndex((prev) => prev + 1);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  /*
+   * ============================================================
+   * INVISIBLE INFINITE LOOP RESET
+   * ============================================================
+   */
+
+  useEffect(() => {
+    if (currentIndex >= services.length * 2) {
+      resetTimeoutRef.current = setTimeout(() => {
+        setIsTransitioning(false);
+
+        setCurrentIndex(services.length);
+      }, 850);
+    }
+
+    return () => {
+      if (resetTimeoutRef.current) {
+        clearTimeout(resetTimeoutRef.current);
+      }
+    };
+  }, [currentIndex, services.length]);
+
+  /*
+   * ============================================================
+   * RE-ENABLE TRANSITION
+   * ============================================================
+   */
+
+  useEffect(() => {
+    if (!isTransitioning) {
+      const timer = setTimeout(() => {
+        setIsTransitioning(true);
+      }, 50);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isTransitioning]);
 
   return (
     <section
       id="what-we-do"
-      className="scroll-mt-[80px] bg-[#f8fafc] py-20 lg:pt-28 lg:pb-28"
+      className="
+        scroll-mt-[80px]
+        overflow-x-clip
+        bg-[#f8fafc]
+        py-20
+        pb-[120px]
+        lg:pt-28
+        lg:pb-[150px]
+      "
     >
-      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+      {/* ========================================================
+          HEADER
+          ======================================================== */}
 
-        {/* ================= HEADER ================= */}
-        <div className="max-w-3xl text-left">
-          <p className="text-[11px] font-bold uppercase tracking-[3px] text-[#2563eb]">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center">
+
+          {/* SMALL LABEL */}
+
+          <p
+            className="
+              text-[11px]
+              font-bold
+              uppercase
+              tracking-[3px]
+              text-[#2563eb]
+            "
+          >
             What We Do
           </p>
 
-          <h2 className="mt-4 text-[38px] font-extrabold leading-[1.08] tracking-tight text-[#0f172a] sm:text-[48px]">
+          {/* MAIN HEADING */}
+
+          <h2
+            className="
+              mt-4
+              text-[36px]
+              font-sans
+              font-extrabold
+              leading-[1.08]
+              tracking-tight
+              text-[#0f172a]
+              sm:text-[48px]
+            "
+          >
             Everything you need,
             <br />
+
             <span className="text-[#2563eb]">
               all in one place.
             </span>
           </h2>
+
         </div>
+      </div>
 
-        {/* ================= SERVICES ================= */}
-        <div className="mt-12 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-5 lg:gap-y-12">
-          {services.map((service, index) => (
-            <article
-              key={`${service.title}-${index}`}
-              className="group"
-            >
-              <div className="relative aspect-[0.78] overflow-hidden rounded-[15px] lg:rounded-[30px]">
+      {/* ========================================================
+          DESKTOP CAROUSEL
+          ======================================================== */}
 
-                {/* IMAGE */}
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
+      <div
+        className="
+          mt-12
+          hidden
+          w-full
+          overflow-visible
+          lg:block
+        "
+      >
+        <div
+          className={`
+            flex
+            items-start
+            gap-[20px]
 
-                {/* DARK OVERLAY */}
+            ${isTransitioning
+              ? "transition-transform duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+              : ""
+            }
+          `}
+          style={{
+            transform: `
+              translateX(
+                calc(
+                  -${currentIndex} * (22vw + 20px)
+                  + 11vw
+                  - 10px
+                )
+              )
+            `,
+          }}
+        >
+          {carouselServices.map((service, index) => {
+            const originalIndex =
+              index % services.length;
+
+            const isLowerCard =
+              originalIndex % 2 === 0;
+
+            return (
+              <article
+                key={`${service.title}-${index}`}
+                className={`
+                  group
+                  relative
+                  shrink-0
+                  w-[calc(22vw-10px)]
+
+                  transition-transform
+                  duration-700
+                  ease-out
+
+                  ${isLowerCard
+                    ? "translate-y-[30px]"
+                    : "translate-y-0"
+                  }
+                `}
+              >
+                {/* ==================================================
+                    IMAGE CARD
+                    ================================================== */}
+
                 <div
                   className="
-                    absolute inset-0
-                    bg-gradient-to-t
-                    from-black/80
-                    via-black/30
-                    to-transparent
-                    transition-all
-                    duration-500
-                    group-hover:from-black/95
-                    group-hover:via-black/55
-                    group-hover:to-black/10
+                    relative
+                    aspect-[0.78]
+                    overflow-hidden
+                    rounded-[30px]
+                    bg-[#e5e7eb]
                   "
-                />
+                >
+                  {/* IMAGE */}
 
-                {/* CONTENT */}
-                <div className="absolute inset-x-0 bottom-3 p-2 sm:p-6 lg:p-6">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="
+                      h-full
+                      w-full
+                      object-cover
+                      transition-transform
+                      duration-700
+                      ease-out
+                      group-hover:scale-105
+                    "
+                  />
+
+                  {/* DARK IMAGE OVERLAY */}
+
+                  <div
+                    className="
+                      absolute
+                      inset-0
+                      bg-gradient-to-t
+                      from-black/35
+                      via-transparent
+                      to-black/10
+                    "
+                  />
+
+                  {/* ==================================================
+                      TWO FEATURES
+                      ================================================== */}
+
+                  <div
+                    className="
+                      absolute
+                      left-4
+                      top-4
+                      flex
+                      gap-2
+                    "
+                  >
+                    {service.features.map((feature) => (
+                      <span
+                        key={feature}
+                        className="
+                          rounded-full
+                          border
+                          border-white/30
+                          bg-black/30
+                          px-3
+                          py-1.5
+                          text-[8px]
+                          font-bold
+                          uppercase
+                          tracking-[1px]
+                          text-white
+                          backdrop-blur-md
+                        "
+                      >
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* ==================================================
+                    TITLE + DESCRIPTION BELOW IMAGE
+                    ================================================== */}
+
+                <div className="pt-4 px-1">
 
                   {/* TITLE */}
+
                   <h3
                     className="
-                      text-[14px]
+                      text-[17px]
+                      font-sans
                       font-extrabold
-                      uppercase
                       leading-tight
-                      tracking-[1px]
-                      text-white
-                      transition-transform
-                      duration-500
-                      sm:text-[16px]
-                      lg:text-[17px]
-                      group-hover:-translate-y-[42px]
+                      tracking-tight
+                      text-[#0f172a]
                     "
                   >
                     {service.title}
                   </h3>
 
-                  {/* SUBTEXT */}
+                  {/* DESCRIPTION */}
+
                   <p
                     className="
-                      absolute
-                      left-2
-                      right-2
-                      bottom-3
-                      translate-y-5
-                      text-[11px]
-                      leading-[1.5]
-                      text-white/85
-                      opacity-0
-                      transition-all
-                      duration-500
-                      sm:left-6
-                      sm:right-16
-                      sm:bottom-6
-                      sm:text-[12px]
-                      lg:text-[13px]
-                      group-hover:translate-y-0
-                      group-hover:opacity-100
+                      mt-2
+                      max-w-[95%]
+                      text-[12px]
+                      font-sans
+                      leading-5
+                      text-[#64748b]
                     "
                   >
                     {service.description}
                   </p>
 
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
-
       </div>
+
+      {/* ========================================================
+          MOBILE CAROUSEL
+          ======================================================== */}
+
+      <div
+        className="
+          mt-10
+          overflow-x-clip
+          overflow-y-visible
+          lg:hidden
+        "
+      >
+        <div
+          className={`
+            flex
+            items-start
+            gap-4
+
+            ${isTransitioning
+              ? "transition-transform duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+              : ""
+            }
+          `}
+          style={{
+            transform: `
+              translateX(
+                calc(
+                  -${currentIndex} * (78vw + 16px)
+                  + 11vw
+                )
+              )
+            `,
+          }}
+        >
+          {carouselServices.map((service, index) => {
+            const originalIndex =
+              index % services.length;
+
+            const isLowerCard =
+              originalIndex % 2 === 0;
+
+            return (
+              <article
+                key={`mobile-${service.title}-${index}`}
+                className={`
+                  group
+                  relative
+                  shrink-0
+                  w-[78vw]
+
+                  transition-transform
+                  duration-700
+                  ease-out
+
+                  ${isLowerCard
+                    ? "translate-y-[30px]"
+                    : "translate-y-0"
+                  }
+                `}
+              >
+                {/* ==================================================
+                    MOBILE IMAGE CARD
+                    ================================================== */}
+
+                <div
+                  className="
+                    relative
+                    aspect-[0.78]
+                    overflow-hidden
+                    rounded-[22px]
+                    bg-[#e5e7eb]
+                  "
+                >
+                  {/* IMAGE */}
+
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="
+                      h-full
+                      w-full
+                      object-cover
+                      transition-transform
+                      duration-700
+                      ease-out
+                      group-hover:scale-105
+                    "
+                  />
+
+                  {/* OVERLAY */}
+
+                  <div
+                    className="
+                      absolute
+                      inset-0
+                      bg-gradient-to-t
+                      from-black/35
+                      via-transparent
+                      to-black/10
+                    "
+                  />
+
+                  {/* ==================================================
+                      TWO FEATURES
+                      ================================================== */}
+
+                  <div
+                    className="
+                      absolute
+                      left-3
+                      top-3
+                      flex
+                      gap-1.5
+                    "
+                  >
+                    {service.features.map((feature) => (
+                      <span
+                        key={feature}
+                        className="
+                          rounded-full
+                          border
+                          border-white/30
+                          bg-black/30
+                          px-2.5
+                          py-1
+                          text-[7px]
+                          font-bold
+                          uppercase
+                          tracking-[0.8px]
+                          text-white
+                          backdrop-blur-md
+                        "
+                      >
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* ==================================================
+                    MOBILE TITLE + DESCRIPTION
+                    ================================================== */}
+
+                <div className="px-1 pt-3">
+
+                  {/* TITLE */}
+
+                  <h3
+                    className="
+                      text-[15px]
+                      font-sans
+                      font-extrabold
+                      leading-tight
+                      tracking-tight
+                      text-[#0f172a]
+                    "
+                  >
+                    {service.title}
+                  </h3>
+
+                  {/* DESCRIPTION */}
+
+                  <p
+                    className="
+                      mt-1.5
+                      text-[11px]
+                      font-sans
+                      leading-5
+                      text-[#64748b]
+                    "
+                  >
+                    {service.description}
+                  </p>
+
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ========================================================
+          STYLING
+          ======================================================== */}
+
+      <style>{`
+        #what-we-do {
+          overflow-x: clip;
+        }
+
+        #what-we-do * {
+          box-sizing: border-box;
+        }
+      `}</style>
     </section>
   );
 }
@@ -1497,25 +2123,62 @@ export function AboutUs() {
   return (
     <section
       id="repair"
-      className="relative overflow-hidden bg-[#f8fafc] pb-16 pt-6 lg:pt-10 lg:pb-28 scroll-mt-[100px]"
+      className="
+        relative
+        overflow-hidden
+        bg-[#f8fafc]
+        scroll-mt-[100px]
+        lg:min-h-[calc(100vh-80px)]
+        lg:flex
+        lg:items-center
+      "
     >
       {/* Background decoration */}
       <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-[#2563eb]/5 blur-3xl" />
+
       <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-[#2563eb]/5 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
-
+      <div
+        className="
+          relative
+          mx-auto
+          w-full
+          max-w-7xl
+          px-5
+          py-8
+          sm:px-6
+          lg:px-8
+          lg:py-10
+        "
+      >
         {/* ================= TOP HEADING ================= */}
-        <div className="mb-14 flex items-end justify-between gap-6">
+        <div className="mb-7 flex items-end justify-between gap-6">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[3px] text-[#2563eb]">
+            <p className="text-[10px] font-bold uppercase tracking-[3px] text-[#2563eb]">
               Repair
             </p>
 
-            <h2 className="mt-4 text-[36px] font-extrabold leading-[1.08] tracking-tight text-[#0f172a] sm:text-5xl lg:text-[48px]">
-              Reliable repairs.
+            <h2
+              className="
+      mt-3
+      text-[36px]
+      font-sans
+      font-extrabold
+      leading-[1.08]
+      tracking-tight
+      text-[#0f172a]
+      sm:text-4xl
+      lg:text-[42px]
+    "
+            >
+              Reliable repairs
               <br />
-              <span className="text-[#2563eb]">
+              <span
+                className="
+        whitespace-nowrap
+        text-[#2563eb]
+      "
+              >
                 Better performance.
               </span>
             </h2>
@@ -1525,64 +2188,207 @@ export function AboutUs() {
         </div>
 
         {/* ================= MAIN LAYOUT ================= */}
-        <div className="grid overflow-hidden rounded-[30px] border border-[#e2e8f0] bg-white lg:grid-cols-[0.9fr_1.05fr_1fr]">
-
+        <div
+          className="
+            grid
+            overflow-hidden
+            rounded-[28px]
+            border
+            border-[#e2e8f0]
+            bg-white
+            lg:grid-cols-[0.9fr_1.05fr_1fr]
+          "
+        >
           {/* ================= LEFT CONTENT ================= */}
-          <div className="flex flex-col justify-center border-b border-[#e2e8f0] p-7 sm:p-10 lg:border-b-0 lg:border-r lg:p-10 xl:p-12">
+          <div
+            className="
+              flex
+              flex-col
+              justify-center
+              border-b
+              border-[#e2e8f0]
+              p-6
+              sm:p-8
+              lg:border-b-0
+              lg:p-8
+              xl:p-10
+            "
+          >
+            {/* Small Heading */}
+            <div className="mb-5">
 
-            {/* Existing first paragraph */}
-            <p className="max-w-md text-[15px] leading-7 text-[#64748b] lg:text-[14px]">
+              <h3
+                className="
+                  mt-2
+                  text-[22px]
+                  font-extrabold
+                  leading-tight
+                  text-[#0f172a]
+                  lg:text-[24px]
+                "
+              >
+                Care you can count on
+              </h3>
+            </div>
+
+            {/* First Paragraph */}
+            <p
+              className="
+                max-w-md
+                text-[14px]
+                leading-6
+                text-[#64748b]
+                lg:text-[13px]
+              "
+            >
               We provide dependable repair solutions for a wide range of
               devices. From common issues to technical problems, our goal is
               to restore your device and get it working smoothly again.
             </p>
 
-            {/* Existing second paragraph */}
-            <p className="mt-5 max-w-md text-[15px] leading-7 text-[#64748b] lg:text-[14px]">
+            {/* Second Paragraph */}
+            <p
+              className="
+                mt-4
+                max-w-md
+                text-[14px]
+                leading-6
+                text-[#64748b]
+                lg:text-[13px]
+              "
+            >
               With careful attention to every repair, we focus on quality
               workmanship, honest guidance and reliable support you can trust.
             </p>
           </div>
 
           {/* ================= CENTER VIDEO ================= */}
-          <div className="relative min-h-[350px] rounded-[30px] overflow-hidden sm:min-h-[500px] lg:min-h-[350px]">
+          <div
+            className="
+              flex
+              items-center
+              justify-center
+              bg-white
+              px-4
+              py-5
+              sm:px-6
+              sm:py-6
+              lg:px-4
+              lg:py-5
+            "
+          >
+            <div
+              className="
+                relative
+                w-full
+                overflow-hidden
+                rounded-[24px]
+                min-h-[270px]
+                sm:min-h-[330px]
+                lg:min-h-[290px]
+                xl:min-h-[310px]
+              "
+            >
+              <video
+                src="/repair.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="
+                  absolute
+                  inset-0
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
 
-            <video
-              src="/about-video.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-
-            {/* Video overlay */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#020817]/30 via-transparent to-transparent" />
+              {/* Video overlay */}
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  inset-0
+                  bg-gradient-to-t
+                  from-[#020817]/30
+                  via-transparent
+                  to-transparent
+                "
+              />
+            </div>
           </div>
 
           {/* ================= RIGHT HIGHLIGHTS ================= */}
           <div className="flex flex-col justify-between bg-white">
-
             <div>
               {highlights.map((item, index) => (
                 <div
                   key={item.title}
-                  className="group relative flex min-h-[105px] items-center justify-between border-b border-[#e8edf3] px-7 py-5 transition-all duration-300 hover:bg-[#f8fafc] sm:px-8 lg:px-9"
+                  className="
+                    group
+                    relative
+                    flex
+                    min-h-[100px]
+                    items-center
+                    justify-between
+                    border-b
+                    border-[#e8edf3]
+                    px-6
+                    py-4
+                    transition-all
+                    duration-300
+                    hover:bg-[#f8fafc]
+                    sm:px-7
+                    lg:px-8
+                  "
                 >
                   <div className="flex items-center gap-4">
-
                     {/* Number */}
-                    <span className="text-[11px] font-bold tracking-[1px] text-[#94a3b8] transition-colors duration-300 group-hover:text-[#2563eb]">
+                    <span
+                      className="
+                        text-[10px]
+                        font-bold
+                        tracking-[1px]
+                        text-[#94a3b8]
+                        transition-colors
+                        duration-300
+                        group-hover:text-[#2563eb]
+                      "
+                    >
                       0{index + 1}
                     </span>
 
                     <div>
-                      <h3 className="text-[15px] font-extrabold text-[#0f172a] lg:text-[14px]">
+                      {/* Title */}
+                      <h3
+                        className="
+                          text-[14px]
+                          font-extrabold
+                          text-[#0f172a]
+                          lg:text-[13px]
+                        "
+                      >
                         {item.title}
                       </h3>
 
                       {/* Text appears on hover */}
-                      <p className="mt-1 max-h-0 max-w-[260px] overflow-hidden text-[12px] leading-5 text-[#64748b] opacity-0 transition-all duration-300 group-hover:max-h-16 group-hover:opacity-100">
+                      <p
+                        className="
+                          mt-1
+                          max-h-0
+                          max-w-[260px]
+                          overflow-hidden
+                          text-[11px]
+                          leading-5
+                          text-[#64748b]
+                          opacity-0
+                          transition-all
+                          duration-300
+                          group-hover:max-h-16
+                          group-hover:opacity-100
+                        "
+                      >
                         {item.text}
                       </p>
                     </div>
@@ -1611,6 +2417,7 @@ export function Services() {
   // ============================================================
   // GET PRODUCTS FOR SELECTED CATEGORY
   // ============================================================
+
   const getProductsForCategory = (category: string) => {
     if (category === "All Products") {
       return serviceProducts;
@@ -1620,16 +2427,22 @@ export function Services() {
       (product) => product.category === category
     );
 
-    // If category has no products, use all products
-    return filtered.length > 0 ? filtered : serviceProducts;
+    return filtered.length > 0
+      ? filtered
+      : serviceProducts;
   };
 
-  const activeProducts =
-    getProductsForCategory(activeCategory);
+  // ============================================================
+  // ACTIVE CATEGORY INDEX
+  // ============================================================
+
+  const activeCategoryIndex =
+    categories.indexOf(activeCategory);
 
   // ============================================================
   // CATEGORY CHANGE
   // ============================================================
+
   const changeCategory = (category: string) => {
     if (category === activeCategory) return;
 
@@ -1638,8 +2451,8 @@ export function Services() {
 
   // ============================================================
   // AUTO CATEGORY CHANGE
-  // 5 SECONDS
   // ============================================================
+
   useEffect(() => {
     const timer = setTimeout(() => {
       const currentIndex =
@@ -1657,381 +2470,888 @@ export function Services() {
   }, [activeCategory]);
 
   // ============================================================
-  // FOUR PRODUCTS
-  // ============================================================
-  const product1 = activeProducts[0];
-
-  const product2 =
-    activeProducts[1] || activeProducts[0];
-
-  const product3 =
-    activeProducts[2] || activeProducts[0];
-
-  const product4 =
-    activeProducts[3] || activeProducts[0];
-
-  // ============================================================
   // CATEGORY HEADING
   // ============================================================
-  const categoryHeading =
-    activeCategory === "All Products"
+
+  const getCategoryHeading = (category: string) => {
+    return category === "All Products"
       ? "Smart choices for everyday life."
-      : activeCategory === "Phones"
-      ? "Power in every pocket."
-      : activeCategory === "Audio"
-      ? "Sound that moves with you."
-      : "Everyday tech, made easier.";
+      : category === "Phones"
+        ? "Power in every pocket."
+        : category === "Audio"
+          ? "Sound that moves with you."
+          : "Everyday tech, made easier.";
+  };
+
+  // ============================================================
+  // CATEGORY SLIDES
+  // ============================================================
+
+  const categorySlides = categories.map((category) => {
+    const products =
+      getProductsForCategory(category);
+
+    const product1 = products[0];
+
+    const product2 =
+      products[1] || products[0];
+
+    const product3 =
+      products[2] || products[0];
+
+    const product4 =
+      products[3] || products[0];
+
+    return {
+      category,
+      heading: getCategoryHeading(category),
+      products,
+      product1,
+      product2,
+      product3,
+      product4,
+    };
+  });
 
   return (
     <section
       id="shop"
-      className="relative overflow-hidden bg-[#f7f9fc] pt-8 pb-10 scroll-mt-[80px] lg:pt-10 lg:pb-20"
+      className="
+        relative
+        overflow-hidden
+        bg-[#f7f9fc]
+        pt-4
+        pb-10
+        scroll-mt-[80px]
+        lg:pt-10
+        lg:pb-20
+      "
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
 
         {/* ======================================================
-            HEADER
+            HEADER / CATEGORY NAVIGATION
+            DESKTOP ONLY
         ====================================================== */}
+
         <div className="mb-8">
 
-          {/* ====================================================
-              CATEGORY NAVIGATION
-          ==================================================== */}
-          <div className="mt-8 flex w-full gap-8 overflow-x-auto border-b border-[#dfe5ec] scrollbar-hide">
+          <div
+            className="
+              mt-8
+              flex
+              w-full
+              items-center
+            "
+          >
 
-            {categories.map((category) => {
-              const active =
-                activeCategory === category;
+            {/* ==================================================
+                LEFT SIDE — FEATURED PRODUCTS
+                DESKTOP ONLY
+            ================================================== */}
 
-              return (
-                <button
-                  key={category}
-                  type="button"
-                  onClick={() =>
-                    changeCategory(category)
-                  }
-                  className={`relative shrink-0 pb-4 text-[13px] font-semibold transition-all duration-300 ${
-                    active
-                      ? "text-[#0f172a]"
-                      : "text-[#94a3b8] hover:text-[#0f172a]"
-                  }`}
-                >
-                  {category}
+            <div
+              className="
+                hidden
+                lg:flex
+                w-[calc(33.333333%-8px)]
+                items-center
+                gap-4
+                pr-4
+              "
+            >
+              <p
+                className="
+                  whitespace-nowrap
+                  text-[11px]
+                  font-bold
+                  uppercase
+                  tracking-[2.5px]
+                  text-[#2563eb]
+                "
+              >
+                Featured Products
+              </p>
 
-                  <span
-                    className={`absolute bottom-0 left-0 h-[2px] rounded-full bg-[#2563eb] transition-all duration-500 ${
-                      active ? "w-full" : "w-0"
-                    }`}
-                  />
-                </button>
-              );
-            })}
+              <div
+                className="
+                  h-px
+                  flex-1
+                  bg-[#dfe5ec]
+                "
+              />
+            </div>
 
+            {/* ==================================================
+                RIGHT SIDE — DESKTOP CATEGORY NAVIGATION
+            ================================================== */}
+
+            <div
+              className="
+                ml-auto
+                relative
+                hidden
+                lg:flex
+                items-center
+                overflow-hidden
+                rounded-full
+              "
+            >
+
+              {/* DESKTOP MOVING ACTIVE PILL */}
+
+              <span
+                className="
+                  pointer-events-none
+                  absolute
+                  left-0
+                  top-0
+                  z-0
+                  h-full
+                  w-[112px]
+                  rounded-full
+                  bg-[#0f172a]
+                  shadow-[0_6px_18px_rgba(15,23,42,0.18)]
+                  transition-transform
+                  duration-[700ms]
+                  ease-[cubic-bezier(0.22,1,0.36,1)]
+                "
+                style={{
+                  transform: `translate3d(${activeCategoryIndex * 112}px, 0, 0)`,
+                }}
+              />
+
+              {categories.map((category) => {
+                const active =
+                  activeCategory === category;
+
+                return (
+                  <button
+                    key={category}
+                    type="button"
+                    onClick={() =>
+                      changeCategory(category)
+                    }
+                    className="
+                      relative
+                      z-10
+                      flex
+                      h-[42px]
+                      w-[112px]
+                      shrink-0
+                      items-center
+                      justify-center
+                      px-3
+                      text-[13px]
+                      font-semibold
+                      font-sans
+                      transition-colors
+                      duration-500
+                    "
+                  >
+                    <span
+                      className={`
+                        relative
+                        whitespace-nowrap
+                        transition-colors
+                        duration-500
+                        ${active
+                          ? "text-white"
+                          : "text-[#94a3b8] hover:text-[#0f172a]"
+                        }
+                      `}
+                    >
+                      {category}
+                    </span>
+                  </button>
+                );
+              })}
+
+            </div>
           </div>
         </div>
 
         {/* ======================================================
-            DESKTOP SHOWCASE
-            EXACT ASYMMETRIC LAYOUT
+            DESKTOP
+            SMOOTH HORIZONTAL CATEGORY TRACK
         ====================================================== */}
+
         <div
-          key={activeCategory}
-          className="hidden lg:block animate-[servicesSlideIn_750ms_cubic-bezier(0.22,1,0.36,1)_both]"
+          className="
+            hidden
+            overflow-hidden
+            lg:block
+          "
         >
 
-          <div className="grid grid-cols-12 gap-4">
+          <div
+            className="
+              flex
+              w-full
+              items-start
+              transition-transform
+              duration-[900ms]
+              ease-[cubic-bezier(0.22,1,0.36,1)]
+              will-change-transform
+            "
+            style={{
+              transform: `translate3d(-${activeCategoryIndex * 100}%, 0, 0)`,
+            }}
+          >
 
-            {/* ==================================================
-                LEFT TEXT AREA
+            {categorySlides.map((slide) => (
+              <div
+                key={slide.category}
+                className="
+                  w-full
+                  shrink-0
+                "
+              >
+
+                {/* ==================================================
+                    DESKTOP GRID
                 ================================================== */}
-            <div className="col-span-4 flex min-h-[420px] flex-col justify-center rounded-[28px] border border-[#e3e8ef] bg-white p-9 xl:p-11">
 
-              <p className="text-[10px] font-bold uppercase tracking-[2.5px] text-[#2563eb]">
-                {activeCategory}
-              </p>
+                <div
+                  className="
+                    grid
+                    grid-cols-12
+                    gap-4
+                  "
+                >
 
-              <h3
-                key={`heading-${activeCategory}`}
-                className="mt-5 max-w-[330px] text-[38px] font-extrabold leading-[1.04] tracking-[-1.5px] text-[#0f172a] xl:text-[44px]"
-              >
-                {categoryHeading}
-              </h3>
+                  {/* ==================================================
+                      LEFT COLUMN
+                  ================================================== */}
 
-              <p
-                key={`description-${activeCategory}`}
-                className="mt-6 max-w-[330px] text-[13px] leading-7 text-[#64748b]"
-              >
-                {product1?.description}
-              </p>
+                  <div
+                    className="
+                      col-span-4
+                    "
+                  >
 
-              <a
-                href="/products"
-                onClick={navigateToShopPage}
-                className="group mt-8 inline-flex w-fit items-center gap-3 rounded-full bg-[#0f172a] px-5 py-3 text-[12px] font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#2563eb]"
-              >
-                Explore Collection
+                    {/* TEXT CARD */}
 
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 transition-transform duration-300 group-hover:translate-x-1">
-                  <FiArrowRight size={13} />
-                </span>
-              </a>
+                    <div
+                      className="
+                        flex
+                        min-h-[420px]
+                        flex-col
+                        justify-center
+                        rounded-[28px]
+                        border
+                        border-[#e3e8ef]
+                        bg-white
+                        p-9
+                        xl:p-11
+                      "
+                    >
 
-            </div>
+                      <p
+                        className="
+                          text-[11px]
+                          font-bold
+                          uppercase
+                          tracking-[2.5px]
+                          text-[#2563eb]
+                        "
+                      >
+                        {slide.category}
+                      </p>
 
-            {/* ==================================================
-                TOP RIGHT - PRODUCT 1
-                NAME ABOVE IMAGE
-                ================================================== */}
-            <a
-              href={`/products/${productSlug(product1.name)}`}
-              onClick={(e) =>
-                navigateToProductPage(
-                  e,
-                  product1.name
-                )
-              }
-              className="group col-span-4 rounded-[28px] transition-all duration-500"
-            >
+                      <h3
+                        className="
+                          mt-5
+                          max-w-[330px]
+                          text-[36px]
+                          font-sans
+                          font-extrabold
+                          leading-[1.04]
+                          tracking-[-1.5px]
+                          text-[#0f172a]
+                          xl:text-[44px]
+                        "
+                      >
+                        {slide.heading}
+                      </h3>
 
-              <div className="flex h-full min-h-[420px] flex-col">
+                      <p
+                        className="
+                          mt-6
+                          max-w-[330px]
+                          text-[13px]
+                          leading-7
+                          text-[#64748b]
+                        "
+                      >
+                        {slide.product1?.description}
+                      </p>
 
-                {/* Image */}
-                <div className="relative flex-1 overflow-hidden rounded-[22px] bg-[#e7e6f8]">
+                      <a
+                        href="/products"
+                        onClick={navigateToShopPage}
+                        className="
+                          group
+                          mt-8
+                          inline-flex
+                          w-fit
+                          items-center
+                          gap-3
+                          rounded-full
+                          bg-[#0f172a]
+                          px-5
+                          py-3
+                          text-[12px]
+                          font-bold
+                          text-white
+                          transition-all
+                          duration-500
+                          hover:-translate-y-1
+                          hover:bg-[#2563eb]
+                        "
+                      >
+                        Explore Collection
 
-                  <img
-                    src={product1.image}
-                    alt={product1.name}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
-                  />
+                        <span
+                          className="
+                            flex
+                            h-6
+                            w-6
+                            items-center
+                            justify-center
+                            rounded-full
+                            bg-white/10
+                            transition-transform
+                            duration-500
+                            group-hover:translate-x-1
+                          "
+                        >
+                          <FiArrowRight size={13} />
+                        </span>
+
+                      </a>
+
+                    </div>
+
+                  </div>
+
+                  {/* ==================================================
+                      PRODUCT 1
+                  ================================================== */}
+
+                  <a
+                    href={`/products/${productSlug(
+                      slide.product1.name
+                    )}`}
+                    onClick={(e) =>
+                      navigateToProductPage(
+                        e,
+                        slide.product1.name
+                      )
+                    }
+                    className="
+                      group
+                      col-span-4
+                      rounded-[28px]
+                    "
+                  >
+
+                    <div
+                      className="
+                        flex
+                        h-full
+                        min-h-[420px]
+                        flex-col
+                      "
+                    >
+
+                      <div
+                        className="
+                          relative
+                          flex-1
+                          overflow-hidden
+                          rounded-[22px]
+                          bg-[#e7e6f8]
+                        "
+                      >
+
+                        <img
+                          src={slide.product1.image}
+                          alt={slide.product1.name}
+                          className="
+                            absolute
+                            inset-0
+                            h-full
+                            w-full
+                            object-cover
+                            transition-transform
+                            duration-1000
+                            ease-out
+                            group-hover:scale-105
+                          "
+                        />
+
+                      </div>
+
+                    </div>
+
+                  </a>
+
+                  {/* ==================================================
+                      PRODUCT 2
+                  ================================================== */}
+
+                  <a
+                    href={`/products/${productSlug(
+                      slide.product2.name
+                    )}`}
+                    onClick={(e) =>
+                      navigateToProductPage(
+                        e,
+                        slide.product2.name
+                      )
+                    }
+                    className="
+                      group
+                      col-span-4
+                      rounded-[28px]
+                    "
+                  >
+
+                    <div
+                      className="
+                        flex
+                        h-full
+                        min-h-[420px]
+                        flex-col
+                      "
+                    >
+
+                      <div
+                        className="
+                          relative
+                          flex-1
+                          overflow-hidden
+                          rounded-[22px]
+                          bg-[#e7e6f8]
+                        "
+                      >
+
+                        <img
+                          src={slide.product2.image}
+                          alt={slide.product2.name}
+                          className="
+                            absolute
+                            inset-0
+                            h-full
+                            w-full
+                            object-cover
+                            transition-transform
+                            duration-1000
+                            ease-out
+                            group-hover:scale-105
+                          "
+                        />
+
+                      </div>
+
+                    </div>
+
+                  </a>
 
                 </div>
-              </div>
-            </a>
-
-            {/* ==================================================
-                TOP RIGHT - PRODUCT 2
-                NAME ABOVE IMAGE
-                ================================================== */}
-            <a
-              href={`/products/${productSlug(product2.name)}`}
-              onClick={(e) =>
-                navigateToProductPage(
-                  e,
-                  product2.name
-                )
-              }
-              className="group col-span-4 rounded-[28px] transition-all duration-500"
-            >
-
-              <div className="flex h-full min-h-[420px] flex-col">
-
-                {/* Image */}
-                <div className="relative flex-1 overflow-hidden rounded-[22px] bg-[#e7e6f8]">
-
-                  <img
-                    src={product2.image}
-                    alt={product2.name}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
-                  />
-
-                </div>
-              </div>
-            </a>
-
-            {/* ==================================================
-                BOTTOM SMALL IMAGE
-                ================================================== */}
-            <a
-              href={`/products/${productSlug(product3.name)}`}
-              onClick={(e) =>
-                navigateToProductPage(
-                  e,
-                  product3.name
-                )
-              }
-              className="group col-span-4 h-[420px] overflow-hidden rounded-[28px] bg-white transition-all duration-500"
-            >
-
-              <div className="relative h-full overflow-hidden rounded-[22px]">
-
-                <img
-                  src={product3.image}
-                  alt={product3.name}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
-                />
-              </div>
-            </a>
-
-            {/* ==================================================
-                BOTTOM LARGE IMAGE
-                ================================================== */}
-            <a
-              href={`/products/${productSlug(product4.name)}`}
-              onClick={(e) =>
-                navigateToProductPage(
-                  e,
-                  product4.name
-                )
-              }
-              className="group col-span-8 h-[420px] overflow-hidden rounded-[28px] bg-white transition-all duration-500"
-            >
-
-              <div className="relative h-full overflow-hidden rounded-[22px]">
-
-                <img
-                  src={product4.image}
-                  alt={product4.name}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
-                />
 
               </div>
-            </a>
+            ))}
+
           </div>
+
         </div>
 
         {/* ======================================================
             MOBILE
         ====================================================== */}
+
         <div
-          key={`mobile-${activeCategory}`}
-          className="lg:hidden animate-[servicesSlideIn_650ms_cubic-bezier(0.22,1,0.36,1)_both]"
+          className="
+            lg:hidden
+          "
         >
 
-          {/* Text */}
-          <div className="rounded-[26px] border border-[#e3e8ef] bg-white p-6">
+          {/* ====================================================
+              MOBILE CATEGORY NAVIGATION
+              ONLY ONE NAVIGATION
+          ==================================================== */}
 
-            <p className="text-[10px] font-bold uppercase tracking-[2.5px] text-[#2563eb]">
-              {activeCategory}
-            </p>
-
-            <h3 className="mt-4 text-[30px] font-extrabold leading-[1.05] text-[#0f172a]">
-              {categoryHeading}
-            </h3>
-
-            <p className="mt-5 text-[13px] leading-7 text-[#64748b]">
-              {product1?.description}
-            </p>
-
-            <a
-              href="/products"
-              onClick={navigateToShopPage}
-              className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#0f172a] px-5 py-3 text-[12px] font-bold text-white"
-            >
-              Explore Collection
-              <FiArrowRight size={14} />
-            </a>
-
-          </div>
-
-          {/* Product 1 */}
-          <a
-            href={`/products/${product1.name}`}
-            onClick={(e) =>
-              navigateToProductPage(
-                e,
-                product1.name
-              )
-            }
-            className="group mt-4 block rounded-[24px] border border-[#e3e8ef] bg-white p-3"
+          <div
+            className="
+              mb-5
+              flex
+              w-full
+              justify-center
+            "
           >
 
-            <div className="relative h-[300px] overflow-hidden rounded-[20px]">
+            <div
+              className="
+                relative
+                grid
+                w-full
+                max-w-[360px]
+                grid-cols-4
+                items-center
+                overflow-hidden
+                rounded-full
+              "
+            >
 
-              <img
-                src={product1.image}
-                alt={product1.name}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              {/* ==================================================
+                  MOBILE ACTIVE PILL
+                  25% WIDTH = PERFECT FIT FOR 4 ITEMS
+              ================================================== */}
+
+              <span
+                className="
+                  pointer-events-none
+                  absolute
+                  left-0
+                  top-0
+                  z-0
+                  h-full
+                  w-1/4
+                  rounded-full
+                  bg-[#0f172a]
+                  shadow-[0_6px_18px_rgba(15,23,42,0.18)]
+                  transition-transform
+                  duration-[700ms]
+                  ease-[cubic-bezier(0.22,1,0.36,1)]
+                "
+                style={{
+                  transform: `translate3d(${activeCategoryIndex * 100}%, 0, 0)`,
+                }}
               />
+
+              {categories.map((category) => {
+                const active =
+                  activeCategory === category;
+
+                return (
+                  <button
+                    key={category}
+                    type="button"
+                    onClick={() =>
+                      changeCategory(category)
+                    }
+                    className="
+                      relative
+                      z-10
+                      flex
+                      h-[40px]
+                      w-full
+                      min-w-0
+                      items-center
+                      justify-center
+                      px-1
+                      text-[11px]
+                      font-semibold
+                      font-sans
+                    "
+                  >
+
+                    <span
+                      className={`
+                        whitespace-nowrap
+                        transition-colors
+                        duration-500
+                        ${active
+                          ? "text-white"
+                          : "text-[#94a3b8]"
+                        }
+                      `}
+                    >
+                      {category}
+                    </span>
+
+                  </button>
+                );
+              })}
 
             </div>
 
-          </a>
+          </div>
 
-          {/* Product 2 */}
-          <a
-            href={`/products/${product2.name}`}
-            onClick={(e) =>
-              navigateToProductPage(
-                e,
-                product2.name
-              )
-            }
-            className="group mt-4 block rounded-[24px] border border-[#e3e8ef] bg-white p-3"
+          {/* ====================================================
+              MOBILE CATEGORY CONTENT TRACK
+          ==================================================== */}
+
+          <div
+            className="
+              overflow-hidden
+            "
           >
 
-            <div className="relative h-[300px] overflow-hidden rounded-[20px]">
+            <div
+              className="
+                flex
+                w-full
+                transition-transform
+                duration-[850ms]
+                ease-[cubic-bezier(0.22,1,0.36,1)]
+                will-change-transform
+              "
+              style={{
+                transform: `translate3d(-${activeCategoryIndex * 100}%, 0, 0)`,
+              }}
+            >
 
-              <img
-                src={product2.image}
-                alt={product2.name}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
+              {categorySlides.map((slide) => (
+                <div
+                  key={`mobile-${slide.category}`}
+                  className="
+                    w-full
+                    shrink-0
+                  "
+                >
+
+                  {/* ==================================================
+                      FEATURED PRODUCTS
+                  ================================================== */}
+
+                  <div
+                    className="
+                      mb-4
+                      flex
+                      items-center
+                      gap-4
+                    "
+                  >
+
+                    <p
+                      className="
+                        text-[11px]
+                        font-bold
+                        uppercase
+                        tracking-[2px]
+                        text-[#2563eb]
+                      "
+                    >
+                      Featured Products
+                    </p>
+
+                    <div
+                      className="
+                        h-px
+                        flex-1
+                        bg-[#e3e8ef]
+                      "
+                    />
+
+                  </div>
+
+                  {/* ==================================================
+                      TEXT CARD
+                  ================================================== */}
+
+                  <div
+                    className="
+                      rounded-[26px]
+                      border
+                      border-[#e3e8ef]
+                      bg-white
+                      p-6
+                    "
+                  >
+
+                    <p
+                      className="
+                        text-[10px]
+                        font-bold
+                        uppercase
+                        tracking-[2.5px]
+                        text-[#2563eb]
+                      "
+                    >
+                      {slide.category}
+                    </p>
+
+                    <h3
+                      className="
+                        mt-4
+                        text-[30px]
+                        font-extrabold
+                        leading-[1.05]
+                        tracking-[-0.8px]
+                        text-[#0f172a]
+                      "
+                    >
+                      {slide.heading}
+                    </h3>
+
+                    <p
+                      className="
+                        mt-5
+                        text-[13px]
+                        leading-7
+                        text-[#64748b]
+                      "
+                    >
+                      {slide.product1?.description}
+                    </p>
+
+                    <a
+                      href="/products"
+                      onClick={navigateToShopPage}
+                      className="
+                        mt-7
+                        inline-flex
+                        items-center
+                        gap-2
+                        rounded-full
+                        bg-[#0f172a]
+                        px-5
+                        py-3
+                        text-[12px]
+                        font-bold
+                        text-white
+                        transition-all
+                        duration-500
+                        hover:bg-[#2563eb]
+                      "
+                    >
+                      Explore Collection
+
+                      <FiArrowRight size={14} />
+
+                    </a>
+
+                  </div>
+
+                  {/* ==================================================
+                      PRODUCT 1
+                  ================================================== */}
+
+                  <a
+                    href={`/products/${productSlug(
+                      slide.product1.name
+                    )}`}
+                    onClick={(e) =>
+                      navigateToProductPage(
+                        e,
+                        slide.product1.name
+                      )
+                    }
+                    className="
+                      group
+                      mt-4
+                      block
+                      rounded-[24px]
+                      border
+                      border-[#e3e8ef]
+                      bg-white
+                      p-3
+                    "
+                  >
+
+                    <div
+                      className="
+                        relative
+                        h-[300px]
+                        overflow-hidden
+                        rounded-[20px]
+                      "
+                    >
+
+                      <img
+                        src={slide.product1.image}
+                        alt={slide.product1.name}
+                        className="
+                          h-full
+                          w-full
+                          object-cover
+                          transition-transform
+                          duration-1000
+                          ease-out
+                          group-hover:scale-105
+                        "
+                      />
+
+                    </div>
+
+                  </a>
+
+                  {/* ==================================================
+                      PRODUCT 2
+                  ================================================== */}
+
+                  <a
+                    href={`/products/${productSlug(
+                      slide.product2.name
+                    )}`}
+                    onClick={(e) =>
+                      navigateToProductPage(
+                        e,
+                        slide.product2.name
+                      )
+                    }
+                    className="
+                      group
+                      mt-4
+                      block
+                      rounded-[24px]
+                      border
+                      border-[#e3e8ef]
+                      bg-white
+                      p-3
+                    "
+                  >
+
+                    <div
+                      className="
+                        relative
+                        h-[300px]
+                        overflow-hidden
+                        rounded-[20px]
+                      "
+                    >
+
+                      <img
+                        src={slide.product2.image}
+                        alt={slide.product2.name}
+                        className="
+                          h-full
+                          w-full
+                          object-cover
+                          transition-transform
+                          duration-1000
+                          ease-out
+                          group-hover:scale-105
+                        "
+                      />
+
+                    </div>
+
+                  </a>
+
+                </div>
+              ))}
 
             </div>
 
-          </a>
-
-          {/* Bottom two images */}
-          <div className="mt-4 grid grid-cols-2 gap-4">
-
-            <a
-              href={`/products/${product3.name}`}
-              onClick={(e) =>
-                navigateToProductPage(
-                  e,
-                  product3.name
-                )
-              }
-              className="group relative h-[220px] overflow-hidden rounded-[22px]"
-            >
-
-              <img
-                src={product3.image}
-                alt={product3.name}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/75 to-transparent" />
-            </a>
-
-            <a
-              href={`/products/${product4.name}`}
-              onClick={(e) =>
-                navigateToProductPage(
-                  e,
-                  product4.name
-                )
-              }
-              className="group relative h-[220px] overflow-hidden rounded-[22px]"
-            >
-
-              <img
-                src={product4.image}
-                alt={product4.name}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/75 to-transparent" />
-            </a>
           </div>
+
         </div>
+
       </div>
 
       {/* ========================================================
-          ANIMATIONS
+          STYLES
       ======================================================== */}
-      <style>{`
-        @keyframes servicesSlideIn {
-          0% {
-            opacity: 0;
-            transform: translateX(90px);
-          }
 
-          100% {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
+      <style>{`
+
+        /* ========================================================
+           HIDE SCROLLBAR
+        ======================================================== */
 
         .scrollbar-hide {
           scrollbar-width: none;
@@ -2040,7 +3360,247 @@ export function Services() {
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
         }
+
+        /* ========================================================
+           GPU SMOOTHING
+        ======================================================== */
+
+        #shop img {
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          transform: translateZ(0);
+        }
+
+        /* ========================================================
+           SMOOTH TRANSITIONS
+        ======================================================== */
+
+        #shop a,
+        #shop button,
+        #shop img {
+          -webkit-tap-highlight-color: transparent;
+        }
+
       `}</style>
+
+    </section>
+  );
+}
+
+export function ClientTestimonials() {
+  return (
+    <section
+      id="about"
+      className="
+        bg-[#f8fafc]
+        px-5
+        py-20
+        sm:px-6
+        lg:px-8
+        lg:pt-16
+        lg:pb-32
+      "
+    >
+      <div className="mx-auto max-w-6xl">
+
+        {/* ========================================================
+            SECTION HEADER
+        ======================================================== */}
+        <div className="mb-12 text-center lg:mb-14">
+          <p
+            className="
+              text-[10px]
+              font-bold
+              uppercase
+              tracking-[3px]
+              text-[#2563eb]
+            "
+          >
+            About Us
+          </p>
+
+          <h2
+            className="
+              mx-auto
+              mt-4
+              max-w-3xl
+              text-[36px]
+              font-extrabold
+              font-sans
+              leading-[1.08]
+              tracking-tight
+              text-[#0f172a]
+              sm:text-[46px]
+              lg:text-[52px]
+            "
+          >
+            Making Technology Simple,
+            <span className="text-[#2563eb]"> Reliable & Accessible</span>
+          </h2>
+        </div>
+
+        {/* ========================================================
+            MAIN CONTENT
+        ======================================================== */}
+        <div
+          className="
+            grid
+            items-center
+            gap-10
+            lg:grid-cols-[0.95fr_1.05fr]
+            lg:gap-12
+          "
+        >
+
+          {/* ======================================================
+              LEFT VIDEO
+          ====================================================== */}
+          <div
+            className="
+              relative
+              h-[280px]
+              overflow-hidden
+              rounded-[22px]
+              bg-gray-200
+              sm:h-[350px]
+              lg:h-[360px]
+            "
+          >
+            <video
+              src="/about-bg.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="
+                h-full
+                w-full
+                object-cover
+              "
+            />
+
+            {/* Subtle overlay */}
+            <div
+              className="
+                pointer-events-none
+                absolute
+                inset-0
+                bg-gradient-to-t
+                from-black/15
+                via-transparent
+                to-transparent
+              "
+            />
+          </div>
+
+          {/* ======================================================
+              RIGHT CONTENT
+          ====================================================== */}
+          <div className="flex flex-col">
+
+            {/* ====================================================
+                RATING + TOP DESCRIPTION
+            ==================================================== */}
+            <div
+              className="
+                flex
+                items-center
+                gap-5
+                pb-6
+              "
+            >
+              {/* Rating */}
+              <div className="flex shrink-0 items-center gap-3">
+                <span
+                  className="
+                    text-[38px]
+                    font-bold
+                    leading-none
+                    tracking-[-2px]
+                    text-[#0f172a]
+                    sm:text-[42px]
+                  "
+                >
+                  4.80
+                </span>
+
+                <div className="flex flex-col gap-1">
+                  <div className="flex gap-[2px] text-[13px] text-[#d6a84f]">
+                    <span>★</span>
+                    <span>★</span>
+                    <span>★</span>
+                    <span>★</span>
+                    <span>★</span>
+                  </div>
+
+                  <span
+                    className="
+                      text-[9px]
+                      font-medium
+                      text-[#94a3b8]
+                    "
+                  >
+                    2,688 reviews
+                  </span>
+                </div>
+              </div>
+
+              {/* Small top description */}
+              <p
+                className="
+                  max-w-[220px]
+                  border-l
+                  border-[#e2e8f0]
+                  pl-5
+                  text-[10px]
+                  font-medium
+                  leading-[1.45]
+                  text-[#475569]
+                  sm:text-[11px]
+                "
+              >
+                From quality devices to reliable repairs, we make
+                technology simple, dependable, and easy for everyone.
+              </p>
+            </div>
+
+            {/* Divider */}
+            <div className="h-px w-full bg-[#e2e8f0]" />
+
+            {/* ====================================================
+                ABOUT CONTENT
+            ==================================================== */}
+            <div className="pt-6">
+              <blockquote
+                className="
+                  max-w-2xl
+                  text-[18px]
+                  font-medium
+                  font-sans
+                  leading-[1.55]
+                  tracking-[-0.25px]
+                  text-[#1e293b]
+                  sm:text-[20px]
+                  lg:text-[17px]
+                  lg:leading-[1.55]
+                "
+              >
+                At Recall Communications, we are dedicated to making
+                technology simple, reliable, and accessible for everyone.
+                From quality devices and essential accessories to professional
+                repair and troubleshooting services, we provide complete
+                solutions under one roof. Our team takes the time to
+                understand every customer’s needs and delivers dependable
+                service with care and attention to detail. With a strong focus
+                on quality, transparency, and customer satisfaction, we aim to
+                build lasting relationships and become a trusted technology
+                partner for every customer.
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
@@ -2053,164 +3613,232 @@ export function BenefitsStrip() {
 }
 
 export function Testimonials() {
-  const [testimonialOrder, setTestimonialOrder] = useState([0, 1, 2]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  const goNext = () =>
-    setTestimonialOrder((o) => [
-      o[1],
-      o[2],
-      (o[2] + 1) % testimonials.length,
-    ]);
+  const goNext = () => {
+    setCurrentIndex(
+      (prev) => (prev + 1) % testimonials.length
+    );
+  };
 
-  const goPrevious = () =>
-    setTestimonialOrder((o) => [
-      (o[0] - 1 + testimonials.length) % testimonials.length,
-      o[0],
-      o[1],
-    ]);
+  const goPrevious = () => {
+    setCurrentIndex(
+      (prev) =>
+        (prev - 1 + testimonials.length) %
+        testimonials.length
+    );
+  };
 
   useEffect(() => {
     if (isPaused) return;
 
-    const i = window.setInterval(goNext, 3000);
+    const interval = window.setInterval(() => {
+      goNext();
+    }, 3000);
 
-    return () => window.clearInterval(i);
+    return () => window.clearInterval(interval);
   }, [isPaused]);
 
-  const goToTestimonial = (index: number) => {
-    setTestimonialOrder([
-      (index - 1 + testimonials.length) % testimonials.length,
-      index,
-      (index + 1) % testimonials.length,
-    ]);
-  };
-
   return (
-    <section className="bg-[#f8fafc] py-20 scroll-mt-[80px] lg:py-28">
-      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+    <section
+      id="testimonials"
+      className="
+        relative
+        min-h-[550px]
+        overflow-hidden
+        scroll-mt-[80px] 
+      "
+    >
+      {/* BACKGROUND IMAGE */}
+      <img
+        src="/testimonial-bg.png"
+        alt=""
+        className="
+          absolute
+          inset-0
+          h-full
+          w-full
+          object-cover
+        "
+      />
 
-        <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-[3px] text-[#2563eb]">
-              Customer Stories
+      {/* DARK OVERLAY */}
+      <div
+        className="
+          absolute
+          inset-0
+          bg-black/45
+        "
+      />
+
+      {/* EXTRA GRADIENT */}
+      <div
+        className="
+          absolute
+          inset-0
+          bg-gradient-to-b
+          from-black/40
+          via-black/55
+          to-black/75
+        "
+      />
+
+      {/* CONTENT */}
+      <div
+        className="
+          relative
+          z-10
+          mx-auto
+          flex
+          min-h-[550px]
+          max-w-6xl
+          items-center
+          justify-center
+          px-5
+          py-20
+          sm:px-8
+        "
+      >
+        <div className="w-full text-center">
+
+          {/* SMALL TITLE */}
+          <p
+            className="
+              text-[11px]
+              font-bold
+              uppercase
+              tracking-[3px]
+              text-[#60a5fa]
+            "
+          >
+            Customer Stories
+          </p>
+
+          {/* MAIN HEADING */}
+          <h2
+            className="
+              mx-auto
+              mt-4
+              max-w-3xl
+              text-[36px]
+              font-serif
+              font-extrabold
+              leading-tight
+              tracking-tight
+              text-white
+              sm:text-[48px]
+              lg:text-[54px]
+            "
+          >
+            What people say
+            <br className="sm:hidden" />{" "}
+            <span className="text-[#60a5fa]">
+              about us
+            </span>
+          </h2>
+
+          {/* DIVIDER */}
+          <div className="mx-auto mt-6 h-px w-12 bg-[#60a5fa]" />
+
+          {/* TESTIMONIAL */}
+          <div
+            key={currentIndex}
+            className="
+              mx-auto
+              mt-10
+              max-w-4xl
+              animate-[testimonialFade_0.7s_ease]
+            "
+          >
+
+            {/* QUOTE */}
+            <p
+              className="
+                mx-auto
+                max-w-3xl
+                text-[18px]
+                font-sans
+                italic
+                leading-8
+                text-white/90
+                sm:text-[21px]
+                sm:leading-9
+                lg:text-[23px]
+                lg:leading-10
+              "
+            >
+              "{testimonials[currentIndex].quote}"
             </p>
 
-            <h2 className="mt-4 text-[38px] font-extrabold tracking-tight text-[#0f172a] sm:text-[48px]">
-              What people say about us
-            </h2>
+            {/* CUSTOMER NAME */}
+            <div className="mt-8">
+              <p
+                className="
+                  text-[15px]
+                  font-bold
+                  text-white
+                  sm:text-[16px]
+                "
+              >
+                {testimonials[currentIndex].name}
+              </p>
+
+              <p
+                className="
+                  mt-1
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[2px]
+                  text-white/50
+                "
+              >
+                {testimonials[currentIndex].role}
+              </p>
+            </div>
           </div>
 
-          <div className="hidden gap-2 lg:flex">
-            <button
-              onClick={goPrevious}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#dbe3ef] bg-white text-[#0f172a] shadow-sm hover:bg-[#0f172a] hover:text-white"
-            >
-              <IoMdArrowRoundBack size={18} />
-            </button>
 
-            <button
-              onClick={goNext}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#dbe3ef] bg-white text-[#0f172a] shadow-sm hover:bg-[#0f172a] hover:text-white"
-            >
-              <IoMdArrowRoundForward size={18} />
-            </button>
-          </div>
-        </div>
 
-        <div
-          className="relative mt-12"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-
-          {/* MOBILE: Only 1 testimonial */}
-          <div className="md:hidden">
-            {(() => {
-              const t = testimonials[testimonialOrder[1]];
-
-              return (
-                <article
-                  key={`mobile-${t.name}`}
-                  className="rounded-[24px] border border-[#bfdbfe] bg-white p-6 shadow-[0_20px_45px_rgba(37,99,235,0.10)] transition duration-500"
-                >
-                  <div className="flex gap-1 text-[#2563eb]">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <span key={i}>★</span>
-                    ))}
-                  </div>
-
-                  <p className="mt-5 text-[14px] leading-7 text-[#475569]">
-                    "{t.quote}"
-                  </p>
-
-                  <div className="mt-7 border-t border-[#edf0f5] pt-5">
-                    <p className="text-[14px] font-bold text-[#0f172a]">
-                      {t.name}
-                    </p>
-
-                    <p className="mt-1 text-[11px] font-semibold text-[#94a3b8]">
-                      {t.role}
-                    </p>
-                  </div>
-                </article>
-              );
-            })()}
-          </div>
-
-          {/* DESKTOP: Existing 3 testimonials - unchanged */}
-          <div className="hidden gap-4 md:grid md:grid-cols-3">
-            {[0, 1, 2].map((position) => {
-              const t = testimonials[testimonialOrder[position]];
-
-              return (
-                <article
-                  key={`${t.name}-${position}`}
-                  className={`rounded-[24px] border bg-white p-6 shadow-sm transition duration-500 ${position === 1
-                    ? "border-[#bfdbfe] shadow-[0_20px_45px_rgba(37,99,235,0.10)] md:-translate-y-3"
-                    : "border-[#e5eaf1]"
-                    }`}
-                >
-                  <div className="flex gap-1 text-[#2563eb]">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <span key={i}>★</span>
-                    ))}
-                  </div>
-
-                  <p className="mt-5 text-[14px] leading-7 text-[#475569]">
-                    "{t.quote}"
-                  </p>
-
-                  <div className="mt-7 border-t border-[#edf0f5] pt-5">
-                    <p className="text-[14px] font-bold text-[#0f172a]">
-                      {t.name}
-                    </p>
-
-                    <p className="mt-1 text-[11px] font-semibold text-[#94a3b8]">
-                      {t.role}
-                    </p>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-
-          {/* Dots */}
+          {/* DOTS */}
           <div className="mt-7 flex justify-center gap-2">
             {[0, 1, 2].map((dot) => (
               <button
                 key={dot}
-                onClick={() => goToTestimonial(dot * 2 + 1)}
-                className={`h-2 rounded-full transition-all ${Math.floor(testimonialOrder[1] / 2) === dot
-                  ? "w-6 bg-[#2563eb]"
-                  : "w-2 bg-[#cbd5e1]"
-                  }`}
+                type="button"
+                onClick={() => setCurrentIndex(dot)}
+                aria-label={`Go to testimonial ${dot + 1}`}
+                className={`
+                  h-2
+                  rounded-full
+                  transition-all
+                  duration-300
+                  ${currentIndex % 3 === dot
+                    ? "w-7 bg-[#60a5fa]"
+                    : "w-2 bg-white/40 hover:bg-white/70"
+                  }
+                `}
               />
             ))}
           </div>
-
         </div>
       </div>
+
+      {/* ANIMATION */}
+      <style>{`
+        @keyframes testimonialFade {
+          0% {
+            opacity: 0;
+            transform: translateY(15px);
+          }
+
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   );
 }
@@ -2253,100 +3881,291 @@ export function FAQ() {
   return (
     <section
       id="faq"
-      className="relative overflow-hidden bg-[#f8fafc] pt-8 pb-8 scroll-mt-[80px] lg:pt-8"
+      className="
+        relative
+        overflow-hidden
+        bg-[#f8fafc]
+        py-20
+        scroll-mt-[80px]
+        lg:pt-32
+        lg:pb-20
+      "
     >
-      {/* Background glow */}
-      <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-[#2563eb]/5 blur-3xl" />
+      {/* Background decoration */}
+      <div
+        className="
+          pointer-events-none
+          absolute
+          -right-40
+          top-10
+          h-96
+          w-96
+          rounded-full
+          bg-[#2563eb]/5
+          blur-3xl
+        "
+      />
 
-      <div className="relative mx-auto max-w-5xl px-5 sm:px-6 lg:px-8">
+      <div
+        className="
+          relative
+          mx-auto
+          max-w-7xl
+          px-5
+          sm:px-6
+          lg:px-8
+        "
+      >
+        <div
+          className="
+            grid
+            items-start
+            gap-12
+            lg:grid-cols-[0.8fr_1.2fr]
+            lg:gap-20
+          "
+        >
+          {/* LEFT CONTENT */}
+          <div className="lg:sticky lg:top-28">
+            <p
+              className="
+                text-[11px]
+                font-bold
+                uppercase
+                tracking-[3px]
+                text-[#2563eb]
+              "
+            >
+              Frequently Asked Questions
+            </p>
 
-        {/* Header */}
-        <div className="text-center">
-          <p className="text-[11px] font-bold uppercase tracking-[3px] text-[#2563eb]">
-            Frequently Asked Questions
-          </p>
+            <h2
+              className="
+                mt-4
+                text-[36px]
+                font-extrabold
+                font-sans
+                leading-[1.05]
+                tracking-tight
+                text-[#0f172a]
+                sm:text-5xl
+                lg:text-[52px]
+              "
+            >
+              Everything you
+              <br />
+              need to{" "}
+              <span className="text-[#2563eb]">
+                know.
+              </span>
+            </h2>
 
-          <h2 className="mx-auto mt-4 max-w-3xl text-[38px] font-extrabold leading-[1.05] tracking-tight text-[#0f172a] sm:text-5xl lg:text-[48px]">
-            Everything you need to{" "}
-            <span className="text-[#2563eb]">know.</span>
-          </h2>
+            <p
+              className="
+                mt-6
+                max-w-md
+                text-[13px]
+                leading-6
+                text-[#64748b]
+                sm:text-[14px]
+              "
+            >
+              Find answers to some of the most common
+              questions about our products, services and
+              customer support.
+            </p>
 
-          <p className="mx-auto mt-5 max-w-xl text-[13px] leading-6 text-[#64748b] sm:text-[14px]">
-            Find answers to some of the most common questions about our
-            products, services and customer support.
-          </p>
-        </div>
-
-        {/* FAQ List */}
-        <div className="mt-14">
-          {faqs.map((faq, index) => {
-            const isOpen = openIndex === index;
-
-            return (
-              <div
-                key={faq.question}
-                className={`group border-b border-[#e2e8f0] transition-all duration-300 ${isOpen ? "bg-[#f8fafc]" : "bg-white"
-                  }`}
+            {/* Small info box */}
+            <div
+              className="
+                mt-10
+                hidden
+                rounded-2xl
+                border
+                border-[#e2e8f0]
+                bg-white
+                p-5
+                lg:block
+              "
+            >
+              <p
+                className="
+                  text-[12px]
+                  font-bold
+                  uppercase
+                  tracking-[1.5px]
+                  text-[#0f172a]
+                "
               >
-                <button
-                  type="button"
-                  onClick={() => toggleFAQ(index)}
-                  aria-expanded={isOpen}
-                  className="flex w-full items-center gap-5 px-5 py-6 text-left sm:px-7 sm:py-7"
-                >
-                  {/* Number */}
-                  <span
-                    className={`shrink-0 text-[13px] font-bold tracking-[1.5px] transition-colors duration-300 ${isOpen
-                      ? "text-[#2563eb]"
-                      : "text-[#94a3b8]"
-                      }`}
-                  >
-                    0{index + 1}
-                  </span>
+                Still have questions?
+              </p>
 
-                  {/* Question */}
-                  <span
-                    className={`flex-1 text-[15px] font-bold leading-6 transition-colors duration-300 sm:text-[15px] ${isOpen
-                      ? "text-[#2563eb]"
-                      : "text-[#0f172a] group-hover:text-[#2563eb]"
-                      }`}
-                  >
-                    {faq.question}
-                  </span>
+              <p
+                className="
+                  mt-2
+                  text-[12px]
+                  leading-5
+                  text-[#64748b]
+                "
+              >
+                Our team is always happy to help you
+                with any additional queries.
+              </p>
+            </div>
+          </div>
 
-                  {/* Icon */}
-                  <span
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${isOpen
-                      ? "bg-[#2563eb] text-white"
-                      : "border border-[#dbe3ee] bg-white text-[#64748b] group-hover:border-[#2563eb] group-hover:text-[#2563eb]"
-                      }`}
-                  >
-                    {isOpen ? (
-                      <FiMinus size={16} />
-                    ) : (
-                      <FiPlus size={16} />
-                    )}
-                  </span>
-                </button>
+          {/* RIGHT FAQ */}
+          <div className="space-y-3">
+            {faqs.map((faq, index) => {
+              const isOpen = openIndex === index;
 
-                {/* Answer */}
+              return (
                 <div
-                  className={`grid transition-all duration-400 ease-in-out ${isOpen
-                    ? "grid-rows-[1fr] opacity-100"
-                    : "grid-rows-[0fr] opacity-0"
-                    }`}
+                  key={faq.question}
+                  className={`
+                    overflow-hidden
+                    rounded-2xl
+                    border
+                    transition-all
+                    duration-300
+
+                    ${isOpen
+                      ? "border-[#2563eb]/30 bg-white shadow-[0_12px_35px_rgba(37,99,235,0.08)]"
+                      : "border-[#e2e8f0] bg-white hover:border-[#cbd5e1]"
+                    }
+                  `}
                 >
-                  <div className="overflow-hidden">
-                    <div className="pb-7 pl-[52px] pr-14 sm:pl-[70px] sm:pr-20">
-                      <p className="max-w-2xl text-[12px] leading-6 text-[#64748b] sm:text-[13px]">
-                        {faq.answer}
-                      </p>
+                  <button
+                    type="button"
+                    onClick={() => toggleFAQ(index)}
+                    aria-expanded={isOpen}
+                    className="
+                      flex
+                      w-full
+                      items-center
+                      gap-4
+                      px-5
+                      py-5
+                      text-left
+                      sm:px-6
+                      sm:py-6
+                    "
+                  >
+                    {/* Number */}
+                    <span
+                      className={`
+                        flex
+                        h-9
+                        w-9
+                        shrink-0
+                        items-center
+                        justify-center
+                        rounded-full
+                        text-[11px]
+                        font-bold
+                        transition-all
+                        duration-300
+
+                        ${isOpen
+                          ? "bg-[#2563eb] text-white"
+                          : "bg-[#eff6ff] text-[#2563eb]"
+                        }
+                      `}
+                    >
+                      0{index + 1}
+                    </span>
+
+                    {/* Question */}
+                    <span
+                      className={`
+                        flex-1
+                        text-[14px]
+                        font-bold
+                        leading-6
+                        transition-colors
+                        duration-300
+                        sm:text-[15px]
+
+                        ${isOpen
+                          ? "text-[#2563eb]"
+                          : "text-[#0f172a]"
+                        }
+                      `}
+                    >
+                      {faq.question}
+                    </span>
+
+                    {/* Icon */}
+                    <span
+                      className={`
+                        flex
+                        h-9
+                        w-9
+                        shrink-0
+                        items-center
+                        justify-center
+                        rounded-full
+                        transition-all
+                        duration-300
+
+                        ${isOpen
+                          ? "bg-[#2563eb] text-white rotate-180"
+                          : "border border-[#dbe3ee] bg-white text-[#64748b]"
+                        }
+                      `}
+                    >
+                      {isOpen ? (
+                        <FiMinus size={15} />
+                      ) : (
+                        <FiPlus size={15} />
+                      )}
+                    </span>
+                  </button>
+
+                  {/* Answer */}
+                  <div
+                    className={`
+                      grid
+                      transition-all
+                      duration-500
+                      ease-in-out
+
+                      ${isOpen
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0"
+                      }
+                    `}
+                  >
+                    <div className="overflow-hidden">
+                      <div
+                        className="
+                          border-t
+                          border-[#f1f5f9]
+                          px-5
+                          pb-6
+                          pt-4
+                          sm:px-6
+                          sm:pb-6
+                        "
+                      >
+                        <p
+                          className="
+                            pl-[52px]
+                            text-[12px]
+                            leading-6
+                            text-[#64748b]
+                            sm:text-[13px]
+                          "
+                        >
+                          {faq.answer}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
@@ -2354,22 +4173,738 @@ export function FAQ() {
 }
 
 export function Contact() {
-  const contactDetails = [{ icon: IoMdCall, title: "Phone", value: "+91 836 426 6074", href: "tel:+918364266074" }, { icon: IoMdMail, title: "Email", value: "hello@yourstore.com", href: "mailto:hello@yourstore.com" }, { icon: IoMdPin, title: "Address", value: "Gf# 64, Laxmi Balkrishna Square, Harsha Complex, 1 Stage, Station Road, Hubballi, Karnataka 580020", href: "https://www.google.com/maps/search/?api=1&query=Gf%2364%2C%20Laxmi%20Balkrishna%20Square%2C%20Harsha%20Complex%2C%201%20Stage%2C%20Station%20Road%2C%20Hubballi%2C%20Karnataka%20580020" }];
-  return <section id="contact" className="bg-[#f8fafc] py-20 scroll-mt-[100px] lg:py-28"><div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8"><div className="grid gap-6 lg:grid-cols-[.8fr_1.2fr]"><div className="rounded-[28px] bg-[#06162d] p-7 text-white sm:p-10"><p className="text-[11px] font-bold uppercase tracking-[3px] text-[#60a5fa]">Get In Touch</p><h2 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-[48px]">Contact Us</h2><p className="mt-5 max-w-md text-[14px] leading-7 text-white/60">Have a question or need help choosing the right product? Our team is always here to help you.</p><div className="mt-9 space-y-5">{contactDetails.map(item => { const Icon = item.icon; return <a key={item.title} href={item.href} target="_blank" rel="noopener noreferrer" className="flex gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10"><div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#2563eb] text-white"><Icon size={20} /></div><div><p className="text-[10px] font-bold uppercase tracking-[2px] text-white/40">{item.title}</p><p className="mt-1 text-[13px] font-semibold leading-6 text-white/85">{item.value}</p></div></a> })}</div><a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-[12px] font-bold text-[#0f172a] transition hover:bg-[#dbeafe]"><IoMdPin size={16} /> View Location</a></div><div className="grid gap-4 sm:grid-cols-2"><div className="rounded-[24px] border border-[#e5eaf1] bg-[#f8fafc] p-7 transition hover:bg-white hover:shadow-xl"><IoMdPin size={26} /><p className="mt-6 text-[10px] font-bold uppercase tracking-[2px] text-[#94a3b8]">Visit Us</p><h3 className="mt-2 text-xl font-extrabold text-[#0f172a]">Our Store</h3><a href={contactDetails[2].href} target="_blank" rel="noopener noreferrer"><p className="mt-3 text-[13px] leading-6 text-[#64748b]">{contactDetails[2].value}</p></a></div><div className="rounded-[24px] border border-[#e5eaf1] bg-[#f8fafc] p-7 transition hover:bg-white hover:shadow-xl"><IoMdMail size={26} /><p className="mt-6 text-[10px] font-bold uppercase tracking-[2px] text-[#94a3b8]">Email Us</p><h3 className="mt-2 text-xl font-extrabold text-[#0f172a]">Send a Message</h3><a href="mailto:hello@yourstore.com" className="mt-3 block text-[13px] leading-6 text-[#64748b]">hello@yourstore.com<br />support@yourstore.com</a></div><div className="rounded-[24px] border border-[#e5eaf1] bg-[#f8fafc] p-7 transition hover:bg-white hover:shadow-xl"><IoMdCall size={26} /><p className="mt-6 text-[10px] font-bold uppercase tracking-[2px] text-[#94a3b8]">Call Us</p><h3 className="mt-2 text-xl font-extrabold text-[#0f172a]">Need Help?</h3><a href="tel:+918364266074" className="mt-3 block text-[13px] text-[#64748b]">+91 836 426 6074</a></div><div className="rounded-[24px] border border-[#e5eaf1] bg-[#f8fafc] p-7 transition hover:bg-white hover:shadow-xl"><PiTimerFill size={26} /><p className="mt-6 text-[10px] font-bold uppercase tracking-[2px] text-[#94a3b8]">Opening Hours</p><h3 className="mt-2 text-xl font-extrabold text-[#0f172a]">Store Hours</h3><p className="mt-3 text-[13px] leading-6 text-[#64748b]">Monday - Saturday<br />10:30 AM - 9:00 PM<br />Sunday - Closed</p></div></div></div></div></section>;
+  const contactDetails = [
+    {
+      icon: IoMdCall,
+      title: "Phone",
+      value: "+91 836 426 6074",
+      href: "tel:+918364266074",
+    },
+    {
+      icon: IoMdMail,
+      title: "Email",
+      value: "hello@yourstore.com",
+      href: "mailto:hello@yourstore.com",
+    },
+    {
+      icon: IoMdPin,
+      title: "Address",
+      value:
+        "Gf# 64, Laxmi Balkrishna Square, Harsha Complex, 1 Stage, Station Road, Hubballi, Karnataka 580020",
+      href:
+        "https://www.google.com/maps/search/?api=1&query=Gf%2364%2C%20Laxmi%20Balkrishna%20Square%2C%20Harsha%20Complex%2C%201%20Stage%2C%20Station%20Road%2C%20Hubballi%2C%20Karnataka%20580020",
+    },
+  ];
+
+  return (
+    <section
+      id="contact"
+      className="
+        bg-[#f8fafc]
+        py-20
+        scroll-mt-[100px]
+        lg:py-28
+      "
+    >
+      <div
+        className="
+          mx-auto
+          max-w-7xl
+          px-5
+          sm:px-6
+          lg:px-8
+        "
+      >
+        {/* MAIN CONTACT LAYOUT */}
+        <div
+          className="
+            grid
+            overflow-hidden
+            rounded-[32px]
+            border
+            border-[#e5eaf1]
+            bg-white
+            shadow-[0_20px_60px_rgba(15,23,42,0.06)]
+            lg:grid-cols-[0.85fr_1.15fr]
+          "
+        >
+          {/* ================= LEFT SIDE ================= */}
+          <div
+            className="
+              relative
+              overflow-hidden
+              p-7
+              text-white
+              sm:p-10
+              lg:p-12
+            "
+          >
+            {/* BACKGROUND IMAGE */}
+            <div
+              className="
+                absolute
+                inset-0
+                bg-cover
+                bg-center
+                bg-no-repeat
+              "
+              style={{
+                backgroundImage: "url('/contact-bg4.png')",
+              }}
+            />
+
+            {/* DARK OVERLAY */}
+            <div
+              className="
+                absolute
+                inset-0
+                bg-[#06162d]/60
+              "
+            />
+
+            {/* Decorative circle */}
+            <div
+              className="
+                pointer-events-none
+                absolute
+                -right-20
+                -top-20
+                h-64
+                w-64
+                rounded-full
+                border
+                border-white/10
+              "
+            />
+
+            {/* Decorative bottom glow */}
+            <div
+              className="
+                pointer-events-none
+                absolute
+                -bottom-32
+                -left-24
+                h-72
+                w-72
+                rounded-full
+                bg-[#2563eb]/20
+                blur-3xl
+              "
+            />
+
+            {/* LEFT CONTENT */}
+            <div className="relative z-10">
+              {/* LABEL */}
+              <p
+                className="
+                  text-[11px]
+                  font-bold
+                  uppercase
+                  tracking-[3px]
+                  text-[#60a5fa]
+                "
+              >
+                Get In Touch
+              </p>
+
+              {/* HEADING */}
+              <h2
+                className="
+                  mt-4
+                  text-[36px]
+                  font-sans
+                  font-extrabold
+                  tracking-tight
+                  sm:text-[48px]
+                "
+              >
+                Contact Us
+              </h2>
+
+              {/* DESCRIPTION */}
+              <p
+                className="
+                  mt-5
+                  max-w-md
+                  text-[14px]
+                  leading-7
+                  text-white/85
+                "
+              >
+                Have a question or need help choosing the
+                right product? Our team is always here to
+                help you.
+              </p>
+
+              {/* CONTACT DETAILS */}
+              <div className="mt-10 space-y-4">
+                {contactDetails.map((item) => {
+                  const Icon = item.icon;
+
+                  return (
+                    <a
+                      key={item.title}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="
+                        group
+                        flex
+                        items-start
+                        gap-4
+                        rounded-2xl
+                        border
+                        border-white/10
+                        bg-white/10
+                        p-4
+                        backdrop-blur-sm
+                        transition-all
+                        duration-300
+                        hover:border-white/20
+                        hover:bg-white/15
+                      "
+                    >
+                      {/* ICON */}
+                      <div
+                        className="
+                          flex
+                          h-11
+                          w-11
+                          shrink-0
+                          items-center
+                          justify-center
+                          rounded-xl
+                          bg-[#2563eb]
+                          text-white
+                          transition-transform
+                          duration-300
+                          group-hover:scale-105
+                        "
+                      >
+                        <Icon size={20} />
+                      </div>
+
+                      {/* TEXT */}
+                      <div className="min-w-0">
+                        <p
+                          className="
+                            text-[10px]
+                            font-bold
+                            uppercase
+                            tracking-[2px]
+                            text-white/45
+                          "
+                        >
+                          {item.title}
+                        </p>
+
+                        <p
+                          className="
+                            mt-1
+                            text-[13px]
+                            font-semibold
+                            leading-6
+                            text-white/90
+                          "
+                        >
+                          {item.value}
+                        </p>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+
+              {/* LOCATION BUTTON */}
+              <a
+                href="https://maps.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="
+                  mt-7
+                  inline-flex
+                  items-center
+                  gap-2
+                  rounded-full
+                  bg-white
+                  px-5
+                  py-3
+                  text-[12px]
+                  font-bold
+                  text-[#0f172a]
+                  transition-all
+                  duration-300
+                  hover:bg-[#dbeafe]
+                  hover:shadow-lg
+                "
+              >
+                <IoMdPin size={16} />
+                View Location
+              </a>
+            </div>
+          </div>
+
+          {/* ================= RIGHT SIDE ================= */}
+          <div
+            className="
+              grid
+              gap-4
+              bg-[#f8fafc]
+              p-5
+              sm:p-7
+              lg:grid-cols-2
+              lg:p-8
+            "
+          >
+            {/* ================= STORE ================= */}
+            <div
+              className="
+                group
+                rounded-[24px]
+                border
+                border-[#e5eaf1]
+                bg-white
+                p-6
+                transition-all
+                duration-300
+                hover:-translate-y-1
+                hover:border-[#bfdbfe]
+                hover:shadow-[0_15px_35px_rgba(37,99,235,0.08)]
+                sm:p-7
+              "
+            >
+              <div
+                className="
+                  flex
+                  h-12
+                  w-12
+                  items-center
+                  justify-center
+                  rounded-xl
+                  bg-[#eff6ff]
+                  text-[#2563eb]
+                  transition-all
+                  duration-300
+                  group-hover:bg-[#2563eb]
+                  group-hover:text-white
+                "
+              >
+                <IoMdPin size={24} />
+              </div>
+
+              <p
+                className="
+                  mt-7
+                  text-[10px]
+                  font-bold
+                  uppercase
+                  tracking-[2px]
+                  text-[#94a3b8]
+                "
+              >
+                Visit Us
+              </p>
+
+              <h3
+                className="
+                  mt-2
+                  text-xl
+                  font-sans
+                  font-extrabold
+                  text-[#0f172a]
+                "
+              >
+                Our Store
+              </h3>
+
+              <a
+                href={contactDetails[2].href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <p
+                  className="
+                    mt-3
+                    text-[13px]
+                    leading-6
+                    text-[#64748b]
+                    transition-colors
+                    hover:text-[#2563eb]
+                  "
+                >
+                  {contactDetails[2].value}
+                </p>
+              </a>
+            </div>
+
+            {/* ================= EMAIL ================= */}
+            <div
+              className="
+                group
+                rounded-[24px]
+                border
+                border-[#e5eaf1]
+                bg-white
+                p-6
+                transition-all
+                duration-300
+                hover:-translate-y-1
+                hover:border-[#bfdbfe]
+                hover:shadow-[0_15px_35px_rgba(37,99,235,0.08)]
+                sm:p-7
+              "
+            >
+              <div
+                className="
+                  flex
+                  h-12
+                  w-12
+                  items-center
+                  justify-center
+                  rounded-xl
+                  bg-[#eff6ff]
+                  text-[#2563eb]
+                  transition-all
+                  duration-300
+                  group-hover:bg-[#2563eb]
+                  group-hover:text-white
+                "
+              >
+                <IoMdMail size={24} />
+              </div>
+
+              <p
+                className="
+                  mt-7
+                  text-[10px]
+                  font-bold
+                  uppercase
+                  tracking-[2px]
+                  text-[#94a3b8]
+                "
+              >
+                Email Us
+              </p>
+
+              <h3
+                className="
+                  mt-2
+                  text-xl
+                  font-sans
+                  font-extrabold
+                  text-[#0f172a]
+                "
+              >
+                Send a Message
+              </h3>
+
+              <a
+                href="mailto:hello@yourstore.com"
+                className="
+                  mt-3
+                  block
+                  text-[13px]
+                  leading-6
+                  text-[#64748b]
+                  transition-colors
+                  hover:text-[#2563eb]
+                "
+              >
+                hello@yourstore.com
+                <br />
+                support@yourstore.com
+              </a>
+            </div>
+
+            {/* ================= PHONE ================= */}
+            <div
+              className="
+                group
+                rounded-[24px]
+                border
+                border-[#e5eaf1]
+                bg-white
+                p-6
+                transition-all
+                duration-300
+                hover:-translate-y-1
+                hover:border-[#bfdbfe]
+                hover:shadow-[0_15px_35px_rgba(37,99,235,0.08)]
+                sm:p-7
+              "
+            >
+              <div
+                className="
+                  flex
+                  h-12
+                  w-12
+                  items-center
+                  justify-center
+                  rounded-xl
+                  bg-[#eff6ff]
+                  text-[#2563eb]
+                  transition-all
+                  duration-300
+                  group-hover:bg-[#2563eb]
+                  group-hover:text-white
+                "
+              >
+                <IoMdCall size={24} />
+              </div>
+
+              <p
+                className="
+                  mt-7
+                  text-[10px]
+                  font-bold
+                  uppercase
+                  tracking-[2px]
+                  text-[#94a3b8]
+                "
+              >
+                Call Us
+              </p>
+
+              <h3
+                className="
+                  mt-2
+                  text-xl
+                  font-sans
+                  font-extrabold
+                  text-[#0f172a]
+                "
+              >
+                Need Help?
+              </h3>
+
+              <a
+                href="tel:+918364266074"
+                className="
+                  mt-3
+                  block
+                  text-[13px]
+                  text-[#64748b]
+                  transition-colors
+                  hover:text-[#2563eb]
+                "
+              >
+                +91 836 426 6074
+              </a>
+            </div>
+
+            {/* ================= OPENING HOURS ================= */}
+            <div
+              className="
+                group
+                rounded-[24px]
+                border
+                border-[#e5eaf1]
+                bg-white
+                p-6
+                transition-all
+                duration-300
+                hover:-translate-y-1
+                hover:border-[#bfdbfe]
+                hover:shadow-[0_15px_35px_rgba(37,99,235,0.08)]
+                sm:p-7
+              "
+            >
+              <div
+                className="
+                  flex
+                  h-12
+                  w-12
+                  items-center
+                  justify-center
+                  rounded-xl
+                  bg-[#eff6ff]
+                  text-[#2563eb]
+                  transition-all
+                  duration-300
+                  group-hover:bg-[#2563eb]
+                  group-hover:text-white
+                "
+              >
+                <PiTimerFill size={24} />
+              </div>
+
+              <p
+                className="
+                  mt-7
+                  text-[10px]
+                  font-bold
+                  uppercase
+                  tracking-[2px]
+                  text-[#94a3b8]
+                "
+              >
+                Opening Hours
+              </p>
+
+              <h3
+                className="
+                  mt-2
+                  text-xl
+                  font-sans
+                  font-extrabold
+                  text-[#0f172a]
+                "
+              >
+                Store Hours
+              </h3>
+
+              <p
+                className="
+                  mt-3
+                  text-[13px]
+                  leading-6
+                  text-[#64748b]
+                "
+              >
+                Monday - Saturday
+                <br />
+                10:30 AM - 9:00 PM
+                <br />
+                Sunday - Closed
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export function RepairSupportCTA() {
-  return <section className="bg-[#f8fafc] pb-20 lg:pt-0 lg:pb-28"><div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8"><div className="relative overflow-hidden rounded-[30px] bg-[#041124] shadow-[0_25px_60px_rgba(4,17,36,.16)]"><div className="absolute inset-0 bg-cover bg-center opacity-70" style={{ backgroundImage: "url('/assets/contact-bg.webp')" }} />{/* DARK OVERLAY */}
-    <div
-      className="
-              absolute
-              inset-0
-              bg-gradient-to-r
-              from-[#041124]/95
-              via-[#041124]/60
-              to-[#041124]/35
-            "
-    /><div className="relative z-10 flex min-h-[370px] items-center px-7 py-12 sm:px-12 lg:px-16"><div className="max-w-2xl"><p className="text-[11px] font-bold uppercase tracking-[3px] text-[#60a5fa]">Repair & Support</p><h2 className="mt-4 text-[38px] font-extrabold leading-tight tracking-tight text-white sm:text-5xl">Need Help With Your Phone?</h2><p className="mt-5 max-w-xl text-[14px] leading-7 text-white/60 sm:text-[16px]">From setup and troubleshooting to repairs and upgrades, our team is ready to help you get the most out of your device.</p><div className="mt-8 flex flex-wrap gap-3"><a href="#contact" className="inline-flex items-center gap-2 rounded-full bg-[#2563eb] px-6 py-3.5 text-[13px] font-bold text-white transition hover:bg-[#3b82f6]">Get Support <IoMdArrowRoundForward size={17} /></a><a href="tel:+918364266074" className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-[13px] font-bold text-white backdrop-blur transition hover:bg-white hover:text-[#0f172a]"><IoMdCall size={17} /> Call Us</a></div></div></div></div></div></section>;
+  return (
+    <section className="bg-[#f8fafc] pt-8 pb-16 sm:py-24 lg:pt-12 lg:pb-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center text-center">
+
+          {/* ================= TOP CONTENT ================= */}
+          <div className="max-w-3xl">
+            <p
+              className="
+                text-[11px]
+                font-bold
+                uppercase
+                tracking-[3px]
+                text-[#2563eb]
+              "
+            >
+              Repair & Support
+            </p>
+
+            <h2
+              className="
+                mt-4
+                font-sans
+                text-[36px]
+                font-extrabold
+                leading-[1.08]
+                tracking-tight
+                text-[#0f172a]
+                sm:text-5xl
+                lg:text-[52px]
+              "
+            >
+              Need Help With
+              Your Phone?
+            </h2>
+
+            <p
+              className="
+                mx-auto
+                mt-5
+                max-w-2xl
+                text-[14px]
+                leading-7
+                text-[#64748b]
+                sm:text-[16px]
+              "
+            >
+              From setup and troubleshooting to repairs and upgrades,
+              our team is ready to help you get the most out of your device.
+            </p>
+          </div>
+
+          {/* ================= CENTER IMAGE ================= */}
+          <div className="mt-8 flex w-full items-center justify-center sm:mt-10 lg:-mt-8">
+            <img
+              src="/cta-bg.png"
+              alt="Repair and support"
+              className="
+                block
+                w-full
+                max-w-[1050px]
+                object-contain
+                scale-110
+                sm:scale-105
+                lg:scale-110
+              "
+            />
+          </div>
+
+          {/* ================= BOTTOM BUTTONS ================= */}
+          <div className="mt-6 flex flex-wrap justify-center gap-3 sm:-mt-8">
+
+            {/* Get Support */}
+            <a
+              href="#contact"
+              className="
+                inline-flex
+                items-center
+                gap-2
+                rounded-full
+                bg-[#2563eb]
+                px-6
+                py-3.5
+                text-[13px]
+                font-bold
+                text-white
+                shadow-[0_10px_25px_rgba(37,99,235,0.18)]
+                transition-all
+                duration-300
+                hover:-translate-y-0.5
+                hover:bg-[#3b82f6]
+              "
+            >
+              Get Support
+              <IoMdArrowRoundForward size={17} />
+            </a>
+
+            {/* Call Us */}
+            <a
+              href="tel:+918364266074"
+              className="
+                inline-flex
+                items-center
+                gap-2
+                rounded-full
+                border
+                border-[#1e3a8a]
+                bg-transparent
+                px-6
+                py-3.5
+                text-[13px]
+                font-bold
+                text-[#0f172a]
+                transition-all
+                duration-300
+                hover:-translate-y-0.5
+                hover:bg-[#0f172a]
+                hover:text-white
+              "
+            >
+              <IoMdCall size={17} />
+              Call Us
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
 }
 
 
@@ -2384,10 +4919,10 @@ export function Footer() {
             <h3 className="text-[13px] font-bold">Quick Links</h3>
 
             <ul className="mt-5 space-y-3">
-              {["Home", "Products", "Repair", "Brands", "Contact"].map((x, i) => (
+              {["Home", "Products", "Repair", "About Us", "Brands", "Contact"].map((x, i) => (
                 <li key={x}>
                   <a
-                    href={["/", "/products", "/#repair", "/#brands", "/#contact"][i]}
+                    href={["/", "/products", "/#repair", "/#about", "/#brands", "/#contact"][i]}
                     className="text-[12px] text-white/50 transition hover:text-white"
                   >
                     {x}
@@ -2787,4 +5322,3 @@ export function Footer() {
     </footer>
   );
 }
-

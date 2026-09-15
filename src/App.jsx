@@ -12,6 +12,7 @@ import {
   RepairSupportCTA,
   Services,
   Testimonials,
+  ClientTestimonials,
 } from "./components";
 import Products, { ProductDetail } from "./components/Products";
 
@@ -41,10 +42,11 @@ export default function App() {
 
     animatedElements.forEach((element, index) => {
       element.classList.add("site-reveal");
+      element.classList.add("is-visible");
       element.style.setProperty("--site-delay", `${Math.min(index * 80, 320)}ms`);
     });
 
-    if (reduceMotion) {
+    if (reduceMotion || typeof IntersectionObserver === "undefined") {
       animatedElements.forEach((element) => element.classList.add("is-visible"));
       return;
     }
@@ -79,13 +81,14 @@ export default function App() {
       <Header />
       <main>
         <Hero />
-        <BrandMarquee />
         <WhatWeDo />
         <AboutUs />
         <Services />
+        <ClientTestimonials />
         <BenefitsStrip />
         <Testimonials />
         <FAQ />
+        <BrandMarquee />
         <Contact />
         <RepairSupportCTA />
       </main>
