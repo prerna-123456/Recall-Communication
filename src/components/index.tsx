@@ -638,7 +638,7 @@ export function Hero() {
           absolute
           inset-0
           z-[5]
-          bg-black/45
+          bg-black/25
           lg:hidden
         "
       />
@@ -807,37 +807,37 @@ export function Hero() {
 
             <p
               className="
-                absolute
-                left-1/2
-                top-[205px]
-                z-20
-                w-full
-                max-w-[340px]
-                -translate-x-1/2
+    absolute
+    left-0
+    top-[205px]
+    z-20
 
-                text-left
-                text-[13px]
-                font-normal
-                leading-[1.6]
-                tracking-[0.1px]
-                text-white
+    w-full
+    max-w-[330px]
 
-                drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]
+    text-left
+    text-[13px]
+    font-normal
+    leading-[1.6]
+    tracking-[0.1px]
+    text-white
 
-                sm:top-[205px]
-                sm:max-w-[420px]
-                sm:text-[14px]
+    drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]
 
-                lg:static
-                lg:mt-6
-                lg:translate-x-0
-                lg:max-w-[480px]
-                lg:text-right
-                lg:text-[15px]
-                lg:leading-[1.6]
-                lg:text-black
-                lg:drop-shadow-[0_2px_8px_rgba(0,0,0,0.30)]
-              "
+    sm:top-[205px]
+    sm:max-w-[420px]
+    sm:text-[14px]
+
+    lg:static
+    lg:mt-6
+    lg:ml-auto
+    lg:max-w-[480px]
+    lg:text-right
+    lg:text-[15px]
+    lg:leading-[1.6]
+    lg:text-black
+    lg:drop-shadow-[0_2px_8px_rgba(0,0,0,0.30)]
+  "
             >
               {activeSlide.description}
             </p>
