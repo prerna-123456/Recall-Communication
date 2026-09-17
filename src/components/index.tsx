@@ -50,22 +50,6 @@ const serviceProducts = [
     description:
       "Smart and stylish watches with fitness tracking, notifications and everyday health features.",
   },
-  {
-    name: "Power Solutions",
-    category: "All Products",
-    image: "/assets/product2.jpg",
-    bg: "bg-[#e7e6f8]",
-    description:
-      "Reliable power banks and charging solutions designed to keep your devices powered throughout the day.",
-  },
-  {
-    name: "Smartphones",
-    category: "All Products",
-    image: "/assets/all_products.png",
-    bg: "bg-[#e7e6f8]",
-    description:
-      "Powerful smartphones with modern displays, fast performance, great cameras and long-lasting battery life.",
-  },
 
   // ============================================================
   // PHONES - SET 2
@@ -85,22 +69,6 @@ const serviceProducts = [
     bg: "bg-[#e7e6f8]",
     description:
       "Modern Galaxy smartphones with vivid displays, powerful processors, excellent cameras and smart features.",
-  },
-  {
-    name: "OnePlus",
-    category: "Phones",
-    image: "/assets/phone3.png",
-    bg: "bg-[#e7e6f8]",
-    description:
-      "Fast and stylish smartphones designed with smooth performance, great displays and powerful everyday features.",
-  },
-  {
-    name: "Google Pixel",
-    category: "Phones",
-    image: "/assets/phone4.png",
-    bg: "bg-[#e7e6f8]",
-    description:
-      "Smartphones with clean software, intelligent features, excellent cameras and a premium everyday experience.",
   },
 
   // ============================================================
@@ -122,22 +90,6 @@ const serviceProducts = [
     description:
       "Comfortable headphones delivering rich audio, powerful bass and an immersive listening experience.",
   },
-  {
-    name: "Bluetooth Speakers",
-    category: "Audio",
-    image: "/assets/audio3.png",
-    bg: "bg-[#e7e6f8]",
-    description:
-      "Portable Bluetooth speakers with powerful sound, wireless connectivity and a stylish compact design.",
-  },
-  {
-    name: "Premium Speakers",
-    category: "Audio",
-    image: "/assets/audio4.png",
-    bg: "bg-[#e7e6f8]",
-    description:
-      "Premium speakers designed to deliver detailed sound, powerful bass and an immersive audio experience.",
-  },
 
   // ============================================================
   // ACCESSORIES - SET 4
@@ -157,22 +109,6 @@ const serviceProducts = [
     bg: "bg-[#e7e6f8]",
     description:
       "Fast and reliable chargers and durable cables for convenient everyday device charging.",
-  },
-  {
-    name: "Power Banks",
-    category: "Watches",
-    image: "/assets/watch3.png",
-    bg: "bg-[#e7e6f8]",
-    description:
-      "Reliable portable power banks designed to keep your devices powered throughout the day.",
-  },
-  {
-    name: "Gaming Accessories",
-    category: "Watches",
-    image: "/assets/watch4.png",
-    bg: "bg-[#e7e6f8]",
-    description:
-      "High-performance gaming accessories built for better control, comfort and an enhanced gaming experience.",
   },
 ];
 
@@ -368,9 +304,9 @@ export function Hero() {
   ];
 
   const mobileHeroImages = [
-    "/hero1.png",
-    "/hero2.png",
-    "/hero3.png",
+    "/hero-mobile1.png",
+    "/hero-mobile2.png",
+    "/hero-mobile3.png",
   ];
 
   const heroSlides = [
@@ -400,7 +336,6 @@ export function Hero() {
     useState<"next" | "prev">("next");
 
   const heroRef = useRef<HTMLElement | null>(null);
-  const touchStartY = useRef<number | null>(null);
   const wheelLocked = useRef(false);
 
   // =========================================================
@@ -433,11 +368,16 @@ export function Hero() {
   };
 
   // =========================================================
-  // WHEEL SCROLL
+  // DESKTOP WHEEL SCROLL
   // =========================================================
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
+      // Desktop only
+      if (window.innerWidth < 1024) {
+        return;
+      }
+
       const hero = heroRef.current;
 
       if (!hero) return;
@@ -461,10 +401,7 @@ export function Hero() {
       const goingDown = e.deltaY > 0;
       const goingUp = e.deltaY < 0;
 
-      // =====================================================
       // DOWN
-      // =====================================================
-
       if (
         goingDown &&
         currentSlide < heroSlides.length - 1
@@ -485,10 +422,7 @@ export function Hero() {
         return;
       }
 
-      // =====================================================
       // UP
-      // =====================================================
-
       if (
         goingUp &&
         currentSlide > 0
@@ -505,8 +439,6 @@ export function Hero() {
         setTimeout(() => {
           wheelLocked.current = false;
         }, 1150);
-
-        return;
       }
     };
 
@@ -527,91 +459,37 @@ export function Hero() {
   }, [currentSlide, isAnimating]);
 
   // =========================================================
-  // MOBILE TOUCH / SWIPE
+  // MOBILE AUTO SLIDE
   // =========================================================
 
   useEffect(() => {
-    const hero = heroRef.current;
-
-    if (!hero) return;
-
-    const handleTouchStart = (
-      e: TouchEvent
-    ) => {
-      touchStartY.current =
-        e.touches[0].clientY;
-    };
-
-    const handleTouchEnd = (
-      e: TouchEvent
-    ) => {
-      if (
-        touchStartY.current === null
-      ) {
+    const interval = window.setInterval(() => {
+      if (window.innerWidth >= 1024) {
         return;
       }
 
-      const endY =
-        e.changedTouches[0].clientY;
-
-      const difference =
-        touchStartY.current - endY;
-
-      touchStartY.current = null;
-
-      if (Math.abs(difference) < 50) {
+      if (isAnimating) {
         return;
       }
 
-      // Swipe UP
-      if (
-        difference > 0 &&
-        currentSlide < heroSlides.length - 1
-      ) {
-        changeSlide(
-          currentSlide + 1,
-          "next"
-        );
-      }
+      const nextIndex =
+        (currentSlide + 1) %
+        heroSlides.length;
 
-      // Swipe DOWN
-      if (
-        difference < 0 &&
-        currentSlide > 0
-      ) {
-        changeSlide(
-          currentSlide - 1,
-          "prev"
-        );
-      }
-    };
+      setDirection("next");
+      setIsAnimating(true);
 
-    hero.addEventListener(
-      "touchstart",
-      handleTouchStart,
-      {
-        passive: true,
-      }
-    );
+      setTimeout(() => {
+        setCurrentSlide(nextIndex);
 
-    hero.addEventListener(
-      "touchend",
-      handleTouchEnd,
-      {
-        passive: true,
-      }
-    );
+        setTimeout(() => {
+          setIsAnimating(false);
+        }, 100);
+      }, 900);
+    }, 4500);
 
     return () => {
-      hero.removeEventListener(
-        "touchstart",
-        handleTouchStart
-      );
-
-      hero.removeEventListener(
-        "touchend",
-        handleTouchEnd
-      );
+      window.clearInterval(interval);
     };
   }, [currentSlide, isAnimating]);
 
@@ -624,7 +502,7 @@ export function Hero() {
       className="
         relative
         mt-0
-        min-h-[550px]
+        min-h-[620px]
         overflow-hidden
         bg-[#020817]
         text-white
@@ -636,7 +514,6 @@ export function Hero() {
         lg:min-h-[670px]
       "
     >
-
       {/* =====================================================
           DESKTOP HERO SLIDER
       ====================================================== */}
@@ -719,10 +596,14 @@ export function Hero() {
                 will-change-transform
               "
               style={{
-                transform: `translate3d(0, ${index <= currentSlide
+                transform: `translate3d(
+                  0,
+                  ${index <= currentSlide
                     ? 0
                     : 100
-                  }%, 0)`,
+                  }%,
+                  0
+                )`,
 
                 transition:
                   "transform 1100ms cubic-bezier(0.22, 1, 0.36, 1)",
@@ -749,7 +630,6 @@ export function Hero() {
 
       {/* =====================================================
           MOBILE DARK OVERLAY
-          Only mobile
       ====================================================== */}
 
       <div
@@ -764,8 +644,7 @@ export function Hero() {
       />
 
       {/* =====================================================
-          BLUE GLOW
-          Desktop only
+          BLUE GLOW - DESKTOP ONLY
       ====================================================== */}
 
       <div
@@ -811,18 +690,14 @@ export function Hero() {
           relative
           z-10
           mx-auto
-          flex
           min-h-[550px]
           max-w-7xl
-          items-center
-          justify-center
           px-5
-          pt-16
 
           sm:min-h-[500px]
           sm:px-6
-          sm:pt-20
 
+          lg:flex
           lg:min-h-[670px]
           lg:items-center
           lg:justify-end
@@ -830,65 +705,73 @@ export function Hero() {
           lg:pt-0
         "
       >
-
         {/* =================================================
             CONTENT
         ================================================= */}
 
         <div
           className="
-            flex
+            relative
+            min-h-[550px]
             w-full
-            flex-col
-            items-center
-            justify-center
-            text-center
+
+            sm:min-h-[500px]
 
             lg:ml-auto
+            lg:flex
+            lg:min-h-0
             lg:w-[40%]
             lg:max-w-[620px]
             lg:shrink-0
+            lg:flex-col
             lg:items-end
             lg:justify-center
             lg:text-right
           "
         >
-
           {/* =================================================
-              ANIMATED TEXT
+              ANIMATED CONTENT
           ================================================= */}
 
           <div
             key={currentSlide}
             className={`
-              flex
+              relative
+              min-h-[550px]
               w-full
-              flex-col
-              items-center
-              justify-center
-              text-center
+              text-left
 
               ${direction === "next"
                 ? "hero-text-enter-bottom"
                 : "hero-text-enter-top"
               }
 
+              sm:min-h-[500px]
+
+              lg:flex
+              lg:min-h-0
+              lg:flex-col
               lg:items-end
+              lg:justify-center
               lg:text-right
             `}
           >
-
             {/* =================================================
-                HEADING
+                MOBILE HEADING
             ================================================= */}
 
             <h1
               className="
+                absolute
+                left-1/2
+                top-[120px]
+                z-20
                 w-full
+                -translate-x-1/2
 
-                text-[36px]
-                font-extrabold
                 font-sans
+                text-[33px]
+                font-extrabold
                 uppercase
                 leading-[0.95]
                 tracking-[1px]
@@ -896,10 +779,11 @@ export function Hero() {
 
                 drop-shadow-[0_5px_20px_rgba(0,0,0,0.45)]
 
+                sm:top-[95px]
                 sm:text-[48px]
 
-                md:text-[56px]
-
+                lg:static
+                lg:translate-x-0
                 lg:text-[56px]
                 lg:tracking-[1px]
                 lg:text-black
@@ -923,20 +807,30 @@ export function Hero() {
 
             <p
               className="
-                mt-5
+                absolute
+                left-1/2
+                top-[205px]
+                z-20
                 w-full
-                max-w-[420px]
-                text-center
+                max-w-[340px]
+                -translate-x-1/2
+
+                text-left
                 text-[13px]
                 font-normal
                 leading-[1.6]
                 tracking-[0.1px]
                 text-white
+
                 drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]
 
+                sm:top-[205px]
+                sm:max-w-[420px]
                 sm:text-[14px]
 
+                lg:static
                 lg:mt-6
+                lg:translate-x-0
                 lg:max-w-[480px]
                 lg:text-right
                 lg:text-[15px]
@@ -949,25 +843,33 @@ export function Hero() {
             </p>
 
             {/* =================================================
-                BUTTONS
+                MOBILE BUTTONS
+                Phones/image stays in center behind these
             ================================================= */}
 
             <div
               className="
-                mt-7
+                absolute
+                -bottom-[40px]
+                left-1/2
+                z-20
                 flex
                 w-full
-                items-center
-                justify-center
-                gap-2
+                -translate-x-1/2
+                items-left
+                justify-left
+                gap-4
 
+                sm:bottom-[35px]
+
+                lg:static
                 lg:mt-8
                 lg:w-auto
+                lg:translate-x-0
                 lg:justify-end
                 lg:gap-4
               "
             >
-
               {/* =================================================
                   EXPLORE NOW
               ================================================= */}
@@ -1021,8 +923,8 @@ export function Hero() {
                 <span
                   className="
                     flex
-                    h-6
-                    w-6
+                    h-5
+                    w-5
                     shrink-0
                     items-center
                     justify-center
@@ -1031,6 +933,7 @@ export function Hero() {
                     transition-all
                     duration-500
                     ease-out
+
                     group-hover:translate-x-1
 
                     lg:h-7
@@ -1087,71 +990,72 @@ export function Hero() {
               >
                 Explore Collection
               </a>
-
             </div>
           </div>
         </div>
       </div>
 
       {/* =====================================================
-          SLIDE INDICATORS
+          DESKTOP SLIDE INDICATORS
       ====================================================== */}
 
       <div
         className="
-    absolute
-    bottom-6
-    left-1/2
-    z-30
-    hidden
-    -translate-x-1/2
-    items-center
-    gap-2
+          absolute
+          bottom-6
+          left-1/2
+          z-30
+          hidden
+          -translate-x-1/2
+          items-center
+          gap-2
 
-    lg:flex
-    lg:bottom-10
-    lg:gap-3
-  "
+          lg:flex
+          lg:bottom-10
+          lg:gap-3
+        "
       >
-        {heroSlides.map((_, index) => (
-          <button
-            key={index}
-            type="button"
-            onClick={() => {
-              if (
-                index === currentSlide ||
-                isAnimating
-              ) {
-                return;
-              }
+        {heroSlides.map(
+          (_, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => {
+                if (
+                  index === currentSlide ||
+                  isAnimating
+                ) {
+                  return;
+                }
 
-              changeSlide(
-                index,
-                index > currentSlide
-                  ? "next"
-                  : "prev"
-              );
-            }}
-            className={`
-        h-[6px]
-        rounded-full
-        transition-all
-        duration-700
-        ease-out
+                changeSlide(
+                  index,
+                  index > currentSlide
+                    ? "next"
+                    : "prev"
+                );
+              }}
+              className={`
+                h-[6px]
+                rounded-full
+                transition-all
+                duration-700
+                ease-out
 
-        ${currentSlide === index
-                ? "w-16 bg-white"
-                : "w-10 bg-white/40"
-              }
-      `}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
+                ${currentSlide === index
+                  ? "w-16 bg-white"
+                  : "w-10 bg-white/40"
+                }
+              `}
+              aria-label={`Go to slide ${index + 1
+                }`}
+            />
+          )
+        )}
       </div>
 
       {/* =====================================================
-          BOTTOM FADE
-          Desktop only
+          BOTTOM FADE - DESKTOP ONLY
       ====================================================== */}
 
       <div
@@ -1176,13 +1080,11 @@ export function Hero() {
       ====================================================== */}
 
       <style>{`
-
         /* ==================================================
            TEXT ENTER — DOWN
         ================================================== */
 
         @keyframes heroTextEnterBottom {
-
           0% {
             opacity: 0;
             transform:
@@ -1203,16 +1105,13 @@ export function Hero() {
               scale(1);
             filter: blur(0);
           }
-
         }
-
 
         /* ==================================================
            TEXT ENTER — UP
         ================================================== */
 
         @keyframes heroTextEnterTop {
-
           0% {
             opacity: 0;
             transform:
@@ -1233,16 +1132,13 @@ export function Hero() {
               scale(1);
             filter: blur(0);
           }
-
         }
-
 
         /* ==================================================
            TEXT ANIMATION
         ================================================== */
 
         .hero-text-enter-bottom {
-
           animation:
             heroTextEnterBottom
             850ms
@@ -1258,12 +1154,9 @@ export function Hero() {
             transform,
             opacity,
             filter;
-
         }
 
-
         .hero-text-enter-top {
-
           animation:
             heroTextEnterTop
             850ms
@@ -1279,9 +1172,7 @@ export function Hero() {
             transform,
             opacity,
             filter;
-
         }
-
 
         /* ==================================================
            IMAGE PERFORMANCE
@@ -1290,43 +1181,31 @@ export function Hero() {
         img {
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
-          transform: translateZ(0);
         }
-
 
         /* ==================================================
            REDUCE MOTION
         ================================================== */
 
         @media (prefers-reduced-motion: reduce) {
-
           .hero-text-enter-bottom,
           .hero-text-enter-top {
-
             animation-duration: 1ms !important;
-
           }
-
         }
-
 
         /* ==================================================
            LARGE SCREEN EXTRA SPACING
         ================================================== */
 
         @media (min-width: 1536px) {
-
           .hero-text-enter-bottom,
           .hero-text-enter-top {
-
             will-change:
               transform,
               opacity;
-
           }
-
         }
-
       `}</style>
     </section>
   );
@@ -1531,42 +1410,42 @@ export function WhatWeDo() {
   const services = [
     {
       title: "Buy & Sell Devices",
-      image: "/do1.webp",
+      image: "/do1.png",
       description:
         "Find the right device or sell your old one with ease.",
       features: ["BUY", "SELL"],
     },
     {
       title: "Mobile Repair",
-      image: "/do2.webp",
+      image: "/do2.png",
       description:
         "Quick, reliable and expert repairs for all your devices.",
       features: ["REPAIR", "SUPPORT"],
     },
     {
       title: "Audio Device Repair",
-      image: "/do3.webp",
+      image: "/do3.png",
       description:
         "Get your audio devices back to perfect sound.",
       features: ["AUDIO", "REPAIR"],
     },
     {
       title: "Accessories",
-      image: "/do4.webp",
+      image: "/do4.png",
       description:
         "Premium accessories for a better everyday experience.",
       features: ["MOBILE", "AUDIO"],
     },
     {
       title: "Device Setup",
-      image: "/do5.webp",
+      image: "/do5.png",
       description:
         "Get your device ready for everything that's next.",
       features: ["SETUP", "GUIDANCE"],
     },
     {
       title: "Troubleshooting",
-      image: "/do7.webp",
+      image: "/do7.png",
       description:
         "We'll find the issue and fix it fast.",
       features: ["DIAGNOSIS", "SUPPORT"],
@@ -1628,6 +1507,7 @@ export function WhatWeDo() {
   /*
    * ============================================================
    * INVISIBLE INFINITE LOOP RESET
+   * BOTH PREVIOUS + NEXT
    * ============================================================
    */
 
@@ -1637,6 +1517,16 @@ export function WhatWeDo() {
         setIsTransitioning(false);
 
         setCurrentIndex(services.length);
+      }, 850);
+    }
+
+    if (currentIndex < services.length) {
+      resetTimeoutRef.current = setTimeout(() => {
+        setIsTransitioning(false);
+
+        setCurrentIndex(
+          services.length * 2 - 1
+        );
       }, 850);
     }
 
@@ -1663,6 +1553,24 @@ export function WhatWeDo() {
     }
   }, [isTransitioning]);
 
+  /*
+   * ============================================================
+   * PREVIOUS / NEXT
+   * ============================================================
+   */
+
+  const handlePrevious = () => {
+    setIsTransitioning(true);
+
+    setCurrentIndex((prev) => prev - 1);
+  };
+
+  const handleNext = () => {
+    setIsTransitioning(true);
+
+    setCurrentIndex((prev) => prev + 1);
+  };
+
   return (
     <section
       id="what-we-do"
@@ -1671,9 +1579,9 @@ export function WhatWeDo() {
         overflow-x-clip
         bg-[#f8fafc]
         py-20
-        pb-[120px]
+        pb-[50px]
         lg:pt-28
-        lg:pb-[150px]
+        lg:pb-[100px]
       "
     >
       {/* ========================================================
@@ -1701,6 +1609,8 @@ export function WhatWeDo() {
 
           <h2
             className="
+            hidden 
+            lg:block
               mt-4
               text-[36px]
               font-sans
@@ -1714,9 +1624,26 @@ export function WhatWeDo() {
             Everything you need,
             <br />
 
-            <span className="text-[#2563eb]">
-              all in one place.
-            </span>
+            <span className="text-[#2563eb]"> all in one place.</span>
+          </h2>
+
+          <h2
+            className="
+            lg:hidden
+              mt-4
+              text-[36px]
+              font-sans
+              font-extrabold
+              leading-[1.08]
+              tracking-tight
+              text-[#0f172a]
+              sm:text-[48px]
+            "
+          >
+            Everything you need,
+
+
+            <span className="text-[#2563eb]"> all in one place.</span>
           </h2>
 
         </div>
@@ -1784,9 +1711,7 @@ export function WhatWeDo() {
                   }
                 `}
               >
-                {/* ==================================================
-                    IMAGE CARD
-                    ================================================== */}
+                {/* IMAGE CARD */}
 
                 <div
                   className="
@@ -1826,9 +1751,7 @@ export function WhatWeDo() {
                     "
                   />
 
-                  {/* ==================================================
-                      TWO FEATURES
-                      ================================================== */}
+                  {/* FEATURES */}
 
                   <div
                     className="
@@ -1863,13 +1786,9 @@ export function WhatWeDo() {
                   </div>
                 </div>
 
-                {/* ==================================================
-                    TITLE + DESCRIPTION BELOW IMAGE
-                    ================================================== */}
+                {/* TITLE + DESCRIPTION */}
 
-                <div className="pt-4 px-1">
-
-                  {/* TITLE */}
+                <div className="px-1 pt-4">
 
                   <h3
                     className="
@@ -1883,8 +1802,6 @@ export function WhatWeDo() {
                   >
                     {service.title}
                   </h3>
-
-                  {/* DESCRIPTION */}
 
                   <p
                     className="
@@ -1966,9 +1883,7 @@ export function WhatWeDo() {
                   }
                 `}
               >
-                {/* ==================================================
-                    MOBILE IMAGE CARD
-                    ================================================== */}
+                {/* MOBILE IMAGE CARD */}
 
                 <div
                   className="
@@ -2008,9 +1923,7 @@ export function WhatWeDo() {
                     "
                   />
 
-                  {/* ==================================================
-                      TWO FEATURES
-                      ================================================== */}
+                  {/* FEATURES */}
 
                   <div
                     className="
@@ -2045,13 +1958,9 @@ export function WhatWeDo() {
                   </div>
                 </div>
 
-                {/* ==================================================
-                    MOBILE TITLE + DESCRIPTION
-                    ================================================== */}
+                {/* MOBILE TITLE + DESCRIPTION */}
 
                 <div className="px-1 pt-3">
-
-                  {/* TITLE */}
 
                   <h3
                     className="
@@ -2065,8 +1974,6 @@ export function WhatWeDo() {
                   >
                     {service.title}
                   </h3>
-
-                  {/* DESCRIPTION */}
 
                   <p
                     className="
@@ -2085,6 +1992,129 @@ export function WhatWeDo() {
             );
           })}
         </div>
+      </div>
+
+      {/* ========================================================
+          PREVIOUS / NEXT ARROWS
+          ======================================================== */}
+
+      <div
+        className="
+          mt-14
+          flex
+          items-center
+          justify-center
+          gap-3
+          lg:mt-16
+        "
+      >
+        {/* PREVIOUS BUTTON */}
+
+        <button
+          type="button"
+          onClick={handlePrevious}
+          aria-label="Previous service"
+          className="
+            group
+            flex
+            h-12
+            w-12
+            items-center
+            justify-center
+            rounded-full
+            border
+            border-[#dbe3ee]
+            bg-white
+            text-[#0f172a]
+            shadow-sm
+
+            transition-all
+            duration-300
+
+            hover:-translate-y-0.5
+            hover:border-[#2563eb]
+            hover:bg-[#2563eb]
+            hover:text-white
+            hover:shadow-md
+
+            active:scale-95
+          "
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="
+              transition-transform
+              duration-300
+              group-hover:-translate-x-0.5
+            "
+          >
+            <path
+              d="M15 18L9 12L15 6"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+
+        {/* NEXT BUTTON */}
+
+        <button
+          type="button"
+          onClick={handleNext}
+          aria-label="Next service"
+          className="
+            group
+            flex
+            h-12
+            w-12
+            items-center
+            justify-center
+            rounded-full
+            border
+            border-[#dbe3ee]
+            bg-white
+            text-[#0f172a]
+            shadow-sm
+
+            transition-all
+            duration-300
+
+            hover:-translate-y-0.5
+            hover:border-[#2563eb]
+            hover:bg-[#2563eb]
+            hover:text-white
+            hover:shadow-md
+
+            active:scale-95
+          "
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="
+              transition-transform
+              duration-300
+              group-hover:translate-x-0.5
+            "
+          >
+            <path
+              d="M9 18L15 12L9 6"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
       </div>
 
       {/* ========================================================
@@ -2160,24 +2190,27 @@ export function AboutUs() {
 
             <h2
               className="
-      mt-3
-      text-[36px]
-      font-sans
-      font-extrabold
-      leading-[1.08]
-      tracking-tight
-      text-[#0f172a]
-      sm:text-4xl
-      lg:text-[42px]
-    "
+    mt-3
+    text-[36px]
+    font-sans
+    font-extrabold
+    leading-[1.08]
+    tracking-tight
+    text-[#0f172a]
+    sm:text-4xl
+    lg:text-[42px]
+  "
             >
               Reliable repairs
               <br />
+
               <span
                 className="
-        whitespace-nowrap
-        text-[#2563eb]
-      "
+      mt-2
+      inline-block
+      whitespace-nowrap
+      text-[#2563eb]
+    "
               >
                 Better performance.
               </span>
@@ -2521,7 +2554,7 @@ export function Services() {
         overflow-hidden
         bg-[#f7f9fc]
         pt-4
-        pb-10
+        pb-6
         scroll-mt-[80px]
         lg:pt-10
         lg:pb-20
@@ -2588,85 +2621,87 @@ export function Services() {
 
             <div
               className="
-                ml-auto
-                relative
-                hidden
-                lg:flex
-                items-center
-                overflow-hidden
-                rounded-full
-              "
+    ml-auto
+    relative
+    hidden
+    lg:flex
+    items-center
+    overflow-hidden
+    rounded-full
+
+    h-[50px]
+
+    bg-white
+    backdrop-blur-md
+    border
+    border-[#cbd5e1]/70
+    shadow-[0_4px_18px_rgba(15,23,42,0.06)]
+  "
             >
-
               {/* DESKTOP MOVING ACTIVE PILL */}
-
               <span
                 className="
-                  pointer-events-none
-                  absolute
-                  left-0
-                  top-0
-                  z-0
-                  h-full
-                  w-[112px]
-                  rounded-full
-                  bg-[#0f172a]
-                  shadow-[0_6px_18px_rgba(15,23,42,0.18)]
-                  transition-transform
-                  duration-[700ms]
-                  ease-[cubic-bezier(0.22,1,0.36,1)]
-                "
+    pointer-events-none
+    absolute
+    left-[4px]
+    top-[4px]
+    z-0
+    h-[calc(100%-8px)]
+    w-[104px]
+    rounded-full
+    bg-[#0f172a]
+    shadow-[0_6px_18px_rgba(15,23,42,0.18)]
+    transition-transform
+    duration-[700ms]
+    ease-[cubic-bezier(0.22,1,0.36,1)]
+  "
                 style={{
                   transform: `translate3d(${activeCategoryIndex * 112}px, 0, 0)`,
                 }}
               />
 
               {categories.map((category) => {
-                const active =
-                  activeCategory === category;
+                const active = activeCategory === category;
 
                 return (
                   <button
                     key={category}
                     type="button"
-                    onClick={() =>
-                      changeCategory(category)
-                    }
+                    onClick={() => changeCategory(category)}
                     className="
-                      relative
-                      z-10
-                      flex
-                      h-[42px]
-                      w-[112px]
-                      shrink-0
-                      items-center
-                      justify-center
-                      px-3
-                      text-[13px]
-                      font-semibold
-                      font-sans
-                      transition-colors
-                      duration-500
-                    "
+          relative
+          z-10
+          flex
+          h-[42px]
+          w-[112px]
+          shrink-0
+          items-center
+          justify-center
+          px-3
+          text-[13px]
+          font-semibold
+          font-sans
+          transition-colors
+          duration-500
+        "
                   >
                     <span
                       className={`
-                        relative
-                        whitespace-nowrap
-                        transition-colors
-                        duration-500
-                        ${active
+            relative
+            whitespace-nowrap
+            transition-colors
+            duration-500
+            ${active
                           ? "text-white"
                           : "text-[#94a3b8] hover:text-[#0f172a]"
                         }
-                      `}
+          `}
                     >
                       {category}
                     </span>
                   </button>
                 );
               })}
-
             </div>
           </div>
         </div>
@@ -2994,38 +3029,47 @@ export function Services() {
 
             <div
               className="
-                relative
-                grid
-                w-full
-                max-w-[360px]
-                grid-cols-4
-                items-center
-                overflow-hidden
-                rounded-full
-              "
+    relative
+    grid
+    w-full
+    max-w-[360px]
+    grid-cols-4
+    items-center
+    overflow-hidden
+    rounded-full
+
+    h-[56px]
+
+    bg-white
+    backdrop-blur-md
+    border
+    border-[#cbd5e1]/70
+    shadow-[0_4px_18px_rgba(15,23,42,0.06)]
+
+    p-[4px]
+  "
             >
-
-              {/* ==================================================
-                  MOBILE ACTIVE PILL
-                  25% WIDTH = PERFECT FIT FOR 4 ITEMS
-              ================================================== */}
-
+              {/* MOBILE ACTIVE PILL */}
               <span
                 className="
-                  pointer-events-none
-                  absolute
-                  left-0
-                  top-0
-                  z-0
-                  h-full
-                  w-1/4
-                  rounded-full
-                  bg-[#0f172a]
-                  shadow-[0_6px_18px_rgba(15,23,42,0.18)]
-                  transition-transform
-                  duration-[700ms]
-                  ease-[cubic-bezier(0.22,1,0.36,1)]
-                "
+      pointer-events-none
+      absolute
+      left-[4px]
+      top-[4px]
+      z-0
+
+      h-[calc(100%-8px)]
+      w-[calc(25%-2px)]
+
+      rounded-full
+      bg-[#0f172a]
+
+      shadow-[0_6px_18px_rgba(15,23,42,0.18)]
+
+      transition-transform
+      duration-[700ms]
+      ease-[cubic-bezier(0.22,1,0.36,1)]
+    "
                 style={{
                   transform: `translate3d(${activeCategoryIndex * 100}%, 0, 0)`,
                 }}
@@ -3722,7 +3766,7 @@ export function Testimonials() {
               mt-4
               max-w-3xl
               text-[36px]
-              font-serif
+              font-sans
               font-extrabold
               leading-tight
               tracking-tight
@@ -4777,7 +4821,7 @@ export function Contact() {
 
 export function RepairSupportCTA() {
   return (
-    <section className="bg-[#f8fafc] pt-8 pb-16 sm:py-24 lg:pt-12 lg:pb-28">
+    <section className="bg-white pt-8 pb-16 sm:py-24 lg:pt-12 lg:pb-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center text-center">
 
@@ -4829,45 +4873,45 @@ export function RepairSupportCTA() {
           </div>
 
           {/* ================= CENTER IMAGE ================= */}
-          <div className="mt-8 flex w-full items-center justify-center sm:mt-10 lg:-mt-8">
+          <div className="mt-6 flex w-full items-center justify-center">
             <img
-              src="/cta-bg.png"
+              src="/cta-bg2.png"
               alt="Repair and support"
               className="
-                block
-                w-full
-                max-w-[1050px]
-                object-contain
-                scale-110
-                sm:scale-105
-                lg:scale-110
-              "
+      block
+      h-auto
+      w-[110%]
+      max-w-[1250px]
+      object-contain
+
+      sm:w-[115%]
+      lg:w-[120%]
+    "
             />
           </div>
 
           {/* ================= BOTTOM BUTTONS ================= */}
-          <div className="mt-6 flex flex-wrap justify-center gap-3 sm:-mt-8">
-
+          <div className="mt-4 flex flex-wrap justify-center gap-3">
             {/* Get Support */}
             <a
               href="#contact"
               className="
-                inline-flex
-                items-center
-                gap-2
-                rounded-full
-                bg-[#2563eb]
-                px-6
-                py-3.5
-                text-[13px]
-                font-bold
-                text-white
-                shadow-[0_10px_25px_rgba(37,99,235,0.18)]
-                transition-all
-                duration-300
-                hover:-translate-y-0.5
-                hover:bg-[#3b82f6]
-              "
+      inline-flex
+      items-center
+      gap-2
+      rounded-full
+      bg-[#2563eb]
+      px-6
+      py-3.5
+      text-[13px]
+      font-bold
+      text-white
+      shadow-[0_10px_25px_rgba(37,99,235,0.18)]
+      transition-all
+      duration-300
+      hover:-translate-y-0.5
+      hover:bg-[#3b82f6]
+    "
             >
               Get Support
               <IoMdArrowRoundForward size={17} />
@@ -4877,24 +4921,24 @@ export function RepairSupportCTA() {
             <a
               href="tel:+918364266074"
               className="
-                inline-flex
-                items-center
-                gap-2
-                rounded-full
-                border
-                border-[#1e3a8a]
-                bg-transparent
-                px-6
-                py-3.5
-                text-[13px]
-                font-bold
-                text-[#0f172a]
-                transition-all
-                duration-300
-                hover:-translate-y-0.5
-                hover:bg-[#0f172a]
-                hover:text-white
-              "
+      inline-flex
+      items-center
+      gap-2
+      rounded-full
+      border
+      border-[#1e3a8a]
+      bg-transparent
+      px-6
+      py-3.5
+      text-[13px]
+      font-bold
+      text-[#0f172a]
+      transition-all
+      duration-300
+      hover:-translate-y-0.5
+      hover:bg-[#0f172a]
+      hover:text-white
+    "
             >
               <IoMdCall size={17} />
               Call Us
