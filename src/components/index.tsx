@@ -902,7 +902,7 @@ export function Hero() {
                   text-[11px]
                   font-medium
                   tracking-[0.3px]
-                  text-black/60
+                  text-black/80
                   backdrop-blur-md
                   transition-all
                   duration-500
@@ -974,7 +974,7 @@ export function Hero() {
                   text-[11px]
                   font-medium
                   tracking-[0.3px]
-                  text-black/60
+                  text-black/80
                   backdrop-blur-md
                   transition-all
                   duration-500
