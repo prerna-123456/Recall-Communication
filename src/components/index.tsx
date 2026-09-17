@@ -896,7 +896,7 @@ export function Hero() {
                   rounded-full
                   border
                   border-white/60
-                  bg-white
+                  bg-white/30
                   px-4
                   py-3
                   text-[11px]
@@ -968,7 +968,7 @@ export function Hero() {
                   rounded-full
                   border
                   border-white/60
-                  bg-white
+                  bg-white/30
                   px-4
                   py-3
                   text-[11px]
