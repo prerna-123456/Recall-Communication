@@ -633,15 +633,22 @@ export function Hero() {
       ====================================================== */}
 
       <div
-        className="
-          pointer-events-none
-          absolute
-          inset-0
-          z-[5]
-          bg-black/25
-          lg:hidden
-        "
-      />
+  className="
+    pointer-events-none
+    absolute
+    inset-x-0
+    top-0
+    z-[5]
+    h-[260px]
+
+    bg-gradient-to-b
+    from-black/25
+    via-black/10
+    to-transparent
+
+    lg:hidden
+  "
+/>
 
       {/* =====================================================
           BLUE GLOW - DESKTOP ONLY
@@ -856,8 +863,8 @@ export function Hero() {
                 flex
                 w-full
                 -translate-x-1/2
-                items-left
-                justify-left
+                items-center
+                justify-center
                 gap-4
 
                 sm:bottom-[35px]
