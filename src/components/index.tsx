@@ -57,7 +57,7 @@ const serviceProducts = [
   {
     name: "iPhone",
     category: "Phones",
-    image: "/assets/phone1.png",
+    image: "/assets/phone1.webp",
     bg: "bg-[#e7e6f8]",
     description:
       "Powerful smartphones with premium design, advanced cameras, smooth performance and long-lasting battery life.",
@@ -65,7 +65,7 @@ const serviceProducts = [
   {
     name: "Samsung Galaxy",
     category: "Phones",
-    image: "/assets/phone2.png",
+    image: "/assets/phone2.webp",
     bg: "bg-[#e7e6f8]",
     description:
       "Modern Galaxy smartphones with vivid displays, powerful processors, excellent cameras and smart features.",
@@ -77,7 +77,7 @@ const serviceProducts = [
   {
     name: "Wireless Earbuds",
     category: "Audio",
-    image: "/assets/audio1.png",
+    image: "/assets/audio1.webp",
     bg: "bg-[#e7e6f8]",
     description:
       "Compact wireless earbuds with clear vocals, deep bass and a comfortable fit for everyday listening.",
@@ -85,7 +85,7 @@ const serviceProducts = [
   {
     name: "Headphones",
     category: "Audio",
-    image: "/assets/audio2.png",
+    image: "/assets/audio2.webp",
     bg: "bg-[#e7e6f8]",
     description:
       "Comfortable headphones delivering rich audio, powerful bass and an immersive listening experience.",
@@ -97,7 +97,7 @@ const serviceProducts = [
   {
     name: "Smartwatches",
     category: "Watches",
-    image: "/assets/watch1.png",
+    image: "/assets/watch1.webp",
     bg: "bg-[#e7e6f8]",
     description:
       "Smart and stylish watches with fitness tracking, notifications and everyday health features.",
@@ -105,7 +105,7 @@ const serviceProducts = [
   {
     name: "Chargers & Cables",
     category: "Watches",
-    image: "/assets/watch2.png",
+    image: "/assets/watch2.webp",
     bg: "bg-[#e7e6f8]",
     description:
       "Fast and reliable chargers and durable cables for convenient everyday device charging.",
@@ -298,15 +298,15 @@ export function Header() {
 
 export function Hero() {
   const desktopHeroImages = [
-    "/hero1.png",
-    "/hero2.png",
-    "/hero3.png",
+    "/hero1.webp",
+    "/hero2.webp",
+    "/hero3.webp",
   ];
 
   const mobileHeroImages = [
-    "/hero-mobile1.png",
-    "/hero-mobile2.png",
-    "/hero-mobile3.png",
+    "/hero-mobile1.webp",
+    "/hero-mobile2.webp",
+    "/hero-mobile3.webp",
   ];
 
   const heroSlides = [
@@ -1410,42 +1410,42 @@ export function WhatWeDo() {
   const services = [
     {
       title: "Buy & Sell Devices",
-      image: "/do1.png",
+      image: "/do1.webp",
       description:
         "Find the right device or sell your old one with ease.",
       features: ["BUY", "SELL"],
     },
     {
       title: "Mobile Repair",
-      image: "/do2.png",
+      image: "/do2.webp",
       description:
         "Quick, reliable and expert repairs for all your devices.",
       features: ["REPAIR", "SUPPORT"],
     },
     {
       title: "Audio Device Repair",
-      image: "/do3.png",
+      image: "/do3.webp",
       description:
         "Get your audio devices back to perfect sound.",
       features: ["AUDIO", "REPAIR"],
     },
     {
       title: "Accessories",
-      image: "/do4.png",
+      image: "/do4.webp",
       description:
         "Premium accessories for a better everyday experience.",
       features: ["MOBILE", "AUDIO"],
     },
     {
       title: "Device Setup",
-      image: "/do5.png",
+      image: "/do5.webp",
       description:
         "Get your device ready for everything that's next.",
       features: ["SETUP", "GUIDANCE"],
     },
     {
       title: "Troubleshooting",
-      image: "/do7.png",
+      image: "/do7.webp",
       description:
         "We'll find the issue and fix it fast.",
       features: ["DIAGNOSIS", "SUPPORT"],
@@ -3696,7 +3696,7 @@ export function Testimonials() {
     >
       {/* BACKGROUND IMAGE */}
       <img
-        src="/testimonial-bg.png"
+        src="/testimonial-bg.webp"
         alt=""
         className="
           absolute
@@ -4293,7 +4293,7 @@ export function Contact() {
                 bg-no-repeat
               "
               style={{
-                backgroundImage: "url('/contact-bg4.png')",
+                backgroundImage: "url('/contact-bg4.webp')",
               }}
             />
 
@@ -4875,7 +4875,7 @@ export function RepairSupportCTA() {
           {/* ================= CENTER IMAGE ================= */}
           <div className="mt-6 flex w-full items-center justify-center">
             <img
-              src="/cta-bg2.png"
+              src="/cta-bg2.webp"
               alt="Repair and support"
               className="
       block
