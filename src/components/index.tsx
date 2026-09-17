@@ -639,7 +639,7 @@ export function Hero() {
     inset-x-0
     top-0
     z-[5]
-    h-[260px]
+    h-[280px]
 
     bg-gradient-to-b
     from-black/25
@@ -896,13 +896,13 @@ export function Hero() {
                   rounded-full
                   border
                   border-white/60
-                  bg-white/10
+                  bg-white
                   px-4
                   py-3
                   text-[11px]
                   font-medium
                   tracking-[0.3px]
-                  text-white
+                  text-black/60
                   backdrop-blur-md
                   transition-all
                   duration-500
@@ -968,13 +968,13 @@ export function Hero() {
                   rounded-full
                   border
                   border-white/60
-                  bg-white/10
+                  bg-white
                   px-4
                   py-3
                   text-[11px]
                   font-medium
                   tracking-[0.3px]
-                  text-white
+                  text-black/60
                   backdrop-blur-md
                   transition-all
                   duration-500
