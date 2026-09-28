@@ -1977,7 +1977,7 @@ export function WhatWeDo() {
                     <h3 className="mt-3 max-w-[92%] text-[28px] font-semibold leading-[1.02] tracking-[-0.055em] text-inherit sm:text-[32px]">
                       {service.title}
                     </h3>
-                    <p className="mt-3 max-w-[92%] text-[13px] font-medium leading-[1.3] text-inherit opacity-80">
+                    <p className={`mt-3 max-w-[92%] text-[13px] font-medium leading-[1.3] ${originalIndex % 2 === 1 ? "text-white" : "text-[#1f1f1f]"}`}>
                       {service.description}
                     </p>
                   </div>
