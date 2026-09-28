@@ -460,7 +460,7 @@ export function Header() {
     >
       <div className="mx-auto flex h-[78px] max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
         <a href="#" className="shrink-0">
-          <img src="/assets/logo2.png" alt="GizmoHub" className="h-14 w-auto object-contain lg:h-[60px]" />
+          <img src="/assets/logo1.png" alt="GizmoHub" className="h-14 w-auto object-contain lg:h-[60px]" />
         </a>
 
         <nav className="hidden items-center gap-8 lg:flex">
