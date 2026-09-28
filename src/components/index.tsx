@@ -1886,8 +1886,7 @@ export function WhatWeDo() {
       <div
         className="
           what-we-do-track
-          hidden
-          lg:block
+          block
           mt-12
           w-full
           overflow-visible
@@ -2076,7 +2075,7 @@ export function WhatWeDo() {
       <div
         className="
           mt-10
-          block
+          hidden
           overflow-x-clip
           overflow-y-visible
           lg:hidden
