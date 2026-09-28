@@ -8,13 +8,15 @@ import {
   Footer,
   Header,
   Hero,
+  RecallHero,
+  FeaturedProducts,
+  RepairServices,
   BenefitsStrip,
   RepairSupportCTA,
   Services,
   Testimonials,
   ClientTestimonials,
 } from "./components";
-import Products, { ProductDetail } from "./components/Products";
 
 export default function App() {
   const [pathname, setPathname] = useState(window.location.pathname);
@@ -42,7 +44,6 @@ export default function App() {
 
     animatedElements.forEach((element, index) => {
       element.classList.add("site-reveal");
-      element.classList.add("is-visible");
       element.style.setProperty("--site-delay", `${Math.min(index * 80, 320)}ms`);
     });
 
@@ -68,22 +69,14 @@ export default function App() {
     return () => observer.disconnect();
   }, [pathname]);
 
-  if (pathname === "/products") {
-    return <Products />;
-  }
-
-  if (pathname.startsWith("/products/")) {
-    return <ProductDetail slug={pathname.replace("/products/", "")} />;
-  }
-
   return (
     <div className="min-h-screen bg-paper">
       <Header />
       <main>
-        <Hero />
+        <RecallHero />
         <WhatWeDo />
-        <AboutUs />
-        <Services />
+        <RepairServices />
+        <FeaturedProducts />
         <ClientTestimonials />
         <BenefitsStrip />
         <Testimonials />

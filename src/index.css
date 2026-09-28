@@ -9,7 +9,75 @@ html {
 }
 
 body {
-  @apply bg-paper text-ink font-body antialiased;
+  @apply bg-[#fbfbfb] text-[#151515] font-body antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.heading-font {
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+/* Shared editorial type system, matched to the hero section. */
+main h1,
+main h2,
+main h3,
+main h4,
+main h5,
+main h6,
+main .font-display {
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+main p,
+main li {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+main h1,
+main h2 {
+  letter-spacing: -0.06em;
+}
+
+main > section h2:not([class*="text-white"]) {
+  color: #151515;
+  font-size: clamp(2.75rem, 6vw, 5.75rem);
+  line-height: 0.92;
+}
+
+/* Keep all section headings consistent with the reference heading. */
+main > section h2 {
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: clamp(3rem, 6vw, 5.375rem) !important;
+  font-weight: 600;
+  letter-spacing: -0.075em;
+  line-height: 0.92;
+}
+
+main > section p:not([class*="text-white"]) {
+  color: #606060;
+}
+
+/* Bring existing section color utilities onto the hero's neutral palette. */
+main [class*="text-[#0f172a]"],
+main [class*="text-[#151515]"] {
+  color: #151515 !important;
+}
+
+main [class*="text-[#2563eb]"],
+main [class*="text-[#1e3a8a]"],
+main [class*="text-[#1D2C60]"] {
+  color: #7c7c7c !important;
+}
+
+main [class*="text-[#475569]"],
+main [class*="text-[#555555]"],
+main [class*="text-[#64748b]"] {
+  color: #606060 !important;
 }
 
 ::selection {
@@ -19,6 +87,13 @@ body {
 :focus-visible {
   outline: 3px solid #eb0000;
   outline-offset: 2px;
+}
+
+.privacy-policy-modal h2,
+.privacy-policy-modal h3,
+.privacy-policy-modal p,
+.privacy-policy-modal li {
+  color: #000000 !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

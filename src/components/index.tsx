@@ -257,6 +257,189 @@ function BenefitIcon({ icon }: { icon: string }) {
   );
 }
 
+/**
+ * Editorial hero layout inspired by the provided reference image.
+ * The original Hero slider remains above for backwards compatibility;
+ * this version is used by the homepage without removing any other section.
+ */
+export function RecallHero() {
+  return (
+    <section className="relative isolate min-h-[720px] overflow-hidden bg-[#fbfbfb] text-[#111111] sm:min-h-[760px] lg:min-h-[calc(100vh-78px)]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(255,255,255,0.98),rgba(248,248,248,0.72)_48%,rgba(238,238,238,0.48)_100%)]" />
+
+      <div className="relative z-10 mx-auto flex min-h-[720px] max-w-[1440px] flex-col items-center px-5 pb-10 pt-28 sm:min-h-[760px] sm:px-8 sm:pt-32 lg:min-h-[calc(100vh-78px)] lg:pt-24">
+        <div className="text-center">
+          <h1 className="recall-hero-heading max-w-[850px] text-[54px] font-semibold leading-[0.9] tracking-[-0.075em] text-[#151515] sm:text-[84px] lg:text-[112px]">
+            Communication
+            <br />
+            <span className="font-normal text-[#2662d2]">that connects.</span>
+          </h1>
+          <p className="recall-hero-description mt-5 whitespace-nowrap text-[11px] leading-[1.5] text-[#606060] sm:mt-6 sm:text-[13px]">
+            Clear stories. Meaningful conversations. Stronger connections.
+          </p>
+        </div>
+
+        <div className="relative mt-8 flex w-full flex-1 items-end justify-center sm:mt-5 lg:mt-0">
+          <div className="absolute bottom-1 h-16 w-[300px] rounded-[50%] bg-black/10 blur-2xl sm:w-[430px]" />
+
+          <div className="recall-hero-side-left absolute left-5 top-[44%] hidden -translate-y-1/2 flex-col gap-4 lg:flex xl:left-10">
+            <div className="w-[154px] rounded-2xl border border-black/10 bg-white/75 p-4 shadow-[0_12px_35px_rgba(0,0,0,0.06)] backdrop-blur-sm">
+              <span className="mb-5 flex h-7 w-7 items-center justify-center rounded-full border border-black/15 text-[12px]">✦</span>
+              <p className="text-[11px] font-semibold leading-[1.25]">Stories made to be heard.</p>
+              <p className="mt-2 text-[10px] leading-[1.4] text-black/50">Strategy, content and communication with purpose.</p>
+            </div>
+            <div className="flex h-[102px] w-[154px] flex-col justify-between rounded-2xl bg-[#121212] p-4 text-white shadow-[0_14px_32px_rgba(0,0,0,0.16)]">
+              <span className="text-xl">◒</span>
+              <p className="text-[11px] leading-[1.35] text-white/70">Make your message<br />move people.</p>
+            </div>
+          </div>
+
+          <img src="/assets/hero-img1.png" alt="Recall Communication creative campaign" className="recall-hero-phone relative z-10 h-[390px] w-auto object-contain drop-shadow-[0_22px_24px_rgba(0,0,0,0.16)] sm:h-[500px] lg:h-[min(56vh,530px)] lg:mt-5" />
+
+          <div className="recall-hero-side-right absolute right-5 top-[44%] hidden -translate-y-1/2 flex-col gap-4 lg:flex xl:right-10">
+            <div className="w-[154px] rounded-2xl border border-black/10 bg-white/75 p-4 shadow-[0_12px_35px_rgba(0,0,0,0.06)] backdrop-blur-sm">
+              <span className="mb-5 flex h-7 w-7 items-center justify-center rounded-full border border-black/15 text-[12px]">↗</span>
+              <p className="text-[11px] font-semibold leading-[1.25]">Built for real connection.</p>
+              <p className="mt-2 text-[10px] leading-[1.4] text-black/50">Ideas that feel human, relevant and memorable.</p>
+            </div>
+            <div className="flex h-[102px] w-[154px] flex-col justify-between rounded-2xl border border-black/10 bg-white/75 p-4 shadow-[0_12px_35px_rgba(0,0,0,0.06)]">
+              <p className="text-2xl font-semibold tracking-[-0.06em]">100%</p>
+              <p className="text-[10px] leading-[1.35] text-black/50">Audience-first<br />communication.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center lg:mt-5 gap-3 text-[10px] uppercase tracking-[0.24em] text-black/40">
+          <span className="h-px w-8 bg-black/20" />
+          Ideas that stay with you
+          <span className="h-px w-8 bg-black/20" />
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes recallHeroFadeUp {
+          from { opacity: 0; transform: translate3d(0, 34px, 0); }
+          to { opacity: 1; transform: translate3d(0, 0, 0); }
+        }
+
+        @keyframes recallHeroFadeLeft {
+          from { opacity: 0; transform: translate3d(-46px, -50%, 0); }
+          to { opacity: 1; transform: translate3d(0, -50%, 0); }
+        }
+
+        @keyframes recallHeroFadeRight {
+          from { opacity: 0; transform: translate3d(46px, -50%, 0); }
+          to { opacity: 1; transform: translate3d(0, -50%, 0); }
+        }
+
+        .recall-hero-heading,
+        .recall-hero-phone,
+        .recall-hero-side-left,
+        .recall-hero-side-right {
+          opacity: 0;
+          will-change: transform, opacity;
+        }
+
+        .recall-hero-heading {
+          animation: recallHeroFadeUp 1200ms cubic-bezier(0.22, 1, 0.36, 1) 180ms forwards;
+        }
+
+        .recall-hero-description {
+          opacity: 0;
+          animation: recallHeroFadeUp 900ms cubic-bezier(0.22, 1, 0.36, 1) 700ms forwards;
+        }
+
+        .recall-hero-phone {
+          animation: recallHeroFadeUp 900ms cubic-bezier(0.22, 1, 0.36, 1) 900ms forwards;
+        }
+
+        .recall-hero-side-left {
+          animation: recallHeroFadeLeft 900ms cubic-bezier(0.22, 1, 0.36, 1) 900ms forwards;
+        }
+
+        .recall-hero-side-right {
+          animation: recallHeroFadeRight 900ms cubic-bezier(0.22, 1, 0.36, 1) 900ms forwards;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .recall-hero-heading,
+          .recall-hero-description,
+          .recall-hero-phone,
+          .recall-hero-side-left,
+          .recall-hero-side-right {
+            animation: none;
+            opacity: 1;
+            transform: none;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+
+export function FeaturedProducts() {
+  const featuredCards = [
+    {
+      title: "A design that feels just right.",
+      detail: "Premium materials. Beautifully crafted.",
+      image: "/assets/feature1.png",
+      tone: "dark",
+      imageClass: "bottom-[-12%] left-[8%] w-[92%] sm:bottom-[-5%]",
+    },
+    {
+      title: "Pro camera system.",
+      detail: "Capture every moment in incredible detail.",
+      image: "/assets/feature2.png",
+      tone: "light",
+      imageClass: "inset-x-0 bottom-0 h-[78%] w-full object-contain object-bottom opacity-90",
+    },
+    {
+      title: "All-day battery.",
+      detail: "More power for what matters most.",
+      image: "/assets/feature3.png",
+      tone: "dark",
+      imageClass: "bottom-[22%] left-1/2 w-[58%] -translate-x-1/2",
+    },
+  ];
+
+  return (
+    <section id="featured-products" className="relative overflow-hidden bg-[#f7f7f7] px-5 py-20 text-[#111111] sm:px-8 lg:px-12 lg:py-28">
+      <div className="mx-auto max-w-[1440px]">
+        <div className="mb-12 flex flex-col justify-between gap-8 lg:mb-16 lg:flex-row lg:items-end">
+          <h2 className="max-w-[650px] text-[52px] font-semibold leading-[0.92] tracking-[-0.075em] sm:text-[78px] lg:text-[92px]">
+            Innovation.
+            <br />
+            In every <span className="font-normal text-[#2662d2]">detail.</span>
+          </h2>
+
+          <div className="flex max-w-[245px] items-end gap-5 lg:mb-2">
+            <p className="text-[12px] leading-[1.45] text-[#555555] sm:text-[13px]">
+              Meaningful ideas, thoughtful strategy and communication that makes an impact.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-3">
+          {featuredCards.map((card) => (
+            <article key={card.title} className={`group relative min-h-[330px] overflow-hidden rounded-[24px] p-5 sm:min-h-[380px] lg:min-h-[420px] ${card.tone === "dark" ? "bg-[#111111] text-white" : "bg-[#e8e8e8] text-[#151515]"}`}>
+              <div className="relative z-10 max-w-[190px]">
+                <h3 className="text-[21px] font-semibold leading-[1.05] tracking-[-0.04em] sm:text-[23px]">{card.title}</h3>
+                <p className={`mt-4 text-[12px] leading-[1.45] ${card.tone === "dark" ? "text-white/65" : "text-black/55"}`}>{card.detail}</p>
+              </div>
+
+              <img src={card.image} alt={card.title} className={`absolute object-contain transition duration-700 ${card.imageClass}`} />
+
+              <a href="#contact" aria-label={`Learn more about ${card.title}`} className={`absolute bottom-5 left-5 z-20 flex h-9 w-9 items-center justify-center rounded-full border text-lg transition group-hover:-translate-y-1 ${card.tone === "dark" ? "border-white/55 text-white" : "border-white/45 text-white"}`}>
+                <FiArrowUpRight size={16} />
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -276,19 +459,18 @@ export function Header() {
     >
       <div className="mx-auto flex h-[78px] max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
         <a href="#" className="shrink-0">
-          <img src="/assets/logo.png" alt="GizmoHub" className="h-11 w-auto object-contain lg:h-12" />
+          <img src="/assets/logo4.png" alt="GizmoHub" className="h-14 w-auto object-contain lg:h-[60px]" />
         </a>
 
         <nav className="hidden items-center gap-8 lg:flex">
-          <a href="#" className="relative py-2 text-[13px] font-bold">Home<span className="absolute -bottom-1 left-0 h-[2px] w-full rounded-full bg-[#2563eb]" /></a>
-          <a href="#repair" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2563eb] hover:opacity-100">Repair</a>
-          <a href="/products" onClick={navigateToShopPage} className="text-[13px] font-semibold opacity-80 transition hover:text-[#2563eb] hover:opacity-100">Products</a>
-          <a href="#about" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2563eb] hover:opacity-100">About Us</a>
-          <a href="#brands" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2563eb] hover:opacity-100">Brands</a>
-          <a href="#contact" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2563eb] hover:opacity-100">Contact</a>
+          <a href="#" className="relative py-2 text-[13px] font-bold">Home<span className="absolute -bottom-1 left-0 h-[2px] w-full rounded-full bg-[#2662d2]" /></a>
+          <a href="#repair" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2662d2] hover:opacity-100">Repair</a>
+          <a href="#what-we-do" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2662d2] hover:opacity-100">Products</a>
+          <a href="#about" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2662d2] hover:opacity-100">About Us</a>
+          <a href="#contact" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2662d2] hover:opacity-100">Contact</a>
         </nav>
 
-        <a href="tel:+918364266074" className="inline-flex items-center gap-2 rounded-full bg-[#2563eb] px-4 py-2.5 text-[12px] font-bold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-[#1d4ed8] sm:px-5 sm:text-[13px]">
+        <a href="tel:+918364266074" className="inline-flex items-center gap-2 rounded-full bg-[#2662d2] px-4 py-2.5 text-[12px] font-bold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-[#7c7c7c] sm:px-5 sm:text-[13px]">
           <FaPhone size={13} /> Call Now
         </a>
       </div>
@@ -499,7 +681,7 @@ export function Hero() {
   return (
     <section
       ref={heroRef}
-      className="
+      className="hidden
         relative
         mt-0
         min-h-[620px]
@@ -656,6 +838,7 @@ export function Hero() {
 
       <div
         className="
+          what-we-do-arrows
           pointer-events-none
           absolute
           -left-20
@@ -776,9 +959,9 @@ export function Hero() {
                 w-full
                 -translate-x-1/2
 
-                font-sans
+                font-display
                 text-[33px]
-                font-extrabold
+                font-bold
                 uppercase
                 leading-[0.95]
                 tracking-[1px]
@@ -1237,7 +1420,7 @@ export function BrandMarquee() {
   return (
     <section
       id="brands"
-      className="
+      className="hidden
         relative
         overflow-hidden
         border-b
@@ -1265,18 +1448,19 @@ export function BrandMarquee() {
             className="
               mt-4
               text-[36px]
-              font-sans
-              font-extrabold
+              heading-font
+              font-display
+              font-bold
               leading-[1.08]
               tracking-tight
               text-[#0f172a]
               sm:text-5xl
-              lg:text-[48px]
+              lg:text-7xl
             "
           >
             Trusted{" "}
-            <span className="text-[#2563eb]">
-              Brand
+            <span className="text-[#2563eb] font-medium">
+              brand
             </span>{" "}
             Partners
           </p>
@@ -1413,65 +1597,113 @@ export function BrandMarquee() {
   );
 }
 
+export function RepairServices() {
+  const repairServices = [
+    { title: "Screen repair", detail: "Clear display, smooth touch and a finish that feels new.", image: "/assets/do1.png", tone: "light" },
+    { title: "Camera repair", detail: "Bring every detail back into focus.", image: "/assets/do2.png", tone: "dark" },
+    { title: "Audio repair", detail: "Crisp sound for calls, music and everything in between.", image: "/assets/do3.png", tone: "dark" },
+    { title: "Mobile repair", detail: "Reliable fixes for the device you use every day.", image: "/assets/do4.png", tone: "light" },
+    { title: "Battery problems", detail: "Longer life and dependable power throughout the day.", image: "/assets/do5.png", tone: "light" },
+    { title: "Charging port", detail: "A secure connection when your device needs power.", image: "/assets/do6.png", tone: "dark" },
+  ];
+
+  return (
+    <section id="repair" className="relative overflow-hidden bg-white px-5 py-16 text-[#111111] sm:px-8 lg:px-12 lg:py-24">
+      <div className="mx-auto max-w-[1440px]">
+        <div className="mb-9 flex flex-col justify-between gap-5 sm:mb-12 lg:mb-14 lg:flex-row lg:items-end">
+          <h2 className="max-w-[680px] text-[48px] font-semibold leading-[0.92] tracking-[-0.075em] sm:text-[70px] lg:text-[86px]">
+            Care for every
+            <br />
+            <span className="font-normal text-[#2662d2]">connection.</span>
+          </h2>
+
+          <p className="max-w-[270px] text-[12px] leading-[1.55] text-[#555555] sm:text-[13px]">
+            Expert repairs for the devices that keep your work, ideas and everyday life moving.
+          </p>
+        </div>
+
+        <div className="mx-auto grid w-full max-w-[1060px] grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-x-7 sm:gap-y-9">
+          {repairServices.map((service) => (
+            <article key={service.title} className={`group relative aspect-[1.82/1] overflow-hidden rounded-[17px] border ${service.tone === "dark" ? "border-white/10 bg-[#111111]" : "border-[#e5e7eb] bg-white shadow-[0_12px_32px_rgba(15,23,42,0.08)]"}`}>
+              <img src={service.image} alt={service.title} className="absolute right-0 top-0 z-[1] h-full w-[58%] object-contain object-right transition duration-700" />
+              <div className="pointer-events-none absolute inset-0 z-[2] bg-transparent" />
+              <div className={`absolute inset-0 z-10 flex flex-col justify-between p-5 sm:p-6 ${service.tone === "dark" ? "text-white" : "text-[#111111]"}`}>
+                <div className="max-w-[44%]">
+                  <h3 className="text-[19px] font-semibold leading-[1.05] tracking-[-0.04em] sm:text-[22px]">{service.title}</h3>
+                  <p className={`mt-2 text-[11px] leading-[1.45] ${service.tone === "dark" ? "text-white/75" : "text-black/60"}`}>{service.detail}</p>
+                </div>
+                <a href="#contact" aria-label={`Enquire about ${service.title}`} className={`inline-flex w-fit items-center gap-2 text-[10px] font-medium uppercase tracking-[0.12em] transition ${service.tone === "dark" ? "text-white/75 group-hover:text-white" : "text-black/60 group-hover:text-black"}`}>
+                  <span className="text-sm leading-none">↗</span>
+                  Learn more
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function WhatWeDo() {
   const services = [
-    {
-      title: "Buy & Sell Devices",
-      image: "/do1.webp",
-      description:
-        "Find the right device or sell your old one with ease.",
-      features: ["BUY", "SELL"],
-    },
-    {
-      title: "Mobile Repair",
-      image: "/do2.webp",
-      description:
-        "Quick, reliable and expert repairs for all your devices.",
-      features: ["REPAIR", "SUPPORT"],
-    },
-    {
-      title: "Audio Device Repair",
-      image: "/do3.webp",
-      description:
-        "Get your audio devices back to perfect sound.",
-      features: ["AUDIO", "REPAIR"],
-    },
-    {
-      title: "Accessories",
-      image: "/do4.webp",
-      description:
-        "Premium accessories for a better everyday experience.",
-      features: ["MOBILE", "AUDIO"],
-    },
-    {
-      title: "Device Setup",
-      image: "/do5.webp",
-      description:
-        "Get your device ready for everything that's next.",
-      features: ["SETUP", "GUIDANCE"],
-    },
-    {
-      title: "Troubleshooting",
-      image: "/do7.webp",
-      description:
-        "We'll find the issue and fix it fast.",
-      features: ["DIAGNOSIS", "SUPPORT"],
-    },
-    {
-      title: "Mobile Covers",
-      image: "/do6.webp",
-      description:
-        "Stylish protection designed for your device.",
-      features: ["STYLE", "PROTECTION"],
-    },
-    {
-      title: "Device Care",
-      image: "/do8.webp",
-      description:
-        "Keep your device clean, safe and looking new.",
-      features: ["CARE", "PROTECTION"],
-    },
-  ];
+  {
+    title: "Smartphones",
+    image: "/assets/what1.png",
+    description:
+      "Explore the latest smartphones with smart features and smooth performance.",
+    features: [],
+  },
+  {
+    title: "Earbuds & Headphones",
+    image: "/assets/what2.png",
+    description:
+      "Enjoy clear, powerful sound with comfortable earbuds and headphones.",
+    features: [],
+  },
+  {
+    title: "Smart Watches",
+    image: "/assets/what3.png",
+    description:
+      "Stay connected and stylish with smart watches for everyday use.",
+    features: [],
+  },
+  {
+    title: "Chargers & Cables",
+    image: "/assets/what4.png",
+    description:
+      "Reliable chargers and cables for fast and convenient everyday charging.",
+    features: [],
+  },
+  {
+    title: "Mobile Covers",
+    image: "/assets/what5.png",
+    description:
+      "Protect your phone with stylish, durable and comfortable mobile covers.",
+    features: [],
+  },
+  {
+    title: "Screen Protectors",
+    image: "/assets/what6.png",
+    description:
+      "Keep your screen protected from scratches, cracks and daily damage.",
+    features: [],
+  },
+  {
+    title: "Power Banks",
+    image: "/assets/what7.png",
+    description:
+      "Stay powered anywhere with compact and reliable portable power banks.",
+    features: [],
+  },
+  {
+    title: "Bluetooth Speakers",
+    image: "/assets/what8.png",
+    description:
+      "Enjoy powerful wireless sound with compact and portable Bluetooth speakers.",
+    features: [],
+  },
+];
 
   /*
    * ============================================================
@@ -1502,13 +1734,7 @@ export function WhatWeDo() {
    */
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsTransitioning(true);
-
-      setCurrentIndex((prev) => prev + 1);
-    }, 4000);
-
-    return () => clearInterval(interval);
+    return undefined;
   }, []);
 
   /*
@@ -1582,7 +1808,8 @@ export function WhatWeDo() {
     <section
       id="what-we-do"
       className="
-        scroll-mt-[80px]
+        relative
+        
         overflow-x-clip
         bg-[#f8fafc]
         py-20
@@ -1598,20 +1825,6 @@ export function WhatWeDo() {
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
 
-          {/* SMALL LABEL */}
-
-          <p
-            className="
-              text-[11px]
-              font-bold
-              uppercase
-              tracking-[3px]
-              text-[#2563eb]
-            "
-          >
-            What We Do
-          </p>
-
           {/* MAIN HEADING */}
 
           <h2
@@ -1620,8 +1833,8 @@ export function WhatWeDo() {
             lg:block
               mt-4
               text-[36px]
-              font-sans
-              font-extrabold
+              font-display
+              font-bold
               leading-[1.08]
               tracking-tight
               text-[#0f172a]
@@ -1629,9 +1842,8 @@ export function WhatWeDo() {
             "
           >
             Everything you need,
-            <br />
 
-            <span className="text-[#2563eb]"> all in one place.</span>
+            <span className="text-[#2662d2] font-medium"> all in one place.</span>
           </h2>
 
           <h2
@@ -1650,7 +1862,7 @@ export function WhatWeDo() {
             Everything you need,
 
 
-            <span className="text-[#2563eb]"> all in one place.</span>
+            <span className="text-[#2662d2] font-medium"> all in one place.</span>
           </h2>
 
         </div>
@@ -1662,18 +1874,17 @@ export function WhatWeDo() {
 
       <div
         className="
+          what-we-do-track
           mt-12
-          hidden
           w-full
           overflow-visible
-          lg:block
         "
       >
         <div
           className={`
             flex
             items-start
-            gap-[20px]
+          gap-[var(--what-card-gap)]
 
             ${isTransitioning
               ? "transition-transform duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
@@ -1684,20 +1895,17 @@ export function WhatWeDo() {
             transform: `
               translateX(
                 calc(
-                  -${currentIndex} * (22vw + 20px)
-                  + 11vw
-                  - 10px
+                  -${currentIndex} * (var(--what-card-width) + var(--what-card-gap))
+                  + var(--what-card-offset)
                 )
               )
             `,
           }}
         >
           {carouselServices.map((service, index) => {
-            const originalIndex =
-              index % services.length;
+            const originalIndex = index % services.length;
 
-            const isLowerCard =
-              originalIndex % 2 === 0;
+            const isLowerCard = originalIndex % 2 === 0;
 
             return (
               <article
@@ -1706,16 +1914,14 @@ export function WhatWeDo() {
                   group
                   relative
                   shrink-0
-                  w-[calc(22vw-10px)]
+                  w-[var(--what-card-width)]
 
                   transition-transform
                   duration-700
                   ease-out
 
-                  ${isLowerCard
-                    ? "translate-y-[30px]"
-                    : "translate-y-0"
-                  }
+                  translate-y-0
+                  ${originalIndex % 2 === 0 ? "bg-white text-[#1f1f1f]" : "bg-black text-white"}
                 `}
               >
                 {/* IMAGE CARD */}
@@ -1725,8 +1931,7 @@ export function WhatWeDo() {
                     relative
                     aspect-[0.78]
                     overflow-hidden
-                    rounded-[30px]
-                    bg-[#e5e7eb]
+                    bg-inherit
                   "
                 >
                   {/* IMAGE */}
@@ -1734,15 +1939,20 @@ export function WhatWeDo() {
                   <img
                     src={service.image}
                     alt={service.title}
-                    className="
-                      h-full
+                    className={`
+                      relative
+                      z-0
+                      top-[38%]
+                      h-[62%]
                       w-full
-                      object-cover
+                      object-contain
+                      object-bottom
                       transition-transform
                       duration-700
                       ease-out
+                      ${service.title === "Smart Watches" ? "scale-110" : ""}
                       group-hover:scale-105
-                    "
+                    `}
                   />
 
                   {/* DARK IMAGE OVERLAY */}
@@ -1752,50 +1962,66 @@ export function WhatWeDo() {
                       absolute
                       inset-0
                       bg-gradient-to-t
-                      from-black/35
+                      from-black/45
                       via-transparent
-                      to-black/10
+                      to-transparent
                     "
                   />
 
+                  <div className="absolute inset-x-0 top-0 z-10 p-7 sm:p-8">
+                    {service.features[0] && (
+                      <p className="text-[11px] font-semibold uppercase tracking-[1px] text-[#f97316]">
+                        {service.features[0]}
+                      </p>
+                    )}
+                    <h3 className="mt-3 max-w-[92%] text-[28px] font-semibold leading-[1.02] tracking-[-0.055em] text-inherit sm:text-[32px]">
+                      {service.title}
+                    </h3>
+                    <p className="mt-3 max-w-[92%] text-[13px] font-medium leading-[1.3] text-inherit opacity-80">
+                      {service.description}
+                    </p>
+                  </div>
+
                   {/* FEATURES */}
 
-                  <div
-                    className="
-                      absolute
-                      left-4
-                      top-4
-                      flex
-                      gap-2
-                    "
-                  >
-                    {service.features.map((feature) => (
-                      <span
-                        key={feature}
-                        className="
-                          rounded-full
-                          border
-                          border-white/30
-                          bg-black/30
-                          px-3
-                          py-1.5
-                          text-[8px]
-                          font-bold
-                          uppercase
-                          tracking-[1px]
-                          text-white
-                          backdrop-blur-md
-                        "
-                      >
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
+                  {service.features.length > 0 && (
+                    <div
+                      className="
+                        absolute
+                        left-4
+                        top-4
+                        flex
+                        gap-2
+                      "
+                    >
+                      {service.features.map((feature) => (
+                        <span
+                          key={feature}
+                          className="
+                            rounded-full
+                            border
+                            border-white/30
+                            bg-black/30
+                            px-3
+                            py-1.5
+                            text-[8px]
+                            font-bold
+                            uppercase
+                            tracking-[1px]
+                            text-white
+                            backdrop-blur-md
+                          "
+                        >
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* TITLE + DESCRIPTION */}
 
-                <div className="px-1 pt-4">
+                <div className="hidden px-1 pt-4">
 
                   <h3
                     className="
@@ -1837,6 +2063,7 @@ export function WhatWeDo() {
       <div
         className="
           mt-10
+          hidden
           overflow-x-clip
           overflow-y-visible
           lg:hidden
@@ -1916,53 +2143,6 @@ export function WhatWeDo() {
                       group-hover:scale-105
                     "
                   />
-
-                  {/* OVERLAY */}
-
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      bg-gradient-to-t
-                      from-black/35
-                      via-transparent
-                      to-black/10
-                    "
-                  />
-
-                  {/* FEATURES */}
-
-                  <div
-                    className="
-                      absolute
-                      left-3
-                      top-3
-                      flex
-                      gap-1.5
-                    "
-                  >
-                    {service.features.map((feature) => (
-                      <span
-                        key={feature}
-                        className="
-                          rounded-full
-                          border
-                          border-white/30
-                          bg-black/30
-                          px-2.5
-                          py-1
-                          text-[7px]
-                          font-bold
-                          uppercase
-                          tracking-[0.8px]
-                          text-white
-                          backdrop-blur-md
-                        "
-                      >
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
                 </div>
 
                 {/* MOBILE TITLE + DESCRIPTION */}
@@ -2007,12 +2187,16 @@ export function WhatWeDo() {
 
       <div
         className="
-          mt-14
+          pointer-events-none
+          absolute
+          inset-x-0
+          top-[calc(50%+180px)]
+          z-30
           flex
+          -translate-y-1/2
           items-center
-          justify-center
-          gap-3
-          lg:mt-16
+          justify-between
+          px-6
         "
       >
         {/* PREVIOUS BUTTON */}
@@ -2022,6 +2206,7 @@ export function WhatWeDo() {
           onClick={handlePrevious}
           aria-label="Previous service"
           className="
+            pointer-events-auto
             group
             flex
             h-12
@@ -2038,13 +2223,10 @@ export function WhatWeDo() {
             transition-all
             duration-300
 
-            hover:-translate-y-0.5
-            hover:border-[#2563eb]
-            hover:bg-[#2563eb]
-            hover:text-white
+            hover:border-[#2662d2]
+            hover:bg-[#2662d2]
+            hover:!text-white
             hover:shadow-md
-
-            active:scale-95
           "
         >
           <svg
@@ -2076,6 +2258,7 @@ export function WhatWeDo() {
           onClick={handleNext}
           aria-label="Next service"
           className="
+            pointer-events-auto
             group
             flex
             h-12
@@ -2091,14 +2274,10 @@ export function WhatWeDo() {
 
             transition-all
             duration-300
-
-            hover:-translate-y-0.5
-            hover:border-[#2563eb]
-            hover:bg-[#2563eb]
-            hover:text-white
+            hover:border-[#2662d2]
+            hover:bg-[#2662d2]
+            hover:!text-white
             hover:shadow-md
-
-            active:scale-95
           "
         >
           <svg
@@ -2131,6 +2310,24 @@ export function WhatWeDo() {
       <style>{`
         #what-we-do {
           overflow-x: clip;
+        }
+
+        .what-we-do-track {
+          --what-card-width: calc(26vw - 20px);
+          --what-card-gap: 24px;
+          --what-card-offset: calc(11vw - 10px);
+        }
+
+        @media (max-width: 767px) {
+          .what-we-do-track {
+            --what-card-width: calc(82vw - 20px);
+            --what-card-gap: 16px;
+            --what-card-offset: calc(9vw - 10px);
+          }
+
+          .what-we-do-arrows {
+            top: calc(50% + 60px);
+          }
         }
 
         #what-we-do * {
@@ -2200,7 +2397,7 @@ export function AboutUs() {
     mt-3
     text-[36px]
     font-sans
-    font-extrabold
+    font-bold
     leading-[1.08]
     tracking-tight
     text-[#0f172a]
@@ -2806,8 +3003,8 @@ export function Services() {
                           mt-5
                           max-w-[330px]
                           text-[36px]
-                          font-sans
-                          font-extrabold
+                          font-display
+                          font-bold
                           leading-[1.04]
                           tracking-[-1.5px]
                           text-[#0f172a]
@@ -3445,7 +3642,8 @@ export function ClientTestimonials() {
       className="
         bg-[#f8fafc]
         px-5
-        py-20
+        pt-4
+        pb-20
         sm:px-6
         lg:px-8
         lg:pt-16
@@ -3458,17 +3656,6 @@ export function ClientTestimonials() {
             SECTION HEADER
         ======================================================== */}
         <div className="mb-12 text-center lg:mb-14">
-          <p
-            className="
-              text-[10px]
-              font-bold
-              uppercase
-              tracking-[3px]
-              text-[#2563eb]
-            "
-          >
-            About Us
-          </p>
 
           <h2
             className="
@@ -3476,8 +3663,8 @@ export function ClientTestimonials() {
               mt-4
               max-w-3xl
               text-[36px]
-              font-extrabold
-              font-sans
+              font-bold
+              font-display
               leading-[1.08]
               tracking-tight
               text-[#0f172a]
@@ -3486,7 +3673,7 @@ export function ClientTestimonials() {
             "
           >
             Making Technology Simple,
-            <span className="text-[#2563eb]"> Reliable & Accessible</span>
+            <span className="text-[#2662d2] font-medium"> reliable & accessible</span>
           </h2>
         </div>
 
@@ -3517,13 +3704,9 @@ export function ClientTestimonials() {
               lg:h-[360px]
             "
           >
-            <video
-              src="/about-bg.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
+            <img
+              src="/assets/about-us.png"
+              alt="About Recall Communications"
               className="
                 h-full
                 w-full
@@ -3628,7 +3811,7 @@ export function ClientTestimonials() {
                   max-w-2xl
                   text-[18px]
                   font-medium
-                  font-sans
+                  font-display
                   leading-[1.55]
                   tracking-[-0.25px]
                   text-[#1e293b]
@@ -3752,20 +3935,7 @@ export function Testimonials() {
         "
       >
         <div className="w-full text-center">
-
-          {/* SMALL TITLE */}
-          <p
-            className="
-              text-[11px]
-              font-bold
-              uppercase
-              tracking-[3px]
-              text-[#60a5fa]
-            "
-          >
-            Customer Stories
-          </p>
-
+        
           {/* MAIN HEADING */}
           <h2
             className="
@@ -3773,8 +3943,8 @@ export function Testimonials() {
               mt-4
               max-w-3xl
               text-[36px]
-              font-sans
-              font-extrabold
+              font-display
+              font-bold
               leading-tight
               tracking-tight
               text-white
@@ -3784,7 +3954,7 @@ export function Testimonials() {
           >
             What people say
             <br className="sm:hidden" />{" "}
-            <span className="text-[#60a5fa]">
+            <span className="text-[#2662d2] font-medium">
               about us
             </span>
           </h2>
@@ -3978,24 +4148,12 @@ export function FAQ() {
         >
           {/* LEFT CONTENT */}
           <div className="lg:sticky lg:top-28">
-            <p
-              className="
-                text-[11px]
-                font-bold
-                uppercase
-                tracking-[3px]
-                text-[#2563eb]
-              "
-            >
-              Frequently Asked Questions
-            </p>
-
             <h2
               className="
                 mt-4
                 text-[36px]
-                font-extrabold
-                font-sans
+                font-bold
+                font-display
                 leading-[1.05]
                 tracking-tight
                 text-[#0f172a]
@@ -4004,9 +4162,9 @@ export function FAQ() {
               "
             >
               Everything you
-              <br />
+              
               need to{" "}
-              <span className="text-[#2563eb]">
+              <span className="text-[#2662d2] font-medium">
                 know.
               </span>
             </h2>
@@ -4118,7 +4276,7 @@ export function FAQ() {
                         duration-300
 
                         ${isOpen
-                          ? "bg-[#2563eb] text-white"
+                          ? "bg-[#2662d2] text-white"
                           : "bg-[#eff6ff] text-[#2563eb]"
                         }
                       `}
@@ -4160,7 +4318,7 @@ export function FAQ() {
                         duration-300
 
                         ${isOpen
-                          ? "bg-[#2563eb] text-white rotate-180"
+                          ? "bg-[#2662d2] text-white rotate-180"
                           : "border border-[#dbe3ee] bg-white text-[#64748b]"
                         }
                       `}
@@ -4241,9 +4399,9 @@ export function Contact() {
       icon: IoMdPin,
       title: "Address",
       value:
-        "Gf# 64, Laxmi Balkrishna Square, Harsha Complex, 1 Stage, Station Road, Hubballi, Karnataka 580020",
+        "Gf # 64, Laxmi Balkrishna Square, Harsha Complex,1 Stage, Station Road, Hubballi, Karnataka 580020",
       href:
-        "https://www.google.com/maps/search/?api=1&query=Gf%2364%2C%20Laxmi%20Balkrishna%20Square%2C%20Harsha%20Complex%2C%201%20Stage%2C%20Station%20Road%2C%20Hubballi%2C%20Karnataka%20580020",
+        "https://maps.app.goo.gl/7KhdYYmBW2PWJ1FC8",
     },
   ];
 
@@ -4252,8 +4410,8 @@ export function Contact() {
       id="contact"
       className="
         bg-[#f8fafc]
-        py-20
-        scroll-mt-[100px]
+        pt-4
+        pb-20
         lg:py-28
       "
     >
@@ -4276,7 +4434,7 @@ export function Contact() {
             border-[#e5eaf1]
             bg-white
             shadow-[0_20px_60px_rgba(15,23,42,0.06)]
-            lg:grid-cols-[0.85fr_1.15fr]
+            lg:grid-cols-1
           "
         >
           {/* ================= LEFT SIDE ================= */}
@@ -4287,7 +4445,9 @@ export function Contact() {
               p-7
               text-white
               sm:p-10
-              lg:p-12
+              lg:p-16
+              lg:pb-0
+              lg:min-h-0
             "
           >
             {/* BACKGROUND IMAGE */}
@@ -4300,7 +4460,7 @@ export function Contact() {
                 bg-no-repeat
               "
               style={{
-                backgroundImage: "url('/contact-bg4.webp')",
+                backgroundImage: "url('/assets/contact-us.png')",
               }}
             />
 
@@ -4344,7 +4504,8 @@ export function Contact() {
             />
 
             {/* LEFT CONTENT */}
-            <div className="relative z-10">
+            <div className="relative z-10 mx-auto grid w-full max-w-5xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+              <div className="lg:pt-4">
               {/* LABEL */}
               <p
                 className="
@@ -4352,7 +4513,7 @@ export function Contact() {
                   font-bold
                   uppercase
                   tracking-[3px]
-                  text-[#60a5fa]
+                  text-white
                 "
               >
                 Get In Touch
@@ -4363,9 +4524,10 @@ export function Contact() {
                 className="
                   mt-4
                   text-[36px]
-                  font-sans
-                  font-extrabold
+                  font-display
+                  font-bold
                   tracking-tight
+                  text-white
                   sm:text-[48px]
                 "
               >
@@ -4386,9 +4548,10 @@ export function Contact() {
                 right product? Our team is always here to
                 help you.
               </p>
+              </div>
 
               {/* CONTACT DETAILS */}
-              <div className="mt-10 space-y-4">
+              <div className="grid items-start gap-2 sm:grid-cols-2">
                 {contactDetails.map((item) => {
                   const Icon = item.icon;
 
@@ -4400,6 +4563,8 @@ export function Contact() {
                       rel="noopener noreferrer"
                       className="
                         group
+                        last:sm:col-span-2
+                        last:sm:-mt-10
                         flex
                         items-start
                         gap-4
@@ -4407,7 +4572,7 @@ export function Contact() {
                         border
                         border-white/10
                         bg-white/10
-                        p-4
+                        p-5
                         backdrop-blur-sm
                         transition-all
                         duration-300
@@ -4425,7 +4590,7 @@ export function Contact() {
                           items-center
                           justify-center
                           rounded-xl
-                          bg-[#2563eb]
+                          bg-[#6b7280]
                           text-white
                           transition-transform
                           duration-300
@@ -4468,26 +4633,30 @@ export function Contact() {
 
               {/* LOCATION BUTTON */}
               <a
-                href="https://maps.google.com"
+                href="https://maps.app.goo.gl/7KhdYYmBW2PWJ1FC8"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="
-                  mt-7
+                  lg:-mt-24
                   inline-flex
+                  h-10
+                  min-h-0
+                  w-fit
                   items-center
-                  gap-2
-                  rounded-full
-                  bg-white
+                gap-2
+                rounded-full
+                bg-white
                   px-5
-                  py-3
+                  py-0
                   text-[12px]
                   font-bold
                   text-[#0f172a]
                   transition-all
                   duration-300
                   hover:bg-[#dbeafe]
-                  hover:shadow-lg
-                "
+                hover:shadow-lg
+                  lg:col-start-2
+              "
               >
                 <IoMdPin size={16} />
                 View Location
@@ -4498,9 +4667,11 @@ export function Contact() {
           {/* ================= RIGHT SIDE ================= */}
           <div
             className="
+              !hidden
               grid
               gap-4
               bg-[#f8fafc]
+              items-start
               p-5
               sm:p-7
               lg:grid-cols-2
@@ -4511,6 +4682,7 @@ export function Contact() {
             <div
               className="
                 group
+                h-fit
                 rounded-[24px]
                 border
                 border-[#e5eaf1]
@@ -4536,8 +4708,8 @@ export function Contact() {
                   text-[#2563eb]
                   transition-all
                   duration-300
-                  group-hover:bg-[#2563eb]
-                  group-hover:text-white
+                  group-hover:bg-[#6b7280]
+                  group-hover:!text-white
                 "
               >
                 <IoMdPin size={24} />
@@ -4545,7 +4717,7 @@ export function Contact() {
 
               <p
                 className="
-                  mt-7
+                  mt-2
                   text-[10px]
                   font-bold
                   uppercase
@@ -4592,6 +4764,7 @@ export function Contact() {
             <div
               className="
                 group
+                h-fit
                 rounded-[24px]
                 border
                 border-[#e5eaf1]
@@ -4617,8 +4790,8 @@ export function Contact() {
                   text-[#2563eb]
                   transition-all
                   duration-300
-                  group-hover:bg-[#2563eb]
-                  group-hover:text-white
+                  group-hover:bg-[#6b7280]
+                  group-hover:!text-white
                 "
               >
                 <IoMdMail size={24} />
@@ -4671,6 +4844,7 @@ export function Contact() {
             <div
               className="
                 group
+                h-fit
                 rounded-[24px]
                 border
                 border-[#e5eaf1]
@@ -4696,8 +4870,8 @@ export function Contact() {
                   text-[#2563eb]
                   transition-all
                   duration-300
-                  group-hover:bg-[#2563eb]
-                  group-hover:text-white
+                  group-hover:bg-[#6b7280]
+                  group-hover:!text-white
                 "
               >
                 <IoMdCall size={24} />
@@ -4747,6 +4921,7 @@ export function Contact() {
             <div
               className="
                 group
+                h-fit
                 rounded-[24px]
                 border
                 border-[#e5eaf1]
@@ -4772,8 +4947,8 @@ export function Contact() {
                   text-[#2563eb]
                   transition-all
                   duration-300
-                  group-hover:bg-[#2563eb]
-                  group-hover:text-white
+                  group-hover:bg-[#6b7280]
+                  group-hover:!text-white
                 "
               >
                 <PiTimerFill size={24} />
@@ -4834,24 +5009,12 @@ export function RepairSupportCTA() {
 
           {/* ================= TOP CONTENT ================= */}
           <div className="max-w-3xl">
-            <p
-              className="
-                text-[11px]
-                font-bold
-                uppercase
-                tracking-[3px]
-                text-[#2563eb]
-              "
-            >
-              Repair & Support
-            </p>
-
             <h2
               className="
                 mt-4
-                font-sans
+                font-display
                 text-[36px]
-                font-extrabold
+                font-bold
                 leading-[1.08]
                 tracking-tight
                 text-[#0f172a]
@@ -4859,8 +5022,8 @@ export function RepairSupportCTA() {
                 lg:text-[52px]
               "
             >
-              Need Help With
-              Your Phone?
+              Need Help With <br/>
+              <span className="font-medium text-[#2662d2]">your phone?</span>
             </h2>
 
             <p
@@ -4907,7 +5070,7 @@ export function RepairSupportCTA() {
       items-center
       gap-2
       rounded-full
-      bg-[#2563eb]
+      bg-[#2662d2]
       px-6
       py-3.5
       text-[13px]
@@ -4917,7 +5080,7 @@ export function RepairSupportCTA() {
       transition-all
       duration-300
       hover:-translate-y-0.5
-      hover:bg-[#3b82f6]
+      hover:bg-[#2662d2]
     "
             >
               Get Support
@@ -4933,18 +5096,19 @@ export function RepairSupportCTA() {
       gap-2
       rounded-full
       border
-      border-[#1e3a8a]
+      border-black
       bg-transparent
       px-6
       py-3.5
       text-[13px]
       font-bold
-      text-[#0f172a]
+      text-black
       transition-all
       duration-300
+      hover:border-[#2662d2]
       hover:-translate-y-0.5
-      hover:bg-[#0f172a]
-      hover:text-white
+      hover:bg-[#2662d2]
+      hover:!text-white
     "
             >
               <IoMdCall size={17} />
@@ -4962,19 +5126,19 @@ export function RepairSupportCTA() {
 export function Footer() {
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   return (
-    <footer className="bg-[#020817] text-white">
+    <footer className="bg-[#000000] text-white shadow-[0_-12px_30px_rgba(0,0,0,0.12)]">
       <div className="mx-auto max-w-7xl px-5 py-14 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
-          <div><img src="/assets/logo.png" alt={shop.name} className="h-14 lg:h-18 w-auto object-contain" /><p className="mt-5 max-w-xs text-[13px] leading-6 text-white/45">Your one-stop destination for <br />premium tech gadgets and <br />accessories.</p></div>
+          <div><img src="/assets/logo4.png" alt={shop.name} className="h-14 lg:h-[60px] w-auto object-contain" /><p className="mt-5 max-w-xs text-[13px] leading-6 text-white">Your one-stop destination for <br />premium tech gadgets and <br />accessories.</p></div>
           <div className="lg:ml-12">
             <h3 className="text-[13px] font-bold">Quick Links</h3>
 
-            <ul className="mt-5 space-y-3">
-              {["Home", "Products", "Repair", "About Us", "Brands", "Contact"].map((x, i) => (
+            <ul className="mt-3 space-y-1.5">
+              {["Home", "Products", "Repair", "About Us", "Contact"].map((x, i) => (
                 <li key={x}>
                   <a
-                    href={["/", "/products", "/#repair", "/#about", "/#brands", "/#contact"][i]}
-                    className="text-[12px] text-white/50 transition hover:text-white"
+                    href={["/", "/#what-we-do", "/#repair", "/#about", "/#contact"][i]}
+                    className="text-[12px] text-white transition hover:text-white"
                   >
                     {x}
                   </a>
@@ -4985,18 +5149,18 @@ export function Footer() {
               <li>
                 <button
                   onClick={() => setIsPrivacyOpen(true)}
-                  className="text-[12px] text-white/50 transition hover:text-white"
+                  className="text-[12px] text-white transition hover:text-white"
                 >
                   Privacy Policy
                 </button>
               </li>
             </ul>
           </div>
-          <div><h3 className="text-[13px] font-bold">Our Collection</h3><ul className="mt-5 space-y-3">{["Latest Gadgets", "Mobile Accessories", "Smart Devices", "Featured Products"].map(x => <li key={x} className="text-[12px] text-white/50">{x}</li>)}</ul></div>
+          <div><h3 className="text-[13px] font-bold">Our Collection</h3><ul className="mt-5 space-y-3">{["Latest Gadgets", "Mobile Accessories", "Smart Devices", "Featured Products"].map(x => <li key={x} className="text-[12px] text-white">{x}</li>)}</ul></div>
           <div>
             <h3 className="text-[13px] font-bold">Store Info</h3>
 
-            <p className="mt-5 text-[12px] leading-6 text-white/50">
+            <p className="mt-5 text-[12px] leading-6 text-white">
               <a
                 href="tel:+918364266074"
                 className="transition-colors hover:text-white"
@@ -5013,7 +5177,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-[13px] font-bold">Store Location</h3>
+            <a href="https://maps.app.goo.gl/7KhdYYmBW2PWJ1FC8" target="_blank" rel="noopener noreferrer" className="text-[13px] font-bold text-white underline-offset-2 hover:underline">Store Location</a>
             <div className="mt-5 overflow-hidden rounded-xl border-8 border-white">
               <iframe
                 src="https://www.google.com/maps?q=Gf%2364%2C%20Laxmi%20Balkrishna%20Square%2C%20Harsha%20Complex%2C%201%20Stage%2C%20Station%20Road%2C%20Hubballi%2C%20Karnataka%20580020&output=embed"
@@ -5028,7 +5192,7 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row"><p className="text-[11px] text-white/35 text-center sm:text-left">© 2026 {shop.name}. All rights reserved. Powered by <a href="https://www.spitel.com" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-[#60a5fa]">Spitel Pvt Ltd</a> </p><button onClick={() => setIsPrivacyOpen(true)} className="text-[11px] font-semibold text-white/45 hover:text-white hover:underline">Privacy Policy</button></div>
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-black/10 pt-6 sm:flex-row"><p className="text-[11px] text-white text-center sm:text-left">© 2026 {shop.name}. All rights reserved. Powered by <a href="https://www.spitel.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white">Spitel Pvt Ltd</a> </p><button onClick={() => setIsPrivacyOpen(true)} className="text-[11px] font-semibold text-white hover:text-white hover:underline">Privacy Policy</button></div>
       </div>
 
       {/* ================= PRIVACY POLICY MODAL ================= */}
