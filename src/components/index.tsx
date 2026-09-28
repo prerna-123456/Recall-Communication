@@ -443,6 +443,7 @@ export function FeaturedProducts() {
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 24);
@@ -459,7 +460,7 @@ export function Header() {
     >
       <div className="mx-auto flex h-[78px] max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
         <a href="#" className="shrink-0">
-          <img src="/assets/logo4.png" alt="GizmoHub" className="h-14 w-auto object-contain lg:h-[60px]" />
+          <img src="/assets/logo2.png" alt="GizmoHub" className="h-14 w-auto object-contain lg:h-[60px]" />
         </a>
 
         <nav className="hidden items-center gap-8 lg:flex">
@@ -470,10 +471,33 @@ export function Header() {
           <a href="#contact" className="text-[13px] font-semibold opacity-80 transition hover:text-[#2662d2] hover:opacity-100">Contact</a>
         </nav>
 
-        <a href="tel:+918364266074" className="inline-flex items-center gap-2 rounded-full bg-[#2662d2] px-4 py-2.5 text-[12px] font-bold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-[#7c7c7c] sm:px-5 sm:text-[13px]">
-          <FaPhone size={13} /> Call Now
-        </a>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            aria-label="Toggle navigation menu"
+            aria-expanded={isMobileMenuOpen}
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/15 text-xl lg:hidden"
+          >
+            {isMobileMenuOpen ? "×" : "☰"}
+          </button>
+          <a href="tel:+918364266074" className="inline-flex items-center gap-2 rounded-full bg-[#2662d2] px-4 py-2.5 text-[12px] font-bold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-[#7c7c7c] sm:px-5 sm:text-[13px]">
+            <FaPhone size={13} /> Call Now
+          </a>
+        </div>
       </div>
+
+      {isMobileMenuOpen && (
+        <nav className="border-t border-black/10 bg-white px-5 py-4 text-[#0f172a] shadow-lg lg:hidden">
+          <div className="flex flex-col gap-4 text-[14px] font-semibold">
+            <a href="#" onClick={() => setIsMobileMenuOpen(false)}>Home</a>
+            <a href="#repair" onClick={() => setIsMobileMenuOpen(false)}>Repair</a>
+            <a href="#what-we-do" onClick={() => setIsMobileMenuOpen(false)}>Products</a>
+            <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About Us</a>
+            <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
+          </div>
+        </nav>
+      )}
     </header>
   );
 }
@@ -1632,10 +1656,6 @@ export function RepairServices() {
                   <h3 className="text-[19px] font-semibold leading-[1.05] tracking-[-0.04em] sm:text-[22px]">{service.title}</h3>
                   <p className={`mt-2 text-[11px] leading-[1.45] ${service.tone === "dark" ? "text-white/75" : "text-black/60"}`}>{service.detail}</p>
                 </div>
-                <a href="#contact" aria-label={`Enquire about ${service.title}`} className={`inline-flex w-fit items-center gap-2 text-[10px] font-medium uppercase tracking-[0.12em] transition ${service.tone === "dark" ? "text-white/75 group-hover:text-white" : "text-black/60 group-hover:text-black"}`}>
-                  <span className="text-sm leading-none">↗</span>
-                  Learn more
-                </a>
               </div>
             </article>
           ))}
