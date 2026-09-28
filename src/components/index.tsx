@@ -390,7 +390,7 @@ export function FeaturedProducts() {
     {
       title: "Pro camera system.",
       detail: "Capture every moment in incredible detail.",
-      image: "/assets/feature2.png",
+      image: "/assets/feature2.webp",
       tone: "light",
       imageClass: "inset-x-0 bottom-0 h-[78%] w-full object-contain object-bottom opacity-90",
     },
@@ -1599,12 +1599,12 @@ export function BrandMarquee() {
 
 export function RepairServices() {
   const repairServices = [
-    { title: "Screen repair", detail: "Clear display, smooth touch and a finish that feels new.", image: "/assets/do1.png", tone: "light" },
-    { title: "Camera repair", detail: "Bring every detail back into focus.", image: "/assets/do2.png", tone: "dark" },
-    { title: "Audio repair", detail: "Crisp sound for calls, music and everything in between.", image: "/assets/do3.png", tone: "dark" },
-    { title: "Mobile repair", detail: "Reliable fixes for the device you use every day.", image: "/assets/do4.png", tone: "light" },
-    { title: "Battery problems", detail: "Longer life and dependable power throughout the day.", image: "/assets/do5.png", tone: "light" },
-    { title: "Charging port", detail: "A secure connection when your device needs power.", image: "/assets/do6.png", tone: "dark" },
+    { title: "Screen repair", detail: "Clear display, smooth touch and a finish that feels new.", image: "/assets/do1.webp", tone: "light" },
+    { title: "Camera repair", detail: "Bring every detail back into focus.", image: "/assets/do2.webp", tone: "dark" },
+    { title: "Audio repair", detail: "Crisp sound for calls, music and everything in between.", image: "/assets/do3.webp", tone: "dark" },
+    { title: "Mobile repair", detail: "Reliable fixes for the device you use every day.", image: "/assets/do4.webp", tone: "light" },
+    { title: "Battery problems", detail: "Longer life and dependable power throughout the day.", image: "/assets/do5.webp", tone: "light" },
+    { title: "Charging port", detail: "A secure connection when your device needs power.", image: "/assets/do6.webp", tone: "dark" },
   ];
 
   return (
@@ -1649,56 +1649,56 @@ export function WhatWeDo() {
   const services = [
   {
     title: "Smartphones",
-    image: "/assets/what1.png",
+    image: "/assets/what1.webp",
     description:
       "Explore the latest smartphones with smart features and smooth performance.",
     features: [],
   },
   {
     title: "Earbuds & Headphones",
-    image: "/assets/what2.png",
+    image: "/assets/what2.webp",
     description:
       "Enjoy clear, powerful sound with comfortable earbuds and headphones.",
     features: [],
   },
   {
     title: "Smart Watches",
-    image: "/assets/what3.png",
+    image: "/assets/what3.webp",
     description:
       "Stay connected and stylish with smart watches for everyday use.",
     features: [],
   },
   {
     title: "Chargers & Cables",
-    image: "/assets/what4.png",
+    image: "/assets/what4.webp",
     description:
       "Reliable chargers and cables for fast and convenient everyday charging.",
     features: [],
   },
   {
     title: "Mobile Covers",
-    image: "/assets/what5.png",
+    image: "/assets/what5.webp",
     description:
       "Protect your phone with stylish, durable and comfortable mobile covers.",
     features: [],
   },
   {
     title: "Screen Protectors",
-    image: "/assets/what6.png",
+    image: "/assets/what6.webp",
     description:
       "Keep your screen protected from scratches, cracks and daily damage.",
     features: [],
   },
   {
     title: "Power Banks",
-    image: "/assets/what7.png",
+    image: "/assets/what7.webp",
     description:
       "Stay powered anywhere with compact and reliable portable power banks.",
     features: [],
   },
   {
     title: "Bluetooth Speakers",
-    image: "/assets/what8.png",
+    image: "/assets/what8.webp",
     description:
       "Enjoy powerful wireless sound with compact and portable Bluetooth speakers.",
     features: [],
@@ -3705,7 +3705,7 @@ export function ClientTestimonials() {
             "
           >
             <img
-              src="/assets/about-us.png"
+              src="/assets/about-us.webp"
               alt="About Recall Communications"
               className="
                 h-full
@@ -4460,7 +4460,7 @@ export function Contact() {
                 bg-no-repeat
               "
               style={{
-                backgroundImage: "url('/assets/contact-us.png')",
+                backgroundImage: "url('/assets/contact-us.webp')",
               }}
             />
 
