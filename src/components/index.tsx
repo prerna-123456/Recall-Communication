@@ -430,7 +430,7 @@ export function FeaturedProducts() {
 
               <img src={card.image} alt={card.title} className={`absolute object-contain transition duration-700 ${card.imageClass}`} />
 
-              <a href="#contact" aria-label={`Learn more about ${card.title}`} className={`absolute bottom-5 left-5 z-20 flex h-9 w-9 items-center justify-center rounded-full border text-lg transition group-hover:-translate-y-1 ${card.tone === "dark" ? "border-white/55 text-white" : "border-white/45 text-white"}`}>
+              <a href="#contact" onClick={(event) => { event.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" }); }} aria-label={`Learn more about ${card.title}`} className={`absolute bottom-5 left-5 z-20 flex h-9 w-9 items-center justify-center rounded-full border text-lg transition group-hover:-translate-y-1 ${card.tone === "dark" ? "border-white/55 text-white" : "border-white/45 text-white"}`}>
                 <FiArrowUpRight size={16} />
               </a>
             </article>
@@ -5082,6 +5082,7 @@ export function RepairSupportCTA() {
             {/* Get Support */}
             <a
               href="#contact"
+              onClick={(event) => { event.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
               className="
       inline-flex
       items-center
