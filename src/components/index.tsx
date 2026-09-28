@@ -472,15 +472,6 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            aria-label="Toggle navigation menu"
-            aria-expanded={isMobileMenuOpen}
-            onClick={() => setIsMobileMenuOpen((open) => !open)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/15 text-xl lg:hidden"
-          >
-            {isMobileMenuOpen ? "×" : "☰"}
-          </button>
           <a href="tel:+918364266074" className="inline-flex items-center gap-2 rounded-full bg-[#2662d2] px-4 py-2.5 text-[12px] font-bold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-[#7c7c7c] sm:px-5 sm:text-[13px]">
             <FaPhone size={13} /> Call Now
           </a>
@@ -1895,6 +1886,8 @@ export function WhatWeDo() {
       <div
         className="
           what-we-do-track
+          hidden
+          lg:block
           mt-12
           w-full
           overflow-visible
@@ -2083,7 +2076,7 @@ export function WhatWeDo() {
       <div
         className="
           mt-10
-          hidden
+          block
           overflow-x-clip
           overflow-y-visible
           lg:hidden
@@ -5157,7 +5150,16 @@ export function Footer() {
               {["Home", "Products", "Repair", "About Us", "Contact"].map((x, i) => (
                 <li key={x}>
                   <a
-                    href={["/", "/#what-we-do", "/#repair", "/#about", "/#contact"][i]}
+                    href={["#", "#what-we-do", "#repair", "#about", "#contact"][i]}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      const targetId = ["", "what-we-do", "repair", "about", "contact"][i];
+                      if (targetId) {
+                        document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                      } else {
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }
+                    }}
                     className="text-[12px] text-white transition hover:text-white"
                   >
                     {x}
