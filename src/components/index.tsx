@@ -1952,9 +1952,10 @@ export function WhatWeDo() {
                     src={service.image}
                     alt={service.title}
                     className={`
-                      relative
+                      absolute
                       z-0
-                      top-[38%]
+                      bottom-0
+                      left-0
                       h-[62%]
                       w-full
                       object-contain
@@ -1964,6 +1965,10 @@ export function WhatWeDo() {
                       ease-out
                       ${service.title === "Smart Watches" ? "scale-110" : ""}
                       group-hover:scale-105
+                      lg:relative
+                      lg:left-auto
+                      lg:bottom-auto
+                      lg:top-[38%]
                     `}
                   />
 
