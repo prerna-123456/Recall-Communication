@@ -274,7 +274,7 @@ export function RecallHero() {
             <br />
             <span className="font-normal text-[#2662d2]">mobile store.</span>
           </h1>
-          <p className="recall-hero-description mt-5 whitespace-nowrap text-[11px] leading-[1.5] text-[#606060] sm:mt-6 sm:text-[13px]">
+          <p className="recall-hero-description mx-auto mt-5 w-full max-w-[360px] whitespace-normal break-words px-2 text-[11px] leading-[1.5] text-[#606060] sm:mt-6 sm:max-w-[620px] sm:text-[13px]">
             Phones, earbuds, smartwatches and accessories — carefully selected for your everyday needs.
           </p>
         </div>
