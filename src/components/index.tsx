@@ -269,12 +269,12 @@ export function RecallHero() {
 
       <div className="relative z-10 mx-auto flex min-h-[720px] max-w-[1440px] flex-col items-center px-5 pb-10 pt-28 sm:min-h-[760px] sm:px-8 sm:pt-32 lg:min-h-[calc(100vh-78px)] lg:pt-24">
         <div className="text-center">
-          <h1 className="recall-hero-heading max-w-[850px] text-[54px] font-semibold leading-[0.9] tracking-[-0.075em] text-[#151515] sm:text-[84px] lg:text-[112px]">
+          <h1 className="recall-hero-heading max-w-[850px] text-[54px] font-bold leading-[0.9] tracking-[-0.075em] text-[#151515] sm:text-[84px] lg:text-[112px]">
             The Complete
             <br />
             <span className="font-normal text-[#2662d2]">mobile store.</span>
           </h1>
-          <p className="recall-hero-description mt-5 whitespace-normal text-[11px] leading-[1.5] text-[#606060] sm:mt-6 sm:text-[13px]">
+          <p className="recall-hero-description mt-5 whitespace-nowrap text-[11px] leading-[1.5] text-[#606060] sm:mt-6 sm:text-[13px]">
             Phones, earbuds, smartwatches and accessories — carefully selected for your everyday needs.
           </p>
         </div>
@@ -1854,7 +1854,7 @@ export function WhatWeDo() {
           >
             Everything you need,
 
-            <span className="text-[#2662d2] font-medium"> all in one place.</span>
+            <span className="text-[#2662d2] font-normal"> all in one place.</span>
           </h2>
 
           <h2
@@ -1863,7 +1863,7 @@ export function WhatWeDo() {
               mt-4
               text-[36px]
               font-sans
-              font-extrabold
+              font-bold
               leading-[1.08]
               tracking-tight
               text-[#0f172a]
@@ -3690,7 +3690,7 @@ export function ClientTestimonials() {
             "
           >
             Making Technology Simple,
-            <span className="text-[#2662d2] font-medium"> reliable & accessible</span>
+            <span className="text-[#2662d2] font-normal"> reliable & accessible</span>
           </h2>
         </div>
 
@@ -3971,7 +3971,7 @@ export function Testimonials() {
           >
             What people say
             <br className="sm:hidden" />{" "}
-            <span className="text-[#2662d2] font-medium">
+            <span className="text-[#2662d2] font-normal">
               about us
             </span>
           </h2>
@@ -4181,7 +4181,7 @@ export function FAQ() {
               Everything you
               
               need to{" "}
-              <span className="text-[#2662d2] font-medium">
+              <span className="text-[#2662d2] font-normal">
                 know.
               </span>
             </h2>
@@ -5040,7 +5040,7 @@ export function RepairSupportCTA() {
               "
             >
               Need Help With <br/>
-              <span className="font-medium text-[#2662d2]">your phone?</span>
+              <span className="font-normal text-[#2662d2]">your phone?</span>
             </h2>
 
             <p
