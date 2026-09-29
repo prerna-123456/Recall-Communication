@@ -274,7 +274,7 @@ export function RecallHero() {
             <br />
             <span className="font-normal text-[#2662d2]">mobile store.</span>
           </h1>
-          <p className="recall-hero-description mt-5 whitespace-nowrap text-[11px] leading-[1.5] text-[#606060] sm:mt-6 sm:text-[13px]">
+          <p className="recall-hero-description mt-5 whitespace-normal text-[11px] leading-[1.5] text-[#606060] sm:mt-6 sm:text-[13px]">
             Phones, earbuds, smartwatches and accessories — carefully selected for your everyday needs.
           </p>
         </div>
@@ -5147,7 +5147,8 @@ export function Footer() {
     <footer className="bg-[#000000] text-white shadow-[0_-12px_30px_rgba(0,0,0,0.12)]">
       <div className="mx-auto max-w-7xl px-5 py-14 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
-          <div><img src="/assets/logo2.png" alt={shop.name} className="h-[90px] lg:h-[110px] w-auto object-contain" /><p className="mt-3 max-w-xs text-[13px] leading-6 text-white">Your one-stop destination for <br />premium tech gadgets and <br />accessories.</p></div>
+          <a href="#">
+          <div><img src="/assets/logo2.png" alt={shop.name} className="h-[90px] lg:h-[110px] w-auto object-contain" /><p className="mt-3 max-w-xs text-[13px] leading-6 text-white">Your one-stop destination for <br />premium tech gadgets and <br />accessories.</p></div></a>
           <div className="lg:ml-12">
             <h3 className="text-[13px] font-bold">Quick Links</h3>
 
@@ -5219,7 +5220,7 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-black/10 pt-6 sm:flex-row"><p className="text-[11px] text-white text-center sm:text-left">© 2026 {shop.name}. All rights reserved. Powered by <a href="https://www.spitel.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white">Spitel Pvt Ltd</a> </p><button onClick={() => setIsPrivacyOpen(true)} className="text-[11px] font-semibold text-white hover:text-white hover:underline">Privacy Policy</button></div>
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-black/10 pt-6 sm:flex-row"><p className="text-[11px] text-white text-center sm:text-left">© 2026 {shop.name}. All Rights Reserved. Powered by <a href="https://www.spitel.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white">Spitel Pvt. Ltd.</a> </p><button onClick={() => setIsPrivacyOpen(true)} className="text-[11px] font-semibold text-white hover:text-white hover:underline">Privacy Policy</button></div>
       </div>
 
       {/* ================= PRIVACY POLICY MODAL ================= */}
