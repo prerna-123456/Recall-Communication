@@ -5147,7 +5147,7 @@ export function Footer() {
     <footer className="bg-[#000000] text-white shadow-[0_-12px_30px_rgba(0,0,0,0.12)]">
       <div className="mx-auto max-w-7xl px-5 py-14 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
-          <div><img src="/assets/logo4.png" alt={shop.name} className="h-14 lg:h-[60px] w-auto object-contain" /><p className="mt-5 max-w-xs text-[13px] leading-6 text-white">Your one-stop destination for <br />premium tech gadgets and <br />accessories.</p></div>
+          <div><img src="/assets/logo2.png" alt={shop.name} className="h-14 lg:h-[110px] w-auto object-contain" /><p className="mt-5 max-w-xs text-[13px] leading-6 text-white">Your one-stop destination for <br />premium tech gadgets and <br />accessories.</p></div>
           <div className="lg:ml-12">
             <h3 className="text-[13px] font-bold">Quick Links</h3>
 
