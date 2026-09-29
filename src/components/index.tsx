@@ -3690,7 +3690,7 @@ export function ClientTestimonials() {
             "
           >
             Making Technology Simple,
-            <span className="text-[#2662d2] font-normal"> reliable & accessible</span>
+            <span className="text-[#2662d2] font-normal"> reliable & accessible.</span>
           </h2>
         </div>
 
