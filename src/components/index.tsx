@@ -168,7 +168,7 @@ const testimonials = [
 
   {
     name: "Priya Sharma",
-    role: "Laptop Customer",
+    role: "Smartphone Customer",
     quote:
       "The team helped me find the right laptop within my budget. The experience was simple and smooth.",
   },
@@ -270,12 +270,12 @@ export function RecallHero() {
       <div className="relative z-10 mx-auto flex min-h-[720px] max-w-[1440px] flex-col items-center px-5 pb-10 pt-28 sm:min-h-[760px] sm:px-8 sm:pt-32 lg:min-h-[calc(100vh-78px)] lg:pt-24">
         <div className="text-center">
           <h1 className="recall-hero-heading max-w-[850px] text-[54px] font-semibold leading-[0.9] tracking-[-0.075em] text-[#151515] sm:text-[84px] lg:text-[112px]">
-            Communication
+            The Complete
             <br />
-            <span className="font-normal text-[#2662d2]">that connects.</span>
+            <span className="font-normal text-[#2662d2]">mobile store.</span>
           </h1>
           <p className="recall-hero-description mt-5 whitespace-nowrap text-[11px] leading-[1.5] text-[#606060] sm:mt-6 sm:text-[13px]">
-            Clear stories. Meaningful conversations. Stronger connections.
+            Phones, earbuds, smartwatches and accessories — carefully selected for your everyday needs.
           </p>
         </div>
 
@@ -285,12 +285,12 @@ export function RecallHero() {
           <div className="recall-hero-side-left absolute left-5 top-[44%] hidden -translate-y-1/2 flex-col gap-4 lg:flex xl:left-10">
             <div className="w-[154px] rounded-2xl border border-black/10 bg-white/75 p-4 shadow-[0_12px_35px_rgba(0,0,0,0.06)] backdrop-blur-sm">
               <span className="mb-5 flex h-7 w-7 items-center justify-center rounded-full border border-black/15 text-[12px]">✦</span>
-              <p className="text-[11px] font-semibold leading-[1.25]">Stories made to be heard.</p>
-              <p className="mt-2 text-[10px] leading-[1.4] text-black/50">Strategy, content and communication with purpose.</p>
+              <p className="text-[11px] font-semibold leading-[1.25]">Latest tech for everyday life.</p>
+              <p className="mt-2 text-[10px] leading-[1.4] text-black/50">Discover smartphones, earbuds, smartwatches and accessories from trusted brands.</p>
             </div>
             <div className="flex h-[102px] w-[154px] flex-col justify-between rounded-2xl bg-[#121212] p-4 text-white shadow-[0_14px_32px_rgba(0,0,0,0.16)]">
               <span className="text-xl">◒</span>
-              <p className="text-[11px] leading-[1.35] text-white/70">Make your message<br />move people.</p>
+              <p className="text-[11px] leading-[1.35] text-white/70">Upgrade your lifestyle with the right gadgets.</p>
             </div>
           </div>
 
@@ -299,12 +299,12 @@ export function RecallHero() {
           <div className="recall-hero-side-right absolute right-5 top-[44%] hidden -translate-y-1/2 flex-col gap-4 lg:flex xl:right-10">
             <div className="w-[154px] rounded-2xl border border-black/10 bg-white/75 p-4 shadow-[0_12px_35px_rgba(0,0,0,0.06)] backdrop-blur-sm">
               <span className="mb-5 flex h-7 w-7 items-center justify-center rounded-full border border-black/15 text-[12px]">↗</span>
-              <p className="text-[11px] font-semibold leading-[1.25]">Built for real connection.</p>
-              <p className="mt-2 text-[10px] leading-[1.4] text-black/50">Ideas that feel human, relevant and memorable.</p>
+              <p className="text-[11px] font-semibold leading-[1.25]">Everything tech. One destination.</p>
+              <p className="mt-2 text-[10px] leading-[1.4] text-black/50">From smartphones to audio and accessories, find what fits your lifestyle.</p>
             </div>
             <div className="flex h-[102px] w-[154px] flex-col justify-between rounded-2xl border border-black/10 bg-white/75 p-4 shadow-[0_12px_35px_rgba(0,0,0,0.06)]">
               <p className="text-2xl font-semibold tracking-[-0.06em]">100%</p>
-              <p className="text-[10px] leading-[1.35] text-black/50">Audience-first<br />communication.</p>
+              <p className="text-[10px] leading-[1.35] text-black/50">Tech. Choice. <br />Convenience.</p>
             </div>
           </div>
         </div>
@@ -408,14 +408,14 @@ export function FeaturedProducts() {
       <div className="mx-auto max-w-[1440px]">
         <div className="mb-12 flex flex-col justify-between gap-8 lg:mb-16 lg:flex-row lg:items-end">
           <h2 className="max-w-[650px] text-[52px] font-semibold leading-[0.92] tracking-[-0.075em] sm:text-[78px] lg:text-[92px]">
-            Innovation.
+            Your Devices.
             <br />
-            In every <span className="font-normal text-[#2662d2]">detail.</span>
+            Our <span className="font-normal text-[#2662d2]">expertise.</span>
           </h2>
 
           <div className="flex max-w-[245px] items-end gap-5 lg:mb-2">
             <p className="text-[12px] leading-[1.45] text-[#555555] sm:text-[13px]">
-              Meaningful ideas, thoughtful strategy and communication that makes an impact.
+              Quality products, dependable solutions, and expert care for the devices you rely on every day.
             </p>
           </div>
         </div>
@@ -1629,7 +1629,7 @@ export function RepairServices() {
           <h2 className="max-w-[680px] text-[48px] font-semibold leading-[0.92] tracking-[-0.075em] sm:text-[70px] lg:text-[86px]">
             Care for every
             <br />
-            <span className="font-normal text-[#2662d2]">connection.</span>
+            <span className="font-normal text-[#2662d2]">device.</span>
           </h2>
 
           <p className="max-w-[270px] text-[12px] leading-[1.55] text-[#555555] sm:text-[13px]">
@@ -3844,9 +3844,9 @@ export function ClientTestimonials() {
                 solutions under one roof. Our team takes the time to
                 understand every customer’s needs and delivers dependable
                 service with care and attention to detail. With a strong focus
-                on quality, transparency, and customer satisfaction, we aim to
-                build lasting relationships and become a trusted technology
-                partner for every customer.
+                on quality, transparency, and customer satisfaction, We aim to 
+                build lasting relationships and be a trusted choice for 
+                every customer.
               </blockquote>
             </div>
           </div>
