@@ -408,7 +408,7 @@ export function FeaturedProducts() {
       <div className="mx-auto max-w-[1440px]">
         <div className="mb-12 flex flex-col justify-between gap-8 lg:mb-16 lg:flex-row lg:items-end">
           <h2 className="max-w-[650px] text-[52px] font-semibold leading-[0.92] tracking-[-0.075em] sm:text-[78px] lg:text-[92px]">
-            Your Devices.
+            Your devices.
             <br />
             Our <span className="font-normal text-[#2662d2]">expertise.</span>
           </h2>
